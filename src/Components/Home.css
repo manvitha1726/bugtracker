@@ -11,7 +11,9 @@
     background-blend-mode: overlay;
     align-items: center;
 }
-
+.h1,.h4{
+ color:white;
+}
 button
 {
     border-radius: 10px;

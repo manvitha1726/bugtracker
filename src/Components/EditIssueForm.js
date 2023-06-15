@@ -28,10 +28,7 @@ function EditIssueForm({ issueId }) {
         stepsToReproduce: "",
         testingType: "",
         iterationNumber: "",
-        status: "",
-        linkToPast: "",
-        images: "",
-        
+        status: ""
     };
 
     if(dataById.length!==0){
@@ -52,25 +49,17 @@ function EditIssueForm({ issueId }) {
         initialFormData.testingType = dataById[0].testingType;
         initialFormData.iterationNumber = dataById[0].iterationNumber;
         initialFormData.status = dataById[0].status;
-        initialFormData.linkToPast = dataById[0].linkToPast;
-        initialFormData.images = dataById[0].images;
         initialFormData.projectId=dataById[0].projectId;
 
         
     }
     // Define the form state
     const [formData, setFormData] = useState(initialFormData);
-    //console.log('formdata',formData)
+    console.log('formdata',formData)
     const [selectedIssue, setSelectedIssue] = useState(formData.issueType);
     const [selectedTesting, setSelectedTesting] = useState(formData.testingType);
     const [selectedPriority, setSelectedPriority] = useState(formData.priority);
     const [attachedFiles, setAttachedFiles] = useState([]);
-    if(loading){
-        return <h2>Loading.........</h2>
-    }
-    if(error !== null){
-        return <h2>Oops something went wrong...</h2>
-    }
     
     const handleFileUpload = (event) => {
       const files = event.target.files;
@@ -94,25 +83,25 @@ function EditIssueForm({ issueId }) {
       setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
     };
   
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        
-        try {
-         // const { issueId } = issue; 
-          const response = await dispatch(updateIssue({  data: formData }));
-          console.log(response); 
-        } catch (error) {
-          console.error(error);
-        }
-      };
+        console.log(formData)
+        dispatch(updateIssue(formData));
       
+      };
+    if(loading){
+        return <h2>Loading.........</h2>
+    }
+    if(error !== null){
+        return <h2>Oops something went wrong...</h2>
+    }
     console.log("formdata",formData)
     return (
       <div>
         <form className="form-container" onSubmit={handleSubmit}>
         <div className="row-container">
           <label className="form-label" htmlFor="name">Name</label>
-          <input className="form-input" type="text" id="name" name="name" value={formData.issueName} onChange={handleChange}/>
+          <input className="form-input" type="text" id="name" name="issueName" value={formData.issueName} onChange={handleChange}/>
             </div>
 
 
@@ -215,10 +204,6 @@ function EditIssueForm({ issueId }) {
           <input className="form-input" type="text" id="linkToPast" name="linkToPast" value={formData.linkToPast} onChange={handleChange}/>
       </div>
       
-      <div className="row-container">
-          <label className="form-label" htmlFor="Iteration">Iteration:</label>
-          <input className="form-input" type="text" id="Iteration" name="Iteration" value={formData.IterationNumber} onChange={handleChange}/>
-      </div>
 
        <div>
         <label className="form-label" htmlFor="images">Upload Image</label>

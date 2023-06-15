@@ -121,7 +121,7 @@ export const updateIssueStatus = createAsyncThunk(
 //update Entire Issue
 export const updateIssue = createAsyncThunk(
   "issues/updateIssue",
-  async ({ data}, { rejectWithValue }) => {  
+  async (formData, { rejectWithValue }) => {  
 
     try {
       const response = await fetch(
@@ -131,7 +131,7 @@ export const updateIssue = createAsyncThunk(
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ data }),
+          body: JSON.stringify(formData),
         }
       );
       const result = await response.json();  
@@ -230,9 +230,8 @@ export const Issues = createSlice({
     [updateIssue.fulfilled]: (state, action) => {
       console.log("updated status fulfilled", action.payload);
       state.loading = false;
-      state.data = state.data.map((ele) =>
-        ele.issueId === action.payload.issueId ? action.payload : ele
-      );
+      state.data = action.payload;
+      
     },
     [updateIssue.rejected]: (state, action) => {
       state.loading = false;    
