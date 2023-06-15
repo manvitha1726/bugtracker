@@ -27,6 +27,9 @@ import Dummy from './Components/Dummy';
 import IssueStatusBar from './Components/IssueStatusBar';
 import IssueForm from './Components/IssueForm';
 import DisplayIssue from './Components/DisplayIssue';
+import EditIssueForm from './Components/EditIssueForm';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
 
 const App = () => {
   const [selectedProjectId, setSelectedProjectId] = useState(null);
@@ -37,18 +40,26 @@ const App = () => {
   const handleViewIconClick=(issueId)=>{
     setselectedIssueId(issueId);
   }
+  const handleEditIconClick=(issueId)=>{
+    setselectedIssueId(issueId);
+  }
   console.log(selectedIssueId)
   return (
+    <div>
+    <Header/>
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<ProjectScreen onProjectClick={handleProjectClick}/>} />
-        <Route path={`/projects/${selectedProjectId}`} element={<IssueStatusBar  ProjectId={selectedProjectId} handleViewIconClick={handleViewIconClick}/>} />
+        <Route path={`/projects/${selectedProjectId}`} element={<IssueStatusBar  ProjectId={selectedProjectId} handleViewIconClick={handleViewIconClick} handleEditIconClick={handleEditIconClick}/>} />
         <Route path={`/projects/${selectedProjectId}/AddIssue`} element={<IssueForm />} />
         <Route path={`/projects/${selectedProjectId}/ViewIssue${selectedIssueId}`} element={<DisplayIssue selectedIssueId={selectedIssueId} />} />
+        <Route path={`/projects/${selectedProjectId}/EditIssue${selectedIssueId}`} element={<EditIssueForm  issueId={selectedIssueId} />} />
         {/* <Route path={`/projects/${selectedProjectId}/ViewIssue`} element={<DisplayIssue selectedIssueId={selectedIssueId} />} /> */} 
       </Routes>
     </Router>
+    <Footer/>
+    </div>
   );
 };
 

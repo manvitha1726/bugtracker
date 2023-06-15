@@ -4,12 +4,11 @@ import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
 import { FaPlus ,FaEye,FaPencilAlt} from 'react-icons/fa';
 import {useNavigate} from 'react-router-dom';
 
-function IssueStatusBar({ProjectId,handleViewIconClick}) {
+function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const { data, loading, error } = useSelector((state) => state.issues);
     const [searchTerm, setSearchTerm] = useState('');
-    
     const filteredData = data.filter(issue => issue.issueName.includes(searchTerm));
     const handlePlusIconClick = () => {
       navigate(`/projects/${ProjectId}/AddIssue`);
@@ -19,7 +18,10 @@ function IssueStatusBar({ProjectId,handleViewIconClick}) {
       navigate(`/projects/${ProjectId}/ViewIssue${issueId}`);
       // navigate(`/projects/${ProjectId}/ViewIssue`);
     };
-    
+    const handleEditIcon = (issueId) => {
+      handleEditIconClick(issueId);
+      navigate(`/projects/${ProjectId}/EditIssue${issueId}`);
+    };
     useEffect(() => { 
       dispatch(GetIssueByProjectId(ProjectId)) 
     },[ProjectId])
@@ -89,7 +91,7 @@ function IssueStatusBar({ProjectId,handleViewIconClick}) {
               <FaEye onClick={() => handleViewIcon(issue.issueId)} />
               </td>
               <td>
-                <FaPencilAlt/>
+                <FaPencilAlt onClick={() => handleEditIcon(issue.issueId)}/>
               </td>
             </tr>
           ))}

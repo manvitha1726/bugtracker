@@ -118,6 +118,35 @@ export const updateIssueStatus = createAsyncThunk(
   }
 );
 
+//update Entire Issue
+export const updateIssue = createAsyncThunk(
+  "issues/updateIssue",
+  async ({ data}, { rejectWithValue }) => {  
+
+    try {
+      const response = await fetch(
+        `https://issuetrackingapp.azurewebsites.net/api/Issues/UpdateentireIssue`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ data }),
+        }
+      );
+      const result = await response.json();  
+      console.log(result)   
+      return result;
+
+    } catch (err) {
+      console.log(err)
+      return rejectWithValue(err);
+
+    }
+  }
+);
+
+
 export const Issues = createSlice({
   name: "Issues",
   initialState: {
@@ -192,6 +221,20 @@ export const Issues = createSlice({
       );
     },
     [updateIssueStatus.rejected]: (state, action) => {
+      state.loading = false;    
+      state.error = action.payload.message;
+    },
+    [updateIssue.pending]: (state) => {
+      state.loading = true;
+    },
+    [updateIssue.fulfilled]: (state, action) => {
+      console.log("updated status fulfilled", action.payload);
+      state.loading = false;
+      state.data = state.data.map((ele) =>
+        ele.issueId === action.payload.issueId ? action.payload : ele
+      );
+    },
+    [updateIssue.rejected]: (state, action) => {
       state.loading = false;    
       state.error = action.payload.message;
     },
