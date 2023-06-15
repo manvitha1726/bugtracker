@@ -46,7 +46,7 @@ const App = () => {
         <Route path={`/projects/${selectedProjectId}`} element={<IssueStatusBar  ProjectId={selectedProjectId} handleViewIconClick={handleViewIconClick}/>} />
         <Route path={`/projects/${selectedProjectId}/AddIssue`} element={<IssueForm />} />
         <Route path={`/projects/${selectedProjectId}/ViewIssue${selectedIssueId}`} element={<DisplayIssue selectedIssueId={selectedIssueId} />} />
-        {/* <Route path={`/projects/${selectedProjectId}/ViewIssue`} element={<DisplayIssue selectedIssueId={selectedIssueId} />} /> */}
+        {/* <Route path={`/projects/${selectedProjectId}/ViewIssue`} element={<DisplayIssue selectedIssueId={selectedIssueId} />} /> */} 
       </Routes>
     </Router>
   );
