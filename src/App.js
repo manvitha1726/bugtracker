@@ -50,7 +50,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<ProjectScreen onProjectClick={handleProjectClick}/>} />
         <Route path={`/projects/${selectedProjectId}`} element={<IssueStatusBar  ProjectId={selectedProjectId} handleViewIconClick={handleViewIconClick} handleEditIconClick={handleEditIconClick}/>} />
-        <Route path={`/projects/${selectedProjectId}/AddIssue`} element={<IssueForm />} />
+        <Route path={`/projects/${selectedProjectId}/AddIssue`} element={<IssueForm projectId={selectedProjectId}/>} />
         <Route path={`/projects/${selectedProjectId}/ViewIssue${selectedIssueId}`} element={<DisplayIssue selectedIssueId={selectedIssueId} />} />
         <Route path={`/projects/${selectedProjectId}/EditIssue${selectedIssueId}`} element={<EditIssueForm  issueId={selectedIssueId} />} />
         {/* <Route path={`/projects/${selectedProjectId}/ViewIssue`} element={<DisplayIssue selectedIssueId={selectedIssueId} />} /> */} 

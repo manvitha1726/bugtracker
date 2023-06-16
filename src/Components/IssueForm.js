@@ -1,11 +1,12 @@
 import { React,useState } from "react";
 import { AddNewIssue } from "../Features/IssueSlice";
 import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom"
 import './IssueForm.css';
 
-function IssueForm() {
+function IssueForm({projectId}) {
   const dispatch = useDispatch();
-
+  const navigate=useNavigate();
   const initialFormData = {
     issueName: "",
     issueType: "",
@@ -69,6 +70,9 @@ function IssueForm() {
     //     );
 
     // };
+    const NavigateBackClick = () => {
+      navigate(`/projects/${projectId}`);
+    };
     const handleSubmit = (event) => {
       event.preventDefault();
       dispatch(AddNewIssue(formData))
@@ -85,7 +89,7 @@ function IssueForm() {
 
   return (
     <div>
-
+      <button onClick={NavigateBackClick}>Cancel</button>
       <form className="container" onSubmit={handleAddIssue}>
 
       

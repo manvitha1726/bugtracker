@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addNewProject } from '../Features/ProjectsSlice';
+import { FaArrowLeft } from 'react-icons/fa';
+import {useNavigate} from 'react-router-dom';
 import './Home.css';
 
 const ProjectButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const handleOpenPopup = () => {
     setIsOpen(true);
   };
@@ -18,6 +20,9 @@ const ProjectButton = () => {
 
   const handleInputChange = (event) => {
     setProjectName(event.target.value);
+  };
+  const NavigateBackClick = () => {
+    navigate(`/`);
   };
 
   const handleAddProject = (e) => {
@@ -33,6 +38,7 @@ const ProjectButton = () => {
 
   return (
     <div>
+      <FaArrowLeft onClick={NavigateBackClick}/> &nbsp;&nbsp;&nbsp;
       <button className="addprojectbt" onClick={handleOpenPopup}>Add Project</button>
 
       {isOpen && (

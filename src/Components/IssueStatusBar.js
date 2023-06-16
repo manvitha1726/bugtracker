@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
-import { FaPlus ,FaEye,FaPencilAlt} from 'react-icons/fa';
+import { FaPlus ,FaEye,FaPencilAlt,FaArrowLeft} from 'react-icons/fa';
 import {useNavigate} from 'react-router-dom';
 import './Home.css';
 
@@ -11,6 +11,9 @@ function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
     const { data, loading, error } = useSelector((state) => state.issues);
     const [searchTerm, setSearchTerm] = useState('');
     const filteredData = data.filter(issue => issue.issueName.includes(searchTerm));
+    const NavigateBackClick = () => {
+      navigate(`/projects/`);
+    };
     const handlePlusIconClick = () => {
       navigate(`/projects/${ProjectId}/AddIssue`);
     };
@@ -62,10 +65,15 @@ function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
         onChange={e => setSearchTerm(e.target.value)}
       /></div>
       <div className='alignright text-center'>
+      <div style={{display:"flex",flexDirection:"row"}}>
+      <FaArrowLeft onClick={NavigateBackClick}/> &nbsp;&nbsp;&nbsp;
+      <div>
        <FaPlus
         className="icon rounded p-1 " style={{backgroundColor:"rgb(139, 200, 209)"}}
         onClick={handlePlusIconClick} 
-      /><p>Add Issue</p>
+      /> <p>Add Issue</p>
+      </div>
+      </div>
       </div>
       <div className='m-5'>
       <table class="table table-bordered rounded-lg">
