@@ -14,7 +14,7 @@ export const getAllProjects = createAsyncThunk("getProjects", async (args, {reje
 //Add new Project
 export const addNewProject =createAsyncThunk("addProject",async(data,{rejectWithValue})=>{
   try{
-  const response=await fetch('post api',{
+  const response=await fetch('https://bugtrackerprojects.azurewebsites.net/api/project/addproject',{
     method:"POST",
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const addNewProject =createAsyncThunk("addProject",async(data,{rejectWith
 }); 
 
 export const Projects = createSlice({ 
-  name:'Projects',
+  name:'projects',
   initialState: {      
     data: [], 
     loading: false,

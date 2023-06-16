@@ -1,9 +1,11 @@
-
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addNewProject } from '../Features/ProjectsSlice';
 
 const ProjectButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
+  const dispatch = useDispatch();
 
   const handleOpenPopup = () => {
     setIsOpen(true);
@@ -18,10 +20,11 @@ const ProjectButton = () => {
   };
 
   const handleAddProject = () => {
-    // Perform any action you want with the project name,
-    // such as sending it to an API or updating the state.
-    console.log(projectName);
-    // Reset the input field and close the popup.
+    const data = {
+      projectname: projectName,
+    };
+    dispatch(addNewProject(data));
+
     setProjectName('');
     setIsOpen(false);
   };
@@ -38,7 +41,7 @@ const ProjectButton = () => {
               type="text"
               value={projectName}
               onChange={handleInputChange}
-            /> 
+            />
             <button onClick={handleAddProject}>Add</button>
             <button onClick={handleClosePopup}>Cancel</button>
           </div>

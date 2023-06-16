@@ -6,8 +6,17 @@ function EditIssueForm({ issueId }) {
     const dispatch = useDispatch();
     const { dataById, loading, error} = useSelector((state) => state.issues);
     useEffect(() => {
-      dispatch(GetIssueById(issueId));
-    }, [issueId]);
+      dispatch(GetIssueById(issueId))
+        .then((res) => {
+          if (res.payload) {
+            dispatch(GetIssueById(issueId));
+          }
+        })
+        .catch((error) => {
+          console.log('Error occurred during Issue dispatch', error);
+        });
+    }, []);
+    
     
     const initialFormData = {
         issueId:issueId,
@@ -96,6 +105,8 @@ function EditIssueForm({ issueId }) {
         return <h2>Oops something went wrong...</h2>
     }
     console.log("formdata",formData)
+
+    if(dataById!=null){
     return (
       <div>
         <form className="form-container" onSubmit={handleSubmit}>
@@ -214,6 +225,7 @@ function EditIssueForm({ issueId }) {
         </form>
       </div>
     );
+  }
   }
   
   export default EditIssueForm;
