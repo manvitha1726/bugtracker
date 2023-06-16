@@ -43,6 +43,7 @@ function IssueForm() {
 
     const handleIssueSelection = (event) => {
         setSelectedIssue(event.target.value);
+        console.log("selected",selectedIssue)
     }
 
     const handleTestingSelection = (event) => {

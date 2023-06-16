@@ -4,13 +4,13 @@ import ProjectButton from './ProjectButton';
 import ProjectCard from './ProjectCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProjects } from '../Features/ProjectsSlice';
-
+import './Home.css'
 
 function ProjectScreen({onProjectClick}) {
   const [searchField, setSearchField] = useState("");
   const { data, loading, error } = useSelector((state) => state.projects);
   const dispatch = useDispatch();
- 
+  console.log("data",data)
   const filteredProjects = data.filter(project => project.projectname.includes(searchField));
 
   useEffect(() => {
@@ -24,10 +24,6 @@ function ProjectScreen({onProjectClick}) {
     return <h2>Oops Something wrong..</h2>;
   }
   
-  
-  
-  
-
   const handleChange = (e) => {
     setSearchField(e.target.value);
   };
@@ -42,34 +38,38 @@ function ProjectScreen({onProjectClick}) {
 
     
   return (
+    
+    <center>
     <section className="garamond">
+      <div className='pa1 '>
       <div className="navy georgia ma0 grow">
         <h2 className="f2">Projects</h2>
-      </div>
+      </div></div>
 
       <br></br>
+       <div className='alignright'>
+      <ProjectButton /></div>
 
-      <ProjectButton/>
-
-      <div className="pa2">
+      <div className="align">
         <input
-          className="pa3 bb br3 b--none bg-lightest-blue ma3"
+          className="pa1 bb br3  ma2 shadow"
           type="search"
           placeholder="Search Project"
           onChange={handleChange}
         />
       </div>
-      
+      <div className='mt-4'>
       {filteredProjects.map((val, ind) => (
         <ProjectCard
           key={val.projectid}
           project={val}
           onCardClick={handleCardClick}
         />
-      ))}
+      ))}</div>
     </section>
+    </center>
   );
-      }
+  }
 
 
 export default ProjectScreen;

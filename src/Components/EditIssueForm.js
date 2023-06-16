@@ -77,6 +77,7 @@ function EditIssueForm({ issueId }) {
   
     const handleIssueSelection = (event) => {
       setSelectedIssue(event.target.value);
+      console.log("selectedissue",selectedIssue)
     };
   
     const handleTestingSelection = (event) => {

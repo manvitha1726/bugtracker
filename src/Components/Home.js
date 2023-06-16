@@ -26,19 +26,25 @@
 // import CSS
 import './Home.css';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Header from './Header';
+
 const Home = () => {
 
     return (
         <div>
+            
+            <Header/>
             <div className="banner-container">
                 <div className="text-center">
-                    <h1 className=" h1">Welcome to IssueTrackingTool</h1>
+                    <h1 className="h1">Welcome to IssueTrackingTool</h1>
+                    <br/><br/><br/>
                     <h4 className="h4">Go Ahead and Analyse Issues!</h4>
+                    <br/><br/><br/>
                     <center>
+                        <a href="/projects">
                     <button>
-                        <Link to="/projects">Explore Projects</Link>
-                    </button></center>
+                        Explore Projects
+                    </button></a></center>
                 </div>
             </div>
         </div>

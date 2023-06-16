@@ -23,7 +23,6 @@ import {React,useState} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Components/Home';
 import ProjectScreen from './Components/ProjectScreen';
-import Dummy from './Components/Dummy';
 import IssueStatusBar from './Components/IssueStatusBar';
 import IssueForm from './Components/IssueForm';
 import DisplayIssue from './Components/DisplayIssue';
@@ -46,7 +45,6 @@ const App = () => {
   console.log(selectedIssueId)
   return (
     <div>
-    <Header/>
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -58,7 +56,9 @@ const App = () => {
         {/* <Route path={`/projects/${selectedProjectId}/ViewIssue`} element={<DisplayIssue selectedIssueId={selectedIssueId} />} /> */} 
       </Routes>
     </Router>
-    <Footer/>
+    <div className='footerposition'>
+      <Footer/>
+    </div> 
     </div>
   );
 };

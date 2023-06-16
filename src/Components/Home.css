@@ -5,20 +5,76 @@
     background-position: center;
     background-size: cover;
     min-height: 60vh;
-    height: 70vh;
+    height: 80vh;
     display: flex;
     justify-content: center;
     background-blend-mode: overlay;
     align-items: center;
+    color:rgb(247, 238, 238);
 }
-.h1,.h4{
- color:white;
-}
+
 button
 {
     border-radius: 10px;
     cursor: pointer;
+    background-color: rgb(61, 78, 162);
+    color:white;
+    height: 40px;
+    padding:5px;
+}
+.heading{
+
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-shadow: 2px 2px 5px rgb(75, 70, 70);
+    color:black;
+   
+    /* font-size:20px; */
+}
+.alignright{
+    top:5%;
+    left:5%;
+    position:absolute;
+    
+}
+.align{
+    top:5%;
+    left:81%;
+    position:absolute;
+}
+.cardu{
+   /* height:200px; */
+   width:200px;
+   background:rgb(139, 200, 209);
+   box-shadow: 3px 3px 2px 3px rgb(240, 235, 235);
+   font-weight:600;
+   padding:20px;
+   
+}
+.addbox{
+    width:150px;
+}
+.space{
+    
+    width:60px;
+    border-width:0px;
+    height:30px;
+}
+.footerposition{
+    top:95%;
+    position:fixed;
+    left:40%;
+    
+}
+.projectmain{
+    background-image:url('https://th.bing.com/th/id/OIP.54aDRJHlX7jC15ANjLWg-QHaEo?pid=ImgDet&rs=1') ;
+}
+.addprojectbt{
+    border-width:0px;
+    color:white;
     background-color: black;
-    color: white;
-    height: 30px;
+    padding:10px;
+
+}
+.copyrights{
+    color:black;
 }

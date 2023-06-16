@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addNewProject } from '../Features/ProjectsSlice';
+import './Home.css';
 
 const ProjectButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +20,8 @@ const ProjectButton = () => {
     setProjectName(event.target.value);
   };
 
-  const handleAddProject = () => {
+  const handleAddProject = (e) => {
+    e.preventDefault();
     const data = {
       projectname: projectName,
     };
@@ -31,19 +33,19 @@ const ProjectButton = () => {
 
   return (
     <div>
-      <button onClick={handleOpenPopup}>Add Project</button>
+      <button className="addprojectbt" onClick={handleOpenPopup}>Add Project</button>
 
       {isOpen && (
         <div className="popup">
           <div className="popup-content">
-            <h2>Enter Project Name</h2>
-            <input
+            <p>Enter Project Name</p>
+            <input className='addbox'
               type="text"
               value={projectName}
               onChange={handleInputChange}
-            />
-            <button onClick={handleAddProject}>Add</button>
-            <button onClick={handleClosePopup}>Cancel</button>
+            /> 
+            <button className="space ml1 mr1 bg-green"onClick={handleAddProject}>Add</button>
+            <button className="space ml1 bg-light-red" onClick={handleClosePopup}>Cancel</button>
           </div>
         </div>
       )}

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
 import { FaPlus ,FaEye,FaPencilAlt} from 'react-icons/fa';
 import {useNavigate} from 'react-router-dom';
+import './Home.css';
 
 function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
     const dispatch = useDispatch()
@@ -51,29 +52,39 @@ function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
 
    return (
     <div>
+      <h1 className='text-center heading'>Issues</h1>
+      <div className='align'>
          <input
+         className="pa1 bb br3  ma2 shadow"
         type="text"
         placeholder="Search Issue"
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
-      />
+      /></div>
+      <div className='alignright text-center'>
        <FaPlus
-        className="icon"
+        className="icon rounded p-1 " style={{backgroundColor:"rgb(139, 200, 209)"}}
         onClick={handlePlusIconClick} 
-      />
-      <table>
+      /><p>Add Issue</p>
+      </div>
+      <div className='m-5'>
+      <table class="table table-bordered rounded-lg">
         <thead>
           <tr>
-            <th>Issue</th>
-            <th>Status</th>
-            <th>Priority</th>
+            <th className='p-3 text-center' style={{backgroundColor:"rgb(139, 200, 209)"}}>Issue</th>
+            <th className='p-3 text-center'  style={{backgroundColor:"rgb(139, 200, 209)"}}>Status</th>
+            <th className='p-3 text-center' style={{backgroundColor:"rgb(139, 200, 209)"}}>Priority</th>
+            <th className='p-3 text-center'  style={{backgroundColor:"rgb(139, 200, 209)"}}>View</th>
+            <th className='p-3 text-center' style={{backgroundColor:"rgb(139, 200, 209)"}}>Edit</th>
+           
           </tr>
         </thead>
         <tbody>
           {filteredData.map(issue => ( 
             <tr key={issue.issueId}>
-              <td>{issue.issueName}</td>
-              <td>  
+              <center><td className='p-3'>{issue.issueName}</td></center>
+              <td className='p-3'> 
+              <center>
                 <select 
                   value={issue.status|| 'Open'}
                   onChange={e => handleStatusChange(issue.issueId, e.target.value)}
@@ -83,20 +94,28 @@ function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
                   <option value="In Progress">In Progress</option>
                   <option value="Hold">Hold</option>
                 </select>
+                </center> 
               </td>
-              <td>
+              <td className='p-3'>
+                <center>
               {issue.priority}
+              </center>
+              </td>
+              
+              <td >
+              <center>
+              <FaEye onClick={() => handleViewIcon(issue.issueId)} /></center>
               </td>
               <td>
-              <FaEye onClick={() => handleViewIcon(issue.issueId)} />
+              <center>
+                <FaPencilAlt onClick={() => handleEditIcon(issue.issueId)}/></center>
               </td>
-              <td>
-                <FaPencilAlt onClick={() => handleEditIcon(issue.issueId)}/>
-              </td>
+              
             </tr>
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
