@@ -10,7 +10,8 @@ function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
     const navigate = useNavigate();
     const { data, loading, error } = useSelector((state) => state.issues);
     const [searchTerm, setSearchTerm] = useState('');
-    const filteredData = data.filter(issue => issue.issueName.includes(searchTerm));
+    const filteredData = data.filter(issue => issue.issueName.toLowerCase()
+    .includes(searchTerm.toLowerCase()) );
     const NavigateBackClick = () => {
       navigate(`/projects/`);
     };

@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetIssueById,updateIssue} from "../Features/IssueSlice";
-
+import './IssueForm.css';
 function EditIssueForm({ issueId }) {
     const dispatch = useDispatch();
     const { dataById, loading, error} = useSelector((state) => state.issues);
     useEffect(() => {
-      dispatch(GetIssueById(issueId))
-        .then((res) => {
-          if (res.payload) {
-            dispatch(GetIssueById(issueId));
-          }
-        })
-        .catch((error) => {
-          console.log('Error occurred during Issue dispatch', error);
-        });
+      const res=dispatch(GetIssueById(issueId));
+      console.log("use effect runned",res);
     }, []);
     
     
@@ -59,8 +52,6 @@ function EditIssueForm({ issueId }) {
         initialFormData.iterationNumber = dataById[0].iterationNumber;
         initialFormData.status = dataById[0].status;
         initialFormData.projectId=dataById[0].projectId;
-
-        
     }
     // Define the form state
     const [formData, setFormData] = useState(initialFormData);
@@ -68,6 +59,7 @@ function EditIssueForm({ issueId }) {
     const [selectedIssue, setSelectedIssue] = useState(formData.issueType);
     const [selectedTesting, setSelectedTesting] = useState(formData.testingType);
     const [selectedPriority, setSelectedPriority] = useState(formData.priority);
+    const [selectedStatus, setSelectedStatus] = useState(formData.status);
     const [attachedFiles, setAttachedFiles] = useState([]);
     
     const handleFileUpload = (event) => {
@@ -79,6 +71,9 @@ function EditIssueForm({ issueId }) {
       setSelectedIssue(event.target.value);
       console.log("selectedissue",selectedIssue)
     };
+    const handleStatusSelection=(event)=>{
+      setSelectedStatus(event.target.value);
+    }
   
     const handleTestingSelection = (event) => {
       setSelectedTesting(event.target.value);
@@ -95,7 +90,7 @@ function EditIssueForm({ issueId }) {
   
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(formData)
+        console.log("Obj given to update issue",formData)
         dispatch(updateIssue(formData));
       
       };
@@ -107,127 +102,171 @@ function EditIssueForm({ issueId }) {
     }
     console.log("formdata",formData)
 
-    if(dataById!=null){
+  
     return (
-      <div>
-        <form className="form-container" onSubmit={handleSubmit}>
-        <div className="row-container">
-          <label className="form-label" htmlFor="name">Name</label>
-          <input className="form-input" type="text" id="name" name="issueName" value={formData.issueName} onChange={handleChange}/>
-            </div>
+      <div className="main_container">
+        <form className="container" onSubmit={handleSubmit}>
+        <div className="row">
+          <div className="col-25">
+          <label className="form-label" htmlFor="name">Issue Name</label></div>
+          <div className="col-75">
+          <input className="fixedwidth" type="text" id="name" name="issueName" value={formData.issueName} onChange={handleChange}/>
+            </div></div>
 
 
-      <div className="row-container">
-        <label  className="form-label" htmlFor="IssueType">IssueType</label>
+      <div className="row">
+      <div className="col-25">
+        <label  className="form-label" htmlFor="IssueType">Issue Type</label></div>
+        <div className="col-75">
         <select id="IssueType" value={selectedIssue} onChange={handleIssueSelection}>
         <option value="bug">Bug</option>
         <option value="Defect">Defect</option>
       </select>
-      </div>
+      </div></div>
 
-      <div className="row-container">
-          <label className="form-label" htmlFor="moduleName">moduleName</label>
-          <input className="form-input" type="text" id="moduleName" name="moduleName" value={formData.moduleName} onChange={handleChange}/>
-      </div>
+      <div className="row">
+      <div className="col-25">
+          <label className="form-label" htmlFor="moduleName">Module Name</label></div>
+          <div className="col-75">
+          <input className="fixedwidth" type="text" id="moduleName" name="moduleName" value={formData.moduleName} onChange={handleChange}/>
+      </div></div>
 
-      <div className="row-container">
-        <label className="form-label" htmlFor="summary">Summary</label>
-        <textarea id="summary" name="summary" value={formData.summary} onChange={handleChange}/>
-      </div>
+      <div className="row">
+      <div className="col-25">
+        <label className="form-label" htmlFor="summary">Summary</label></div>
+        <div className="col-75">
+        <textarea id="summary" name="summary" className="fixedwidthtext" value={formData.summary} onChange={handleChange}/>
+      </div></div>
 
-      <div className="row-container">
-          <label className="form-label" htmlFor="identifiedemp">identfiedemp</label>
-          <input className="form-input" type="text" id="identfiedemp" name="identfiedemp" value={formData.identfiedemp} onChange={handleChange}/>
-      </div>
+      <div className="row">
+      <div className="col-25">
+          <label className="form-label" htmlFor="identifiedemp">Identfied By</label></div>
+          <div className="col-75">
+          <input className="fixedwidth" type="text" id="identfiedemp" name="identfiedemp" value={formData.identfiedemp} onChange={handleChange}/>
+      </div></div>
 
-      <div className="row-container">
-          <label className="form-label" htmlFor="dateidentified">dateidentified</label>
-          <input className="form-input" type="text" id="dateidentified" name="dateidentified" value={formData.dateidentified} onChange={handleChange}/>
-      </div>
+      <div className="row">
+      <div className="col-25">
+          <label className="form-label" htmlFor="dateidentified">Identified Date</label></div>
+          <div className="col-75">
+          <input className="fixedwidth" type="text" id="dateidentified" name="dateidentified" value={formData.dateidentified} onChange={handleChange}/>
+      </div></div>
 
 
-      <div className="row-container">
-        <label className="form-label" htmlFor="priority">priority</label>    
+      <div className="row">
+      <div className="col-25">
+        <label className="form-label" htmlFor="priority">Priority</label></div>
+        <div className="col-75">
         <select id="IssueType" value={selectedPriority} onChange={handleSelectedPriority}>
             <option value="bug">Low</option>
             <option value="Defect">Medium</option>
             <option value="Defect">High</option>
         </select>
-
+        </div>
       </div>
 
-      <div className="row-container">
-          <label className="form-label" htmlFor="targetdate">targetdate</label>
-          <input className="form-input" type="text" id="targetdate" name="targetdate" value={formData.targetdate} onChange={handleChange}/>
+      <div className="row">
+      <div className="col-25">
+          <label className="form-label" htmlFor="targetdate">Target Resolution Date</label></div>
+          <div className="col-75">
+          <input className="fixedwidth" type="text" id="targetdate" name="targetdate" value={formData.targetdate} onChange={handleChange}/>
+      </div>
       </div>
 
-      <div className="row-container">
-          <label className="form-label" htmlFor="actualdate">actualdate</label>
-          <input className="form-input" type="text" id="actualdate" name="actualdate" value={formData.actualdate} onChange={handleChange}/>
-      </div>
+      <div className="row">
+      <div className="col-25">
+          <label className="form-label" htmlFor="actualdate">Actual Resolution Date</label></div>
+          <div className="col-75">
+          <input className="fixedwidth" type="text" id="actualdate" name="actualdate" value={formData.actualdate} onChange={handleChange}/>
+      </div></div>
 
-      <div className="row-container">
-          <label className="form-label" htmlFor="assignTo">assignTo</label>
-          <input className="form-input" type="text" id="assignTo" name="assignTo" value={formData.assignTo} onChange={handleChange}/>
-      </div>
+      <div className="row">
+      <div className="col-25">
+          <label className="form-label" htmlFor="assignTo">Assigned To</label></div>
+          <div className="col-75">
+          <input className="fixedwidth" type="text" id="assignTo" name="assignTo" value={formData.assignTo} onChange={handleChange}/>
+      </div></div>
 
-      <div className="row-container">
-          <label className="form-label" htmlFor="progressreport">progressreport</label>
-          <input className="form-input" type="text" id="progressreport" name="progressreport" value={formData.assignTo} onChange={handleChange}/>
-      </div>
+      <div className="row">
+      <div className="col-25">
+          <label className="form-label" htmlFor="progressreport">Progress Report</label></div>
+          <div className="col-75">
+          <input className="fixedwidth" type="text" id="progressreport" name="progressreport" value={formData.progressreport} onChange={handleChange}/>
+      </div></div>
 
-      <div className="row-container">
-          <label className="form-label" htmlFor="ressummary">ressummary</label>
-          <input className="form-input" type="text" id="ressummary" name="ressummary" value={formData.ressummary} onChange={handleChange}/>
-      </div>
+      <div className="row">
+      <div className="col-25">
+          <label className="form-label" htmlFor="ressummary">Ressolution Summary</label></div>
+          <div className="col-75">
+          <input className="fixedwidth" type="text" id="ressummary" name="ressummary" value={formData.ressummary} onChange={handleChange}/>
+      </div></div>
 
-      <div className="row-container">
-          <label className="form-label" htmlFor="stepsToReproduce">stepsToReproduce</label>
-          <input className="form-input" type="text" id="stepsToReproduce" name="stepsToReproduce" value={formData.stepsToReproduce} onChange={handleChange}/>
-      </div>
+      <div className="row">
+      <div className="col-25">
+          <label className="form-label" htmlFor="stepsToReproduce">Steps To Reproduce</label></div>
+          <div className="col-75">
+          <input className="fixedwidth" type="text" id="stepsToReproduce" name="stepsToReproduce" value={formData.stepsToReproduce} onChange={handleChange}/>
+      </div></div>
 
-      <div className="row-container">
-        <label className="form-label" htmlFor="description">Description</label>
-        <textarea id="description" name="Description" value={formData.description} onChange={handleChange}/>
-      </div>
+      <div className="row">
+      <div className="col-25">
+        <label className="form-label" htmlFor="description">Description</label></div>
+        <div className="col-75">
+        <textarea id="description" name="Description" className="fixedwidthtext" value={formData.description} onChange={handleChange}/>
+      </div></div>
 
-      <div className="row-container">
-        <label className="form-label" htmlFor="testingType">testingType</label>
-        <select id="testingType" value={selectedTesting} onChange={handleTestingSelection}>
+      <div className="row">
+      <div className="col-25">
+        <label className="form-label" htmlFor="status">Status</label></div>
+        <div className="col-75">
+        <select id="status" value={selectedStatus} onChange={handleStatusSelection}>
             <option value="Open">Open</option>
-            <option value="Inprogress">Inprogress</option>
+            <option value="In Progress">Inprogress</option>
             <option value="Hold">Hold</option>
-            <option value="Closed">Closed</option>
+            <option value="Close">Closed</option>
             {/* Add more options as needed */}
         </select>
+        </div>
       </div>
 
-      <div className="row-container">
-        <label className="form-label" htmlFor="iterationNumber">iterationNumber</label>
-        <textarea id="iterationNumber" name="iterationNumber" value={formData.iterationNumber} onChange={handleChange}/>
+      <div className="row">
+      <div className="col-25">
+        <label className="form-label" htmlFor="testingtype">Testing Type</label></div>
+        <div className="col-75">
+        <select id="testingtype" value={selectedTesting} onChange={handleTestingSelection}>
+            <option value="Smoke Testing">Smoke Testing</option>
+            <option value="Regression Testing">Regression Testing</option>
+            {/* Add more options as needed */}
+        </select>
+        </div>
       </div>
+      <div className="row">
+      <div className="col-25">
+        <label className="form-label" htmlFor="iterationNumber">Iteration Number</label></div>
+        <div className="col-75">
+        <textarea id="iterationNumber" name="iterationNumber" className="fixedwidthtext" value={formData.iterationNumber} onChange={handleChange}/>
+      </div></div>
 
-      <div className="row-container">
-        <label className="form-label" htmlFor="status">status</label>
-        <textarea id="status" name="status" value={formData.status} onChange={handleChange}/>
-      </div>
-      <div className="row-container">
-          <label className="form-label" htmlFor="linkToPast">linkToPast:</label>
-          <input className="form-input" type="text" id="linkToPast" name="linkToPast" value={formData.linkToPast} onChange={handleChange}/>
-      </div>
+      <div className="row">
+      <div className="col-25">
+          <label className="form-label" htmlFor="linkToPast">Link To Past:</label></div>
+          <div className="col-75">
+          <input className="fixedwidth" type="text" id="linkToPast" name="linkToPast" value={formData.linkToPast} onChange={handleChange}/>
+      </div></div>
       
 
        <div>
-        <label className="form-label" htmlFor="images">Upload Image</label>
-        <input className="form-input" type="file" multiple onChange={handleFileUpload} />
-      </div> 
+       <div className="col-25">
+        <label className="form-label" htmlFor="images">Upload Image</label></div>
+        <div className="col-75">
+        <input className="fixedwidth" type="file" multiple onChange={handleFileUpload} />
+      </div> </div>
           
           <button type="submit">Save Changes</button>
         </form>
       </div>
     );
   }
-  }
+  
   
   export default EditIssueForm;
-  

@@ -10,13 +10,12 @@ function ProjectScreen({onProjectClick}) {
   const [searchField, setSearchField] = useState("");
   const { data, loading, error } = useSelector((state) => state.projects);
   const dispatch = useDispatch();
-  console.log("data",data)
-  const filteredProjects = data.filter(project => project.projectname.includes(searchField));
-
   useEffect(() => {
     dispatch(getAllProjects());
   }, []);
 
+  const filteredProjects = data.filter(project => project.projectname.toLowerCase()
+  .includes(searchField.toLowerCase()));
   if (loading) {
     return <h1>Loading...</h1>;
   }
@@ -59,7 +58,7 @@ function ProjectScreen({onProjectClick}) {
         />
       </div>
       <div className='mt-4'>
-      {filteredProjects.map((val, ind) => (
+      {filteredProjects.map((val) => (
         <ProjectCard
           key={val.projectid}
           project={val}
@@ -72,4 +71,4 @@ function ProjectScreen({onProjectClick}) {
   }
 
 
-export default ProjectScreen;
+export default ProjectScreen;  

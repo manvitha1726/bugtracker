@@ -53,7 +53,6 @@ export const GetIssueByProjectId = createAsyncThunk(
 export const AddNewIssue = createAsyncThunk(
   "addIssue",
   async (data, { rejectWithValue }) => {
-    try{
     const response = await fetch(
       "https://issuetrackingapp.azurewebsites.net/api/Issues/AddIssue",
       {
@@ -66,9 +65,6 @@ export const AddNewIssue = createAsyncThunk(
     );
     const result = await response.json();
     return result;
-    }catch (err) {
-        return rejectWithValue("Found an error", err.response.data);
-      }
   }
 );
 
@@ -122,7 +118,7 @@ export const updateIssueStatus = createAsyncThunk(
 export const updateIssue = createAsyncThunk(
   "issues/updateIssue",
   async (formData, { rejectWithValue }) => {  
-
+    console.log("data in slice",formData);
     try {
       const response = await fetch(
         `https://issuetrackingapp.azurewebsites.net/api/Issues/UpdateentireIssue`,
@@ -131,11 +127,11 @@ export const updateIssue = createAsyncThunk(
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({ formData }),
         }
       );
-      const result = await response.json();  
-      console.log(result)   
+      
+      const result = await response.json(); 
       return result;
 
     } catch (err) {
@@ -228,10 +224,13 @@ export const Issues = createSlice({
       state.loading = true;
     },
     [updateIssue.fulfilled]: (state, action) => {
-      console.log("updated status fulfilled", action.payload);
+      console.log("action", action)
       state.loading = false;
-      state.data = action.payload;
-      
+      console.log("state.data before",state.data)
+      state.data = state.data.map((ele) =>
+       ele.issueId === action.meta.arg.issueId ? action.meta.arg : ele
+      );
+      console.log("state.data after",state.data)
     },
     [updateIssue.rejected]: (state, action) => {
       state.loading = false;    

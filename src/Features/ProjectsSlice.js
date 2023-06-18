@@ -19,6 +19,7 @@ export const addNewProject =createAsyncThunk("addProject",async(data,{rejectWith
     headers: {
       "Content-Type": "application/json",
     },
+    mode:'cors',
     body: JSON.stringify(data),
   });
   const result = await response.json();
@@ -50,7 +51,8 @@ export const Projects = createSlice({
     },
     [addNewProject.fulfilled]: (state, action) => {
       state.loading = false;
-      state.data.push(action.payload);
+      console.log("action",action);
+      state.data.push(action.meta.arg);
     },
   },
 
