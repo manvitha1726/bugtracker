@@ -15,28 +15,32 @@ function IssueForm({ projectId }) {
     navigate(`/projects/`);
   };
 
-  const initialFormData = {
-    projectId: projectId,
-    issueName: "",
-    issueType: "",
-    moduleName: "",
-    description: "",
-    summary: "",
-    identfiedemp: "",
-    dateidentified: "",
-    priority: "",
-    targetdate: "",
-    assignTo: "",
-    progressreport: "",
-    stepsToReproduce: "",
-    testingType: "",
-    iterationNumber: "",
-    status: "",
-    linkToPast: null,
-    images: ""
+  const NavigateToIssues = () => {
+    navigate(`/projects/${projectId}`);
+}
+
+const initialFormData = {
+  projectId: `${projectId}`,
+  issueName: "",
+  issueType: "",
+  moduleName: "",
+  description: "",
+  summary: "",
+  identfiedemp: "",
+  dateidentified: "",
+  priority: "Low",
+  targetdate: "",
+  assignTo: "",
+  progressreport: "",
+  stepsToReproduce: "",
+  testingType: "Smoke Testing",
+  iterationNumber: "",
+  status: "Open",
+  linkToPast: null,
+  images: ""
   };
 
-  const [val1, setVal1] = useState();
+  const [val1, setVal1] = useState(1);
   const [formData, setFormData] = useState(initialFormData);
   const [selectedIssue, setSelectedIssue] = useState("Bug");
   const [selectedTesting, setSelectedTesting] = useState("Smoke Testing");
@@ -45,13 +49,18 @@ function IssueForm({ projectId }) {
   const [attachedFiles, setAttachedFiles] = useState('');
 
   useEffect(() => {
-    setFormData((prevFormData) => ({ ...prevFormData, assignTo: val1 }));
+    setFormData((prevFormData) => ({ ...prevFormData, assignTo: selectedAssignedEmployee }));
   }, [selectedAssignedEmployee]);
 
   useEffect(() => {
     console.log("image from form: ", attachedFiles);
     setFormData((prevFormData) => ({ ...prevFormData, images: attachedFiles }));
   }, [attachedFiles]);
+
+  useEffect(() => {
+    // console.log("issue type : ", selectedIssue);
+    setFormData((prevFormData) => ({ ...prevFormData,  issueType: selectedIssue}));
+    }, [selectedIssue])
 
   const handleFileUpload = (event) => {
     const files = event.target.files;
@@ -81,9 +90,21 @@ function IssueForm({ projectId }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Before submit form data", formData);
-    dispatch(AddNewIssue(formData));
+    dispatch(AddNewIssue(formData))
+    .then((response) => {
+      console.log("After Issue form submitted response is : ",response);
+      // if(response.payload == true|| response == true){
+      //         NavigateToIssues();
+      // }
+      // NavigateToIssues();
+      // func(response);
+    })
+    .catch(error => {
+        console.error('Error updating bug status:', error);
+      });
   };
  return (
+  <>
         <form className="container">
         <h3 className="text-center">Enter Issue Details:</h3><br/>
         <div className="row">
@@ -173,7 +194,7 @@ function IssueForm({ projectId }) {
           <div className="col-75">
             <EmployeeDropdown val={val1} callBackFunc={setSelectedAssignedEmployee} />
             <AddEmployee func={setVal1} projectId={projectId} />
-            {console.log("emp selected", selectedAssignedEmployee)}
+            {/* {console.log("emp selected", selectedAssignedEmployee)} */}
           </div>
         </div>
 
@@ -221,7 +242,7 @@ function IssueForm({ projectId }) {
             <label className="form-label" htmlFor="iterationNumber">Iteration Number</label>
           </div>
           <div className="col-75">
-            <textarea className="fixedwidthtext" id="iterationNumber" name="iterationNumber" value={formData.iterationNumber} onChange={handleChange}/>
+          <input type="number" id="iterationNumber"  name="iterationNumber" value={formData.iterationNumber} onChange={handleChange} />
           </div>
         </div>
 
@@ -237,9 +258,9 @@ function IssueForm({ projectId }) {
         </div>
 
         <button type="submit" onClick={handleSubmit}>Add Issue</button> &nbsp;&nbsp;
-        <button onClick={NavigateBackClick1}>Cancel</button>
         </form>
-       
+               <button onClick={NavigateBackClick1}>Cancel</button>
+        </>
         );
 
         }
