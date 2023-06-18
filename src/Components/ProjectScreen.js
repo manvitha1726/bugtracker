@@ -4,11 +4,14 @@ import ProjectButton from './ProjectButton';
 import ProjectCard from './ProjectCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProjects } from '../Features/ProjectsSlice';
+import ProjectsPagePagination from './Pagination/ProjectsPagePagination';
 import './Home.css'
 
 function ProjectScreen({onProjectClick}) {
   const [searchField, setSearchField] = useState("");
   const { data, loading, error } = useSelector((state) => state.projects);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(3);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProjects());
@@ -34,7 +37,9 @@ function ProjectScreen({onProjectClick}) {
   // if (selectedProjectId) {
   //   return <Dummy ProjectId={selectedProjectId}/>;
   // }
-
+    const lastPostIndex = currentPage * postsPerPage;
+    const firstPostIndex = lastPostIndex - postsPerPage;
+    const currentPosts = filteredProjects.slice(firstPostIndex, lastPostIndex);
     
   return (
     
@@ -58,13 +63,19 @@ function ProjectScreen({onProjectClick}) {
         />
       </div>
       <div className='mt-4'>
-      {filteredProjects.map((val) => (
+      {currentPosts.map((val) => (
         <ProjectCard
           key={val.projectid}
           project={val}
           onCardClick={handleCardClick}
         />
-      ))}</div>
+      ))}
+      <ProjectsPagePagination
+      totalPosts={filteredProjects.length}
+      postsPerPage={postsPerPage}
+      setCurrentPage={setCurrentPage}
+      currentPage={currentPage}
+      /></div>
     </section>
     </center>
   );

@@ -38,7 +38,7 @@ button
 }
 .align{
     top:5%;
-    left:81%;
+    left:79%;
     position:absolute;
 }
 .cardu{
@@ -70,10 +70,11 @@ button
 }
 .addprojectbt{
     border-width:0px;
-    color:white;
-    background-color: black;
     padding:10px;
-
+    background: black;
+    color: #eee;
+    border-color:white;
+    transition: all 0.3s ease;
 }
 .copyrights{
     color:black;
