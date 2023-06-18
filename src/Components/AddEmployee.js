@@ -27,6 +27,7 @@ function AddEmployee({func, projectId}) {
     
     return (
         <div className='employee-add-card'>
+            <br/>
             <Popup 
                 trigger = {<a style={{border: "1px solid black", padding: "4px"}}>Create new employee</a>}
                 position="right center"
@@ -38,7 +39,7 @@ function AddEmployee({func, projectId}) {
                             name='employee-name'
                             placeholder='Enter Employee Name'
                             onChange={(e) => setEmployeeName(e.target.value)}
-                        />
+                        /> &nbsp; 
                         <button type='submit'>Create</button>
                     </div>
                 </form>

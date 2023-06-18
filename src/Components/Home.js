@@ -27,6 +27,7 @@
 import './Home.css';
 import React from 'react';
 import Header from './Header';
+import Footer from './Footer';
 
 const Home = () => {
 
@@ -47,6 +48,7 @@ const Home = () => {
                     </button></a></center>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 };

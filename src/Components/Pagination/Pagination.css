@@ -1,6 +1,6 @@
 .pagination-container {
     position: fixed;
-    bottom: 60px; /* Adjust this value as needed */
+    bottom: 40px; /* Adjust this value as needed */
     width: 100%;
     display: flex;
     justify-content: center;
@@ -33,7 +33,7 @@
   .pagination button.active {
     font-weight: 900;
     border-color: #101010;
-    background: rgb(214, 212, 212);
+    background: white;
     color: #101010;
   }
   
