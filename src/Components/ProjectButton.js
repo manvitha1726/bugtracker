@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import { addNewProject } from '../Features/ProjectsSlice';
-import { FaArrowLeft } from 'react-icons/fa';
 import {useNavigate} from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 import './Home.css';
-
 const ProjectButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleOpenPopup = () => {
+
+  const handleOpenModal = () => {
     setIsOpen(true);
   };
 
-  const handleClosePopup = () => {
+  const handleCloseModal = () => {
     setIsOpen(false);
   };
 
@@ -22,39 +23,36 @@ const ProjectButton = () => {
     setProjectName(event.target.value);
   };
   const NavigateBackClick = () => {
-    navigate(`/`);
-  };
+       navigate(`/`);
+   };
 
-  const handleAddProject = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
     const data = {
-      projectname: projectName,
+        projectname: projectName,
     };
     dispatch(addNewProject(data));
-
-    setProjectName('');
-    setIsOpen(false);
+    console.log(projectName);
+    handleCloseModal();
   };
 
   return (
     <div>
       <FaArrowLeft onClick={NavigateBackClick}/> &nbsp;&nbsp;&nbsp;
-      <button className="addprojectbt" onClick={handleOpenPopup}>Add Project</button>
+      <Button className="addprojectbt" onClick={handleOpenModal}>Add Project</Button>
 
-      {isOpen && (
-        <div className="popup">
-          <div className="popup-content">
-            <p>Enter Project Name</p>
-            <input className='addbox'
-              type="text"
-              value={projectName}
-              onChange={handleInputChange}
-            /> 
-            <button className="space ml1 mr1 bg-green"onClick={handleAddProject}>Add</button>
-            <button className="space ml1 bg-light-red" onClick={handleClosePopup}>Cancel</button>
-          </div>
-        </div>
-      )}
+      <Modal isOpen={isOpen} toggle={handleCloseModal}>
+        <ModalHeader  className="modal-header" toggle={handleCloseModal}>Project Details</ModalHeader>
+        <ModalBody>
+          <form onSubmit={handleSubmit}>
+              <label>Project Name:
+              <input type="text" value={projectName} onChange={handleInputChange} style={{marginLeft:"10px"}} />
+              </label>
+          </form>
+        </ModalBody>
+        <ModalFooter>
+          <Button className="addprojectbt" onClick={handleSubmit}>Submit</Button>{' '}
+        </ModalFooter>
+      </Modal>
     </div>
   );
 };
