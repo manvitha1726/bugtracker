@@ -37,7 +37,7 @@ const ProjectButton = () => {
 
   return (
     <div>
-      <FaArrowLeft onClick={NavigateBackClick}/> &nbsp;&nbsp;&nbsp;
+      <FaArrowLeft className='pointer-icon' onClick={NavigateBackClick}/> &nbsp;&nbsp;&nbsp;
       <Button className="addprojectbt" onClick={handleOpenModal}>Add Project</Button>
 
       <Modal isOpen={isOpen} toggle={handleCloseModal}>
