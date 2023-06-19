@@ -8,7 +8,7 @@ function EditIssueForm({ issueId }) {
     useEffect(() => {
       dispatch(GetIssueById(issueId));
       
-    }, []);
+    }, [issueId]);
     
     
     const initialFormData = {

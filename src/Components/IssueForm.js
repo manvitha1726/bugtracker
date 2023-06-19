@@ -11,8 +11,8 @@ function IssueForm({ projectId }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const NavigateBackClick = () => {
-    navigate(`/projects/${projectId}`);
+  const NavigateBackClick1 = () => {
+    navigate(`/projects/`);
   };
 
   const NavigateToIssues = () => {
@@ -49,7 +49,7 @@ const initialFormData = {
   const [attachedFiles, setAttachedFiles] = useState('');
 
   useEffect(() => {
-    setFormData((prevFormData) => ({ ...prevFormData, assignTo: selectedAssignedEmployee }));
+    setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
   }, [selectedAssignedEmployee]);
 
   useEffect(() => {
@@ -193,6 +193,7 @@ const initialFormData = {
          
           <div className="col-75">
             <EmployeeDropdown val={val1} callBackFunc={setSelectedAssignedEmployee} />
+            <br /><br />
             <AddEmployee func={setVal1} projectId={projectId} />
             {/* {console.log("emp selected", selectedAssignedEmployee)} */}
           </div>
@@ -257,10 +258,9 @@ const initialFormData = {
           </div>
         </div>
 
-
-        <button type="submit" onClick={handleSubmit}>Add Issue</button> &nbsp;&nbsp;
-        <button onClick={NavigateBackClick}>Cancel</button>
+        <button type="submit" onClick={handleSubmit}>Add Issue</button> 
         </form>
+        &nbsp;&nbsp;
                <button onClick={NavigateBackClick1}>Cancel</button>
         </>
         );

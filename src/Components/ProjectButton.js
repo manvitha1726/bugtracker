@@ -5,11 +5,13 @@ import { addNewProject } from '../Features/ProjectsSlice';
 import {useNavigate} from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import './Home.css';
+import validateForm from './ProjectFormValidation';
 const ProjectButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [errors,setErrors]= useState({});
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -30,9 +32,17 @@ const ProjectButton = () => {
     const data = {
         projectname: projectName,
     };
-    dispatch(addNewProject(data));
-    console.log(projectName);
-    handleCloseModal();
+    console.log("data - b : ", data);
+    const formErrors = validateForm(data);
+    console.log("form errors : ", formErrors);
+      if (formErrors){
+        setErrors(formErrors);
+        return;
+      }
+      console.log("data", data);
+      dispatch(addNewProject(data));
+      // console.log(projectName);
+      handleCloseModal();
   };
 
   return (
@@ -46,6 +56,9 @@ const ProjectButton = () => {
           <form onSubmit={handleSubmit}>
               <label>Project Name:
               <input type="text" value={projectName} onChange={handleInputChange} style={{marginLeft:"10px"}} />
+                <div className='validations'>
+                {errors.projectname && <span>{errors.projectname}</span>}
+                </div>
               </label>
           </form>
         </ModalBody>
