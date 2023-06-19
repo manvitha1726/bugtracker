@@ -33,7 +33,6 @@ function DisplayIssue({selectedIssueId}) {
     //     dispatch(GetEmployeeById());
     // }, [])
    
-    
    
     if(loading){
         return <h2>Loading.........</h2>
@@ -120,5 +119,5 @@ function DisplayIssue({selectedIssueId}) {
     }
 }
 
-export default DisplayIssue
+export default DisplayIssue 
 
