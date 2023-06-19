@@ -263,7 +263,7 @@ const initialFormData = {
         <button onClick={NavigateBackClick}>Cancel</button>
         </form>
         &nbsp;&nbsp;
-               <button onClick={NavigateBackClick1}>Cancel</button>
+               <button onClick={NavigateBackClick}>Cancel</button>
         </>
         );
 
