@@ -96,7 +96,7 @@ const initialFormData = {
       // if(response.payload == true|| response == true){
       //         NavigateToIssues();
       // }
-      NavigateToIssues();
+      // NavigateToIssues();
       // func(response);
     })
     .catch(error => {
@@ -193,7 +193,6 @@ const initialFormData = {
          
           <div className="col-75">
             <EmployeeDropdown val={val1} callBackFunc={setSelectedAssignedEmployee} />
-            <br /><br />
             <AddEmployee func={setVal1} projectId={projectId} />
             {/* {console.log("emp selected", selectedAssignedEmployee)} */}
           </div>
@@ -258,9 +257,8 @@ const initialFormData = {
           </div>
         </div>
 
-        <button type="submit" onClick={handleSubmit}>Add Issue</button> 
+        <button type="submit" onClick={handleSubmit}>Add Issue</button> &nbsp;&nbsp;
         </form>
-        &nbsp;&nbsp;
                <button onClick={NavigateBackClick1}>Cancel</button>
         </>
         );
