@@ -74,7 +74,7 @@ function DisplayIssue({ selectedIssueId ,projectId}) {
     return (
       <div>
         <form className="container" >
-        <h3 className="text-center"> View Issue {selectedIssueId}</h3><br/>
+        <h3 className="text-center"> View Issue:{initialFormData.issueName}</h3><br/>
         <div className="row">
            <div className="col-25">
               <label className="form-label" htmlFor="name">Issue Name</label>
@@ -174,7 +174,7 @@ function DisplayIssue({ selectedIssueId ,projectId}) {
           <label className="form-label" htmlFor="progressreport">progressreport</label>
       </div>
       <div className="col-75">
-          <input className="fixedwidth" type="text" disabled id="progressreport" name="progressreport" value={initialFormData.assignTo} />
+          <input className="fixedwidth" type="text" disabled id="progressreport" name="progressreport" value={initialFormData.progressreport} />
           </div>
       </div>
 

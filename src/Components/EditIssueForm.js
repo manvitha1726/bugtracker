@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetIssueById,updateIssue} from "../Features/IssueSlice";
+import { getAllProjects } from "../Features/ProjectsSlice";
 import './IssueForm.css';
 function EditIssueForm({ issueId }) {
     const dispatch = useDispatch();
@@ -8,6 +9,13 @@ function EditIssueForm({ issueId }) {
     useEffect(() => {
       dispatch(GetIssueById(issueId));
     }, []);
+    
+    // const projObj= useSelector((state) => state.projects);
+    // useEffect(() => {
+    //   dispatch(getAllProjects());
+    //   console.log("projects data",projObj.data);
+    // }, []);
+
     
     
     const initialFormData = {
@@ -108,7 +116,8 @@ function EditIssueForm({ issueId }) {
       <div className="main_container">
         
         <form className="container" onSubmit={handleSubmit}>
-        <h3 className="text-center">Edit Issue Details:</h3><br/>
+        {/* <h3 className="text-center">{`Edit Issue Details: ${projObj.data[formData.projectId-1].projectname}`}</h3><br/> */}
+        <h3 className="text-center">{`Edit Issue Details: ${formData.issueName}`}</h3><br/>
         <div className="row">
           <div className="col-25">
           <label className="form-label" htmlFor="name">Issue Name</label></div>

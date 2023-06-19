@@ -43,6 +43,7 @@ function AddEmployee({func, projectId}) {
     
     return (
         <div className='employee-add-card'>
+            <br/>
             <Button 
                 className='add-employee-bt'
                 onClick={handleOpenModal}

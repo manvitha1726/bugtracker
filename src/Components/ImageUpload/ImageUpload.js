@@ -27,7 +27,6 @@ function ImageUpload({callBackFunc}) {
                key= {inputKey || ''}
                onChange={onFileChange}
               />
-              <br/><br/>
               <button onClick={onFileUpload}>
                   Click here to upload file
               </button>

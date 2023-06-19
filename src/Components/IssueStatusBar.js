@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
 import { FaPlus ,FaEye,FaPencilAlt,FaArrowLeft} from 'react-icons/fa';
+import { getAllProjects } from "../Features/ProjectsSlice";
 import {useNavigate} from 'react-router-dom';
 import Pagination from './Pagination/Pagination';
 import './Home.css';
@@ -13,8 +14,8 @@ function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(4);
-    const filteredData = data.filter(issue => issue.issueName.toLowerCase()
-    .includes(searchTerm.toLowerCase()) );
+    const filteredData = data.filter(issue => issue.issueName.toLowerCase() 
+    .includes(searchTerm.toLowerCase())); 
     const NavigateBackClick = () => {
       navigate(`/projects/`);
     };
@@ -33,6 +34,12 @@ function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
     useEffect(() => { 
       dispatch(GetIssueByProjectId(ProjectId)) 
     },[ProjectId])
+
+    const projObj= useSelector((state) => state.projects);
+    useEffect(() => {
+      dispatch(getAllProjects());
+      console.log("projects data",projObj.data);
+    }, []);
 
     console.log(data);
     const handleStatusChange = (issueId, status) => {
@@ -62,7 +69,7 @@ function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
 
    return (
     <div>
-      <h1 className='text-center heading'>Issues</h1>
+      <h1 className='text-center heading'>{projObj.data[ProjectId-1].projectname} Issues</h1>
       <div className='align'>
          <input
          className="pa2 bb br3  ma2 shadow"

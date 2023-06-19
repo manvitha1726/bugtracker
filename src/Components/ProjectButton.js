@@ -4,13 +4,20 @@ import { useDispatch } from 'react-redux';
 import { addNewProject } from '../Features/ProjectsSlice';
 import {useNavigate} from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
+import validateForm from './formValidation';
+import './IssueForm.css'
 import './Home.css';
 const ProjectButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  
+  const [errors,setErrors]= useState({});
+  const [issues,setIssues]= useState([]);
+   const data = {
+    projectname:projectName,
+};
   const handleOpenModal = () => {
     setIsOpen(true);
   };
@@ -27,11 +34,15 @@ const ProjectButton = () => {
    };
 
   const handleSubmit = (event) => {
-    const data = {
-        projectname: projectName,
-    };
+    setIssues([...issues, data]);
     dispatch(addNewProject(data));
     console.log(projectName);
+    const formErrors = validateForm(data);
+    if (formErrors){
+      setErrors(formErrors);
+      handleCloseModal();
+      return;
+    }
     handleCloseModal();
   };
 
@@ -44,9 +55,12 @@ const ProjectButton = () => {
         <ModalHeader  className="modal-header" toggle={handleCloseModal}>Project Details</ModalHeader>
         <ModalBody>
           <form onSubmit={handleSubmit}>
-              <label>Project Name:
-              <input type="text" value={projectName} onChange={handleInputChange} style={{marginLeft:"10px"}} />
-              </label>
+              <label htmlFor="projectName">Project Name:</label>
+              <input type="text" value={projectName} id="projectName" onChange={handleInputChange} style={{marginLeft:"10px"}} />
+              <div className="validations">
+                   {errors.projectName && <span>{errors.projectName}</span>}
+              </div>
+              
           </form>
         </ModalBody>
         <ModalFooter>

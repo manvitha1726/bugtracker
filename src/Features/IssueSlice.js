@@ -190,7 +190,7 @@ export const Issues = createSlice({
       },
     [AddNewIssue.fulfilled]: (state, action) => {
       state.loading = false;
-      state.data.push( action.meta.arg);
+      state.data.push(action.payload);
     },
     [deleteIssue.pending]: (state) => {
       state.loading = true;
