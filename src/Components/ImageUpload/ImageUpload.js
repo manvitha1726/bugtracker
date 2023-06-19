@@ -20,12 +20,14 @@ function ImageUpload({callBackFunc}) {
 
     const DisplayUploadImage = () => {
         return (
+
           <div className='input-file'>
               <input
                type="file"
                key= {inputKey || ''}
                onChange={onFileChange}
               />
+              <br/><br/>
               <button onClick={onFileUpload}>
                   Click here to upload file
               </button>

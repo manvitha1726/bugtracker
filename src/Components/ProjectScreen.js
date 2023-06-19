@@ -4,14 +4,14 @@ import ProjectButton from './ProjectButton';
 import ProjectCard from './ProjectCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProjects } from '../Features/ProjectsSlice';
-import ProjectsPagePagination from './Pagination/ProjectsPagePagination';
+import Pagination from './Pagination/Pagination';
 import './Home.css'
 
 function ProjectScreen({onProjectClick}) {
   const [searchField, setSearchField] = useState("");
   const { data, loading, error } = useSelector((state) => state.projects);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(3);
+  const [postsPerPage, setPostsPerPage] = useState(5);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProjects());
@@ -46,8 +46,8 @@ function ProjectScreen({onProjectClick}) {
     <center>
     <section className="garamond">
       <div className='pa1 '>
-      <div className="navy georgia ma0 grow">
-        <h2 className="f2">Projects</h2>
+      <div className="navy georgia grow">
+        <h2 className="f2 pt4 ">Projects</h2>
       </div></div>
 
       <br></br>
@@ -56,7 +56,7 @@ function ProjectScreen({onProjectClick}) {
 
       <div className="align">
         <input
-          className="pa1 bb br3  ma2 shadow"
+          className="pa2 bb br3  ma2 shadow "
           type="search"
           placeholder="Search Project"
           onChange={handleChange}
@@ -70,7 +70,7 @@ function ProjectScreen({onProjectClick}) {
           onCardClick={handleCardClick}
         />
       ))}
-      <ProjectsPagePagination
+      <Pagination
       totalPosts={filteredProjects.length}
       postsPerPage={postsPerPage}
       setCurrentPage={setCurrentPage}

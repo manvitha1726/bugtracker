@@ -56,9 +56,6 @@ const App = () => {
         {/* <Route path={`/projects/${selectedProjectId}/ViewIssue`} element={<DisplayIssue selectedIssueId={selectedIssueId} />} /> */} 
       </Routes>
     </Router>
-    <div className='footerposition'>
-      <Footer/>
-    </div> 
     </div>
   );
 };

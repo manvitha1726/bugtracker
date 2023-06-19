@@ -27,6 +27,7 @@
 import './Home.css';
 import React from 'react';
 import Header from './Header';
+import Footer from './Footer';
 
 const Home = () => {
 
@@ -42,11 +43,12 @@ const Home = () => {
                     <br/><br/><br/>
                     <center>
                         <a href="/projects">
-                    <button>
+                    <button  className='home-page-btn'>
                         Explore Projects
                     </button></a></center>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 };

@@ -1,12 +1,27 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import { addEmployees } from '../Features/EmployeeSlice';
-import Popup from 'reactjs-popup';
+import {useNavigate} from 'react-router-dom';
+import './Home.css';
 
 function AddEmployee({func, projectId}) {
     const [employeeName, setEmployeeName] = useState('');
-
     const dispatch = useDispatch();
+    const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate();
+
+    const handleOpenModal = () => {
+        setIsOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsOpen(false);
+    };
+    const NavigateBackClick = () => {
+        navigate(`/`);
+    };
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -17,32 +32,49 @@ function AddEmployee({func, projectId}) {
         console.log(employeeData);
         dispatch(addEmployees(employeeData))
         .then((response) => {
-            console.log("Result",response);
+            // console.log("Result",response);
             func(response);
           })
         .catch(error => {
             console.error('Error updating bug status:', error);
           });
+          handleCloseModal();
         };
     
     return (
         <div className='employee-add-card'>
-            <Popup 
-                trigger = {<a style={{border: "1px solid black", padding: "4px"}}>Create new employee</a>}
-                position="right center"
+            <Button 
+                className='add-employee-bt'
+                onClick={handleOpenModal}
             >
-                <form onSubmit={handleSubmit}>
-                    <div className='field-' >
-                        <input
-                            type='text'
-                            name='employee-name'
-                            placeholder='Enter Employee Name'
-                            onChange={(e) => setEmployeeName(e.target.value)}
-                        />
-                        <button type='submit'>Create</button>
-                    </div>
-                </form>
-            </Popup>
+                Add New Employee
+            </Button>
+            <Modal
+                isOpen={isOpen}
+                toggle={handleCloseModal}>
+                <ModalHeader
+                    className='modal-header'
+                    toggle={handleCloseModal}>
+                    Employee Details
+                </ModalHeader>
+                <ModalBody >
+                    <form >
+                        <div className='field-' >
+                            <label>Employee Name: </label>
+                            <input
+                                type='text'
+                                name='employee-name'
+                                placeholder='Enter Employee Name'
+                                style={{marginLeft: "10px"}}
+                                onChange={(e) => setEmployeeName(e.target.value)}
+                            />
+                        </div>
+                    </form>
+                </ModalBody>
+                <ModalFooter>
+                    <Button className='add-employee-bt' onClick={handleSubmit}>Submit</Button>{' '}
+                </ModalFooter>
+            </Modal>
         </div>
     )
 }

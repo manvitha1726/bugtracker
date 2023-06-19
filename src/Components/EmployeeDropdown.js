@@ -7,10 +7,10 @@ function EmployeeDropdown({val, callBackFunc}) {
     const dispatch = useDispatch();
     const {data, isLoading, isError} = useSelector((state) => state.employees);
     useEffect(() => {
+      console.log("val1 inside dropdown : ", val);
         dispatch(fetchEmployees())
         .then((response) => {
-            //console.log("Result",response);
-            //console.log('Issue status updated successfully');
+            // console.log("Result",response);
             if(response.payload){ 
               dispatch(fetchEmployees());
             }
@@ -25,6 +25,11 @@ function EmployeeDropdown({val, callBackFunc}) {
     }
     if(isError){
       return <p>Servers are busy...</p>
+    }
+
+    const setFunc = (event) => {
+      console.log("event : ", event);
+      callBackFunc(event.target.value);
     }
 
     if(data!=null){
@@ -43,10 +48,10 @@ function EmployeeDropdown({val, callBackFunc}) {
             <select
               disabled={isLoading}
               value={value}
-                onChange={(e) => callBackFunc(e.target.value)}
+                onChange={setFunc}
             >
               {data.map((val,ind) => (
-                <option key={ind} value={val.empName}>
+                <option key={val.empId} value={val.empId}>
                   {val.empName}
                 </option>
               ))}

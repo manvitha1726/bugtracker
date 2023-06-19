@@ -6,8 +6,7 @@ function EditIssueForm({ issueId }) {
     const dispatch = useDispatch();
     const { dataById, loading, error} = useSelector((state) => state.issues);
     useEffect(() => {
-      const res=dispatch(GetIssueById(issueId));
-      console.log("use effect runned",res);
+      dispatch(GetIssueById(issueId));
     }, []);
     
     
@@ -30,7 +29,8 @@ function EditIssueForm({ issueId }) {
         stepsToReproduce: "",
         testingType: "",
         iterationNumber: "",
-        status: ""
+        status: "",
+        images:""
     };
 
     if(dataById.length!==0){
@@ -52,6 +52,7 @@ function EditIssueForm({ issueId }) {
         initialFormData.iterationNumber = dataById[0].iterationNumber;
         initialFormData.status = dataById[0].status;
         initialFormData.projectId=dataById[0].projectId;
+        initialFormData.images=dataById[0].images;
     }
     // Define the form state
     const [formData, setFormData] = useState(initialFormData);
@@ -105,7 +106,9 @@ function EditIssueForm({ issueId }) {
   
     return (
       <div className="main_container">
+        
         <form className="container" onSubmit={handleSubmit}>
+        <h3 className="text-center">Edit Issue Details:</h3><br/>
         <div className="row">
           <div className="col-25">
           <label className="form-label" htmlFor="name">Issue Name</label></div>
@@ -261,6 +264,8 @@ function EditIssueForm({ issueId }) {
         <div className="col-75">
         <input className="fixedwidth" type="file" multiple onChange={handleFileUpload} />
       </div> </div>
+          
+         <center><img src={formData.images} alt="Uploaded Image" /></center><br/>
           
           <button type="submit">Save Changes</button>
         </form>

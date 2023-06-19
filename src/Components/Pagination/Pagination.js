@@ -1,7 +1,7 @@
 import React from "react";
 import "./Pagination.css";
 
-const ProjectsPagePagination = ({
+const Pagination = ({
     totalPosts,
     postsPerPage,
     setCurrentPage,
@@ -31,4 +31,4 @@ const ProjectsPagePagination = ({
     );
 };
 
-export default ProjectsPagePagination;
+export default Pagination;

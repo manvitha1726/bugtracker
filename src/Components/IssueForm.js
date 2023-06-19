@@ -1,7 +1,7 @@
-import { React,useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AddNewIssue } from "../Features/IssueSlice";
-import {useDispatch} from "react-redux";
-import {useNavigate} from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import EmployeeDropdown from "./EmployeeDropdown";
 import AddEmployee from "./AddEmployee";
 import ImageUpload from "./ImageUpload/ImageUpload";
@@ -100,8 +100,6 @@ const handleFileUpload = (event) => {
       dispatch(AddNewIssue(formData))
     };
   return (
-
-    <div className="main_container">
       <form className="container" >
       <div className="row">
         <div className="col-25">
@@ -272,9 +270,11 @@ const handleFileUpload = (event) => {
       <button onClick={handleSubmit} >Add Issue</button>
       <button onClick={NavigateBackClick1}>Cancel</button>
     </form>
-    </div>
+ 
 );
 
 }
 
-export default IssueForm;
+ export default IssueForm;
+
+
