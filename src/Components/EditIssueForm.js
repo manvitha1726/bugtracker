@@ -268,7 +268,7 @@ function EditIssueForm({ issueId }) {
         <input className="fixedwidth" type="file" multiple onChange={handleFileUpload} />
       </div> </div>
           
-         <img src={formData.images} alt="Uploaded Image" />
+         <center><img src={formData.images} alt="Uploaded Image" /></center><br/>
           
           <button type="submit">Save Changes</button>
         </form>

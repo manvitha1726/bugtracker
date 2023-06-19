@@ -11,8 +11,8 @@ function IssueForm({ projectId }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const NavigateBackClick1 = () => {
-    navigate(`/projects/`);
+  const NavigateBackClick = () => {
+    navigate(`/projects/${projectId}`);
   };
 
   const NavigateToIssues = () => {
@@ -258,7 +258,9 @@ const initialFormData = {
           </div>
         </div>
 
-        <button type="submit" onClick={handleSubmit}>Add Issue</button> 
+
+        <button type="submit" onClick={handleSubmit}>Add Issue</button> &nbsp;&nbsp;
+        <button onClick={NavigateBackClick}>Cancel</button>
         </form>
         &nbsp;&nbsp;
                <button onClick={NavigateBackClick1}>Cancel</button>
