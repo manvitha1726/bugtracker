@@ -119,11 +119,11 @@ function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
               
               <td >
               <center>
-              <FaEye onClick={() => handleViewIcon(issue.issueId)} /></center>
+              <FaEye className='pointer-icon' onClick={() => handleViewIcon(issue.issueId)} /></center>
               </td>
               <td>
               <center>
-                <FaPencilAlt onClick={() => handleEditIcon(issue.issueId)}/></center>
+                <FaPencilAlt className='pointer-icon' onClick={() => handleEditIcon(issue.issueId)}/></center>
               </td>
               
             </tr>

@@ -16,7 +16,7 @@ function IssueForm({ projectId }) {
   };
 
   const NavigateToIssues = () => {
-    navigate(`/projects/${projectId}`);
+    navigate(`/projects/`);
 }
 
 const initialFormData = {
