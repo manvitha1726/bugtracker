@@ -43,7 +43,7 @@ const Home = () => {
                     <br/><br/><br/>
                     <center>
                         <a href="/projects">
-                    <button>
+                    <button  className='home-page-btn'>
                         Explore Projects
                     </button></a></center>
                 </div>
