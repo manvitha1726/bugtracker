@@ -15,9 +15,12 @@ function IssueForm({ projectId }) {
 
   const NavigateBackClick1 = () => {
     navigate(`/projects/`);
+  const NavigateBackClick1 = () => {
+    navigate(`/projects/`);
   };
 
   const NavigateToIssues = () => {
+    navigate(`/projects/`);
     navigate(`/projects/`);
 }
 
@@ -54,6 +57,7 @@ const initialFormData = {
   const [issues,setIssues]= useState([]);
 
   useEffect(() => {
+    setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
     setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
   }, [selectedAssignedEmployee]);
 
@@ -320,6 +324,7 @@ const initialFormData = {
         );
 
         }
+      }
 
         export default IssueForm;
-
+      

@@ -8,7 +8,8 @@ function EditIssueForm({ issueId }) {
     const { dataById, loading, error} = useSelector((state) => state.issues);
     useEffect(() => {
       dispatch(GetIssueById(issueId));
-    }, []);
+      
+    }, [issueId]);
     
     // const projObj= useSelector((state) => state.projects);
     // useEffect(() => {
@@ -64,7 +65,10 @@ function EditIssueForm({ issueId }) {
     }
     // Define the form state
     const [formData, setFormData] = useState(initialFormData);
-    console.log('formdata',formData)
+
+    
+
+    // console.log('formdata',formData)
     const [selectedIssue, setSelectedIssue] = useState(formData.issueType);
     const [selectedTesting, setSelectedTesting] = useState(formData.testingType);
     const [selectedPriority, setSelectedPriority] = useState(formData.priority);
@@ -111,7 +115,6 @@ function EditIssueForm({ issueId }) {
     }
     console.log("formdata",formData)
 
-  
     return (
       <div className="main_container">
         
@@ -281,6 +284,7 @@ function EditIssueForm({ issueId }) {
       </div>
     );
   }
+    
   
   
   export default EditIssueForm;

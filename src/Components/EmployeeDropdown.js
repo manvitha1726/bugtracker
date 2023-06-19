@@ -7,7 +7,7 @@ function EmployeeDropdown({val, callBackFunc}) {
     const dispatch = useDispatch();
     const {data, isLoading, isError} = useSelector((state) => state.employees);
     useEffect(() => {
-      console.log("val1 inside dropdown : ", val);
+      // console.log("val1 inside dropdown : ", val);
         dispatch(fetchEmployees())
         .then((response) => {
             // console.log("Result",response);

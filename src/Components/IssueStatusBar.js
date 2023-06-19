@@ -79,14 +79,14 @@ function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
         onChange={e => setSearchTerm(e.target.value)}
       /></div>
       <div className='alignright text-center'>
-      <div className='pointer-icon' style={{display:"flex",flexDirection:"row"}}>
-        <FaArrowLeft onClick={NavigateBackClick}/> &nbsp;&nbsp;&nbsp;
-        <div className='pointer-icon' onClick={handlePlusIconClick}>
-          <FaPlus
-            className="icon rounded p-1" style={{backgroundColor:"rgb(139, 200, 209)", height:"20px", width:"20px"}}
-          /> 
-          <p >Add Issue</p>
-        </div>
+      <div style={{display:"flex",flexDirection:"row"}}>
+      <FaArrowLeft onClick={NavigateBackClick}/> &nbsp;&nbsp;&nbsp;
+      <div>
+       <FaPlus
+        className="icon rounded p-1 " style={{backgroundColor:"rgb(139, 200, 209)"}}
+        onClick={handlePlusIconClick} 
+      /> <p>Add Issue</p>
+      </div>
       </div>
       </div>
       <div className='m-5'>
@@ -126,11 +126,11 @@ function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
               
               <td >
               <center>
-              <FaEye onClick={() => handleViewIcon(issue.issueId)} /></center>
+              <FaEye className='pointer-icon' onClick={() => handleViewIcon(issue.issueId)} /></center>
               </td>
               <td>
               <center>
-                <FaPencilAlt onClick={() => handleEditIcon(issue.issueId)}/></center>
+                <FaPencilAlt className='pointer-icon' onClick={() => handleEditIcon(issue.issueId)}/></center>
               </td>
               
             </tr>

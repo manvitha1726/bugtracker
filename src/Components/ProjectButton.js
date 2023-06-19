@@ -7,17 +7,14 @@ import { FaArrowLeft } from 'react-icons/fa';
 import validateForm from './formValidation';
 import './IssueForm.css'
 import './Home.css';
+import validateForm from './ProjectFormValidation';
 const ProjectButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
   const [errors,setErrors]= useState({});
-  const [issues,setIssues]= useState([]);
-   const data = {
-    projectname:projectName,
-};
+
   const handleOpenModal = () => {
     setIsOpen(true);
   };
@@ -34,33 +31,37 @@ const ProjectButton = () => {
    };
 
   const handleSubmit = (event) => {
-    setIssues([...issues, data]);
-    dispatch(addNewProject(data));
-    console.log(projectName);
+    const data = {
+        projectname: projectName,
+    };
+    console.log("data - b : ", data);
     const formErrors = validateForm(data);
-    if (formErrors){
-      setErrors(formErrors);
+    console.log("form errors : ", formErrors);
+      if (formErrors){
+        setErrors(formErrors);
+        return;
+      }
+      console.log("data", data);
+      dispatch(addNewProject(data));
+      // console.log(projectName);
       handleCloseModal();
-      return;
-    }
-    handleCloseModal();
   };
 
   return (
     <div>
-      <FaArrowLeft className='pointer-icon' onClick={NavigateBackClick}/> &nbsp;&nbsp;&nbsp;
+      <FaArrowLeft onClick={NavigateBackClick}/> &nbsp;&nbsp;&nbsp;
       <Button className="addprojectbt" onClick={handleOpenModal}>Add Project</Button>
 
       <Modal isOpen={isOpen} toggle={handleCloseModal}>
         <ModalHeader  className="modal-header" toggle={handleCloseModal}>Project Details</ModalHeader>
         <ModalBody>
           <form onSubmit={handleSubmit}>
-              <label htmlFor="projectName">Project Name:</label>
-              <input type="text" value={projectName} id="projectName" onChange={handleInputChange} style={{marginLeft:"10px"}} />
-              <div className="validations">
-                   {errors.projectName && <span>{errors.projectName}</span>}
-              </div>
-              
+              <label>Project Name:
+              <input type="text" value={projectName} onChange={handleInputChange} style={{marginLeft:"10px"}} />
+                <div className='validations'>
+                {errors.projectname && <span>{errors.projectname}</span>}
+                </div>
+              </label>
           </form>
         </ModalBody>
         <ModalFooter>
