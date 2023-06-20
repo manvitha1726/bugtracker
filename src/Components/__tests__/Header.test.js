@@ -9,4 +9,16 @@ describe('Header component', () => {
       const headerElement = getByText(/Issue Tracking Tool/i);
       expect(headerElement).toBeInTheDocument();
     });
+
+    it('should be placed at the top of the page', () => {
+        render(<Header />);
+    
+        const header = screen.getByTestId('header-element');
+    
+        // Get the top position of the header element
+        const { top } = header.getBoundingClientRect();
+    
+        // Assert that the header is placed at the top of the page
+        expect(top).toBe(0);
+      });
   });

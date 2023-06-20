@@ -3,7 +3,7 @@ import './Home.css';
 const Footer = () => {
     return (
         <div className="bg-[#FA7D19] text-white">
-            <footer className="footer p-10 justify-items-center">
+            <footer data-testid="footer" className="footer p-10 justify-items-center">
                 {}
             </footer>
             <div className="divv">
