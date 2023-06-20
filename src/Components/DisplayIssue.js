@@ -4,16 +4,18 @@ import { GetIssueById} from "../Features/IssueSlice";
 import { useNavigate } from 'react-router-dom';
 import './IssueForm.css';
 
-function DisplayIssue({ selectedIssueId ,projectId}) {
+function DisplayIssue() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { dataById, loading, error} = useSelector((state) => state.issues);
+    const {selectedProjectId,selectedIssueId} = useSelector((state) => state.selectedFields);
+    console.log("bewhc",selectedProjectId,selectedIssueId);
     useEffect(() => {
       dispatch(GetIssueById(selectedIssueId));
     }, [selectedIssueId]);
     
     const initialFormData = {
-        projectId:"",
+        selectedProjectId:"",
         issueName: "",
         issueType: "",
         moduleName: "",
@@ -56,12 +58,12 @@ function DisplayIssue({ selectedIssueId ,projectId}) {
         initialFormData.status = dataById[0].status;
         initialFormData.linkToPast = dataById[0].linkToPast;
         initialFormData.images = dataById[0].images;
-        initialFormData.projectId=dataById[0].projectId;
+        initialFormData.selectedProjectId=dataById[0].selectedProjectId;
 
        
     }
     const NavigateBackClick = () => {
-      navigate(`/projects/`);
+      navigate(`/projects/${selectedProjectId}/`);
     };
     
     if(loading){
@@ -131,17 +133,6 @@ function DisplayIssue({ selectedIssueId ,projectId}) {
           </div>
       </div>
 
-
-      {/* <div className="row">
-        <label className="form-label" htmlFor="priority">priority</label>    
-        <select id="IssueType" value={selectedPriority} >
-            <option value="bug">Low</option>
-            <option value="Defect">Medium</option>
-            <option value="Defect">High</option>
-        </select>
-
-      </div> */}
-
       <div className="row">
       <div className="col-25">
           <label className="form-label" htmlFor="targetdate">targetdate</label>
@@ -204,16 +195,6 @@ function DisplayIssue({ selectedIssueId ,projectId}) {
         <textarea id="description" name="Description" disabled value={initialFormData.description} />
         </div>
       </div>
-
-      {/* <div className="row">
-        <label className="form-label" htmlFor="testingType">testingType</label>
-        <select id="testingType" value={selectedTesting} >
-            <option value="Open">Open</option>
-            <option value="Inprogress">Inprogress</option>
-            <option value="Hold">Hold</option>
-            <option value="Closed">Closed</option>
-        </select>
-      </div> */}
 
       <div className="row">
       <div className="col-25">

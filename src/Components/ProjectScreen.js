@@ -7,7 +7,7 @@ import { getAllProjects } from '../Features/ProjectsSlice';
 import Pagination from './Pagination/Pagination';
 import './Home.css'
 
-function ProjectScreen({onProjectClick}) {
+function ProjectScreen() {
   const [searchField, setSearchField] = useState("");
   const { data, loading, error } = useSelector((state) => state.projects);
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,13 +30,6 @@ function ProjectScreen({onProjectClick}) {
     setSearchField(e.target.value);
   };
 
-  const handleCardClick = (projectId) => {
-    onProjectClick(projectId);
-  };
-
-  // if (selectedProjectId) {
-  //   return <Dummy ProjectId={selectedProjectId}/>;
-  // }
     const lastPostIndex = currentPage * postsPerPage;
     const firstPostIndex = lastPostIndex - postsPerPage;
     const currentPosts = filteredProjects.slice(firstPostIndex, lastPostIndex);
@@ -67,9 +60,8 @@ function ProjectScreen({onProjectClick}) {
         <ProjectCard
           key={val.projectid}
           project={val}
-          onCardClick={handleCardClick}
         />
-      ))}
+      ))}  
       <Pagination
       totalPosts={filteredProjects.length}
       postsPerPage={postsPerPage}

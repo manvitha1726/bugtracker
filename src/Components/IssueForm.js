@@ -9,20 +9,17 @@ import validateForm from './formValidation';
 import { getAllProjects } from "../Features/ProjectsSlice";
 import './IssueForm.css';
 
-function IssueForm({ projectId }) {
+function IssueForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const projectId = useSelector((state) => state.selectedFields.selectedProjectId);
   const NavigateBackClick1 = () => {
-    navigate(`/projects/`);
-  const NavigateBackClick1 = () => {
-    navigate(`/projects/`);
+    navigate(`/projects/${projectId}`);
   };
 
   const NavigateToIssues = () => {
-    navigate(`/projects/`);
-    navigate(`/projects/`);
-}
+    navigate(`/projects/${projectId}`);
+   }
 
 
 const initialFormData = {
@@ -67,7 +64,6 @@ const initialFormData = {
   }, [attachedFiles]);
 
   useEffect(() => {
-    // console.log("issue type : ", selectedIssue);
     setFormData((prevFormData) => ({ ...prevFormData,  issueType: selectedIssue}));
     }, [selectedIssue])
     const projObj= useSelector((state) => state.projects);
@@ -324,7 +320,7 @@ const initialFormData = {
         );
 
         }
-      }
+      
 
         export default IssueForm;
       

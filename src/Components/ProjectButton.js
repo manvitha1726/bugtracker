@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { addNewProject } from '../Features/ProjectsSlice';
 import {useNavigate} from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
-import validateForm from './formValidation';
 import './IssueForm.css'
 import './Home.css';
 import validateForm from './ProjectFormValidation';
@@ -45,7 +44,7 @@ const ProjectButton = () => {
       dispatch(addNewProject(data));
       // console.log(projectName);
       handleCloseModal();
-  };
+  }; 
 
   return (
     <div>

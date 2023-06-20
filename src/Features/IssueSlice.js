@@ -21,7 +21,7 @@ export const GetIssueById = createAsyncThunk(
     async (issueId, {rejectWithValue}) => {
         try{
             const response = await fetch(
-                `https://issuetrackingapp.azurewebsites.net/api/Issues/FetchIssue?IssueId=${issueId}`
+                `https://issuetrackingapp123.azurewebsites.net/api/issues/fetchissue?issueid=${issueId}`
             );
             const result = await response.json();
             return result;
@@ -38,7 +38,7 @@ export const GetIssueByProjectId = createAsyncThunk(
   async (projectId, {rejectWithValue}) => {
       try{ 
           const response = await fetch(
-              `https://issuetrackingapp.azurewebsites.net/api/Issues/FetchIssuesbyProject?ProjectId=${projectId}`
+              `https://issuetrackingapp123.azurewebsites.net/api/issues/fetchissuesbyproject?projectid=${projectId}`
           );
           const result = await response.json();
           return result;
@@ -54,7 +54,7 @@ export const AddNewIssue = createAsyncThunk(
   "addIssue",
   async (data, { rejectWithValue }) => {
     const response = await fetch(
-      "https://issuetrackingapp.azurewebsites.net/api/Issues/AddIssue",
+      "https://issuetrackingapp123.azurewebsites.net/api/issues/addissue",
       {
         method: "POST",
         headers: {
@@ -121,7 +121,7 @@ export const updateIssue = createAsyncThunk(
     console.log("data in slice",formData);
     try {
       const response = await fetch(
-        `https://issuetrackingapp.azurewebsites.net/api/Issues/UpdateentireIssue`,
+        `https://issuetrackingapp123.azurewebsites.net/api/issues/Updateentireissue`,
         {
           method: "PUT",
           headers: {

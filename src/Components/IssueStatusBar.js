@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
+import { setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 import { FaPlus ,FaEye,FaPencilAlt,FaArrowLeft} from 'react-icons/fa';
 import { getAllProjects } from "../Features/ProjectsSlice";
 import {useNavigate} from 'react-router-dom';
 import Pagination from './Pagination/Pagination';
 import './Home.css';
 
-function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
+function IssueStatusBar() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const { data, loading, error } = useSelector((state) => state.issues);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(4);
+    const ProjectId = useSelector((state) => state.selectedFields.selectedProjectId);
     const filteredData = data.filter(issue => issue.issueName.toLowerCase() 
     .includes(searchTerm.toLowerCase())); 
     const NavigateBackClick = () => {
@@ -23,14 +25,14 @@ function IssueStatusBar({ProjectId,handleViewIconClick,handleEditIconClick}) {
       navigate(`/projects/${ProjectId}/AddIssue`);
     };
     const handleViewIcon = (issueId) => {
-      handleViewIconClick(issueId);
+      dispatch(setSelectedIssueId(issueId));
       navigate(`/projects/${ProjectId}/ViewIssue${issueId}`);
-      // navigate(`/projects/${ProjectId}/ViewIssue`);
     };
     const handleEditIcon = (issueId) => {
-      handleEditIconClick(issueId);
+      dispatch(setSelectedIssueId(issueId));
       navigate(`/projects/${ProjectId}/EditIssue${issueId}`);
     };
+    
     useEffect(() => { 
       dispatch(GetIssueByProjectId(ProjectId)) 
     },[ProjectId])

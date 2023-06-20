@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 //Get all projects action
 export const getAllProjects = createAsyncThunk("getProjects", async (args, {rejectWithValue }) => {
   try{
-  const response = await fetch('https://bugtrackerprojects.azurewebsites.net/api/project/getallprojects');
+  const response = await fetch('https://issuetrackingapp123.azurewebsites.net/api/project/getallprojects');
   const result= await response.json();
   return result;
   }catch(err){
@@ -14,7 +14,7 @@ export const getAllProjects = createAsyncThunk("getProjects", async (args, {reje
 //Add new Project
 export const addNewProject =createAsyncThunk("addProject",async(data,{rejectWithValue})=>{
   try{
-  const response=await fetch('https://bugtrackerprojects.azurewebsites.net/api/project/addproject',{
+  const response=await fetch('https://issuetrackingapp123.azurewebsites.net/api/project/addproject',{
     method:"POST",
     headers: {
       "Content-Type": "application/json",
