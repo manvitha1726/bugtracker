@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`creating snapshorts of components  Home Component matches snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      data-testid="header-element"
+    >
+      <h1
+        class="heading text-center"
+      >
+        Issue Tracking Tool
+      </h1>
+    </div>
+    <div
+      class="banner-container"
+    >
+      <div
+        class="text-center"
+      >
+        <h1
+          class="h1"
+        >
+          Welcome to IssueTrackingTool
+        </h1>
+        <br />
+        <br />
+        <br />
+        <h4
+          class="h4"
+        >
+          Go Ahead and Analyse Issues!
+        </h4>
+        <br />
+        <br />
+        <br />
+        <center>
+          <a
+            href="/projects"
+          >
+            <button>
+              Explore Projects
+            </button>
+          </a>
+        </center>
+      </div>
+    </div>
+    <div
+      class="bg-[#FA7D19] text-white"
+    >
+      <footer
+        class="footer p-10 justify-items-center"
+        data-testid="footer"
+      />
+      <div
+        class="divv"
+      >
+        <center>
+          <p
+            class="copyrights"
+          >
+            Copyright © 2023 - All rights reserved by Syren
+          </p>
+        </center>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
