@@ -23,6 +23,7 @@ const App = ({selectedProjectId,selectedIssueId}) => {
           <Route path={`/projects/${selectedProjectId}/EditIssue${selectedIssueId}`}element={<EditIssueForm />}/>
         </Routes>
       </Router>
+      
     </div>
   );
 };
