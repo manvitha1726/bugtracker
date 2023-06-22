@@ -40,7 +40,7 @@ function IssueForm() {
   const [selectedIssue, setSelectedIssue] = useState("Bug");
   const [selectedTesting, setSelectedTesting] = useState("Smoke Testing");
   const [selectedPriority, setSelectedPriority] = useState('Low');
-  const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState(1);
+  const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState();
   const [IdentifiedEmployee, setIdentifiedEmployee] = useState();
   const [attachedFiles, setAttachedFiles] = useState('');
   const [errors,setErrors]= useState({});
@@ -48,9 +48,12 @@ function IssueForm() {
 
   useEffect(() => {
     setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
-    setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
+    // setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
   }, [selectedAssignedEmployee]);
 
+  useEffect(() => {
+    setFormData((prevFormData) => ({ ...prevFormData, identfiedemp: `${IdentifiedEmployee}` }));
+  }, [IdentifiedEmployee]);
   useEffect(() => {
     console.log("image from form: ", attachedFiles);
     setFormData((prevFormData) => ({ ...prevFormData, images: attachedFiles }));

@@ -5,8 +5,10 @@ import {GetEmployeeByProjectId, fetchEmployees} from '../Features/EmployeeSlice'
 function EmployeeDropdown({val, callBackFunc}) {
     const [value, setValue] = React.useState();
     const [isDataLoaded, setIsDataLoaded] = useState(false)
+    const [isDataDispatched, setIsDataDispatched] = useState(false)
     const dispatch = useDispatch();
     const {data, isLoading, isError} = useSelector((state) => state.employees);
+    const [options, setOptions] = useState([]);
     const projectId = useSelector((state) => state.selectedFields.selectedProjectId);
     
     useEffect(() => {
@@ -21,9 +23,18 @@ function EmployeeDropdown({val, callBackFunc}) {
         .catch(error => {
             console.error('Error updating bug status:', error);
           });
-          setIsDataLoaded(true);
+          // {console.log("data---", data);}
+          
+          setIsDataDispatched(true);
         // setValue1(data[0].empName)
     }, [val])
+    useEffect(() => {
+      if(isDataDispatched){
+          const optionsWithNone = [{empId: 0, empName: 'None'}, ...data];
+          setOptions(optionsWithNone);
+          setIsDataLoaded(true);
+      }
+    }, [data])
     if(isLoading){
       return <select></select>
     }
@@ -32,7 +43,7 @@ function EmployeeDropdown({val, callBackFunc}) {
     }
 
     const setFunc = (event) => {
-      console.log("event : ", event);
+      // console.log("event : ", event);
       callBackFunc(event.target.value);
     }
 
@@ -54,7 +65,7 @@ function EmployeeDropdown({val, callBackFunc}) {
               value={value}
                 onChange={setFunc}
             >
-              {data.map((val,ind) => (
+              {options.map((val,ind) => (
                 <option key={val.empId} value={val.empId}>
                   {val.empName}
                 </option>

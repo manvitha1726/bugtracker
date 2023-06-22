@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetIssueById, updateIssue } from "../Features/IssueSlice";
 import './IssueForm.css';
+import { useNavigate } from "react-router-dom";
 function EditIssueForm() {
   const dispatch = useDispatch();
   const { dataById, loading, error } = useSelector((state) => state.issues);
   const issueId = useSelector((state) => state.selectedFields.selectedIssueId);
-  
+  const navigate = useNavigate();
+
   const initialFormData = {
     issueId: issueId,
     projectId: "",
@@ -40,6 +42,7 @@ function EditIssueForm() {
   const [attachedFiles, setAttachedFiles] = useState([]);
   const [dataDispatched, setDataDispatched] = useState(false)
   const [dataLoaded, setDataLoaded] = useState(false);
+  const {selectedProjectId} = useSelector((state) => state.selectedFields);
 
   useEffect(() => {
     console.log('issueId', issueId, dataById);
@@ -120,6 +123,12 @@ function EditIssueForm() {
   //   const { name, value } = event.target;
   //   initialFormData.issueName = value
   // }
+
+  const NavigateBackClick = () => {
+    // navigate(`/projects/${selectedProjectId}/`);
+    // console.log("selected pj id : -", selectedProjectId);
+    navigate(`/projects/${selectedProjectId}/view-all-issues`)
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Obj given to update issue", formData)
@@ -302,6 +311,7 @@ function EditIssueForm() {
 
           <button type="submit">Save Changes</button>
         </form>
+        <button onClick={NavigateBackClick}>Close</button>
       </div>
     );
   }
