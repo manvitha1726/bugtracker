@@ -4,7 +4,7 @@ import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
 import { setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 import { FaPlus ,FaEye,FaPencilAlt,FaSort} from 'react-icons/fa';
 import { getAllProjects } from "../Features/ProjectsSlice";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom'; 
 import Pagination from './Pagination/Pagination';
 import './Home.css';
 import EmployeeDropdown from './EmployeeDropdown';
@@ -58,14 +58,14 @@ function IssueStatusBar() {
           lowerCaseStatus.includes(lowerCaseSearchTerm) ||
           lowerCasePriority.includes(lowerCaseSearchTerm)
         );
-      });
+      }); 
 
       setFilteredData(filteredData1)
       setDataLoaded(true);
       const lastPostIndex = currentPage * postsPerPage;
       const firstPostIndex = lastPostIndex - postsPerPage;
       setCurrentPosts(filteredData1.slice(firstPostIndex, lastPostIndex));
-    }, [data, searchTerm])
+    }, [data, searchTerm])  
 
     useEffect(() =>{
       if(dataLoaded){
@@ -108,7 +108,6 @@ function IssueStatusBar() {
       }
       setFilteredData(sortedData);
       setDataSorted(true)
-
     };
      
     const handleStatusSort = () => {

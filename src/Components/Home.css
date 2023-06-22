@@ -83,3 +83,59 @@ button
 .validations{
     color: red;
 }
+
+.App {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .seperator {
+    width: 90%;
+  }
+  
+  .controls-wrapper {
+    width: 100%;
+  }
+  
+  .carousel-wrapper {
+    width: 80%;
+  }
+  
+  .rec-carousel-item:focus {
+    outline: none;
+    box-shadow: inset 0 0 1px 0px rgb(139, 200, 209);
+  }
+  /* carousel.css */
+
+.carousel-wrapper .rec.rec-arrow {
+    background-color: #f0f0f0;
+    color: #333; 
+    border-radius: 50%; 
+    width: 40px; 
+    height: 40px; 
+    font-size: 24px; 
+  }
+  
+  .carousel-wrapper .rec.rec-arrow:hover {
+    background-color: #131212; 
+    color: #000; 
+  }
+  /* carousel.css */
+
+.carousel-wrapper .rec-pagination .rec-dot {
+    background-color: #bbb; /* Set the background color of the dot */
+    width: 10px; /* Set the width of the dot */
+    height: 10px; /* Set the height of the dot */
+    border-radius: 50%; /* Make the dot circular */
+    margin: 5px; /* Set the margin around the dot */
+    transition: background-color 0.3s ease; /* Add a smooth transition for the background color */
+  }
+  
+  .carousel-wrapper .rec-pagination .rec-dot:hover {
+    background-color: #888; /* Set the background color of the dot on hover */
+  }
+  

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetIssueById} from "../Features/IssueSlice";
 import { useNavigate } from 'react-router-dom';
+import Comments from "../comments/Comments";
+
 import './IssueForm.css';
 import { setSelectedProjectId } from "../Features/SelectedFieldsSlice";
 
@@ -237,7 +239,7 @@ function DisplayIssue() {
           
       </center>
         </form>
-        <button onClick={NavigateBackClick}>Close</button>
+        <Comments selectedIssueId={selectedIssueId}/>
       </div>
     );
   }
