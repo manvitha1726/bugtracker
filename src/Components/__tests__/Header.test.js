@@ -3,6 +3,7 @@ import Header from '../Header'
 
 
 describe('Header component', () => {
+
     it('should render the header text', () => {
       const { getByText } = render(<Header />);
       
@@ -21,5 +22,10 @@ describe('Header component', () => {
         // Assert that the header is placed at the top of the page
         expect(top).toBe(0);
       });
+
+    it("checking Header Background color", () => {
+      const { getByText } = render(<Header />);
+      expect(getByText(/Issue Tracking Tool/i).parentElement).toHaveStyle(`backgroundColor: 'white'`);
+      })
+
   });
-  

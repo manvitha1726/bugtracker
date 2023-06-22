@@ -1,6 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen,fireEvent } from '@testing-library/react';
 import App from '../../App';
 import Home from '../Home';
+import IssueForm from '../IssueForm';
+import IssueStatusBar from '../IssueStatusBar';
 
 
 describe('Rendering of components ', () => {
@@ -10,6 +12,15 @@ describe('Rendering of components ', () => {
     const linkElement = screen.getByText(/Explore Projects/i);
     expect(linkElement).toBeInTheDocument();
     });
+
+  // test('should handle button click event', () => {
+  //   render(<IssueStatusBar />);
+    
+  //   const button = screen.getBytext('Add Issue');
+  //   fireEvent.click(button);
+      
+  //   expect(/*Issue Name*/).toBeInTheDocument();
+  //   });
   
 });
 
