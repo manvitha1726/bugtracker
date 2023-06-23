@@ -21,7 +21,7 @@ export const GetIssueById = createAsyncThunk(
     async (issueId, {rejectWithValue}) => {
         try{
             const response = await fetch(
-                `https://issuetrackingapp.azurewebsites.net/api/Issues/FetchIssue?IssueId=${issueId}`
+                `https://issuetrackingapp123.azurewebsites.net/api/issues/fetchissue?issueid=${issueId}`
             );
             const result = await response.json();
             return result;
@@ -38,7 +38,7 @@ export const GetIssueByProjectId = createAsyncThunk(
   async (projectId, {rejectWithValue}) => {
       try{ 
           const response = await fetch(
-              `https://issuetrackingapp.azurewebsites.net/api/Issues/FetchIssuesbyProject?ProjectId=${projectId}`
+              `https://issuetrackingapp123.azurewebsites.net/api/issues/fetchissuesbyproject?projectid=${projectId}`
           );
           const result = await response.json();
           return result;
@@ -54,7 +54,7 @@ export const AddNewIssue = createAsyncThunk(
   "addIssue",
   async (data, { rejectWithValue }) => {
     const response = await fetch(
-      "https://issuetrackingapp.azurewebsites.net/api/Issues/AddIssue",
+      "https://issuetrackingapp123.azurewebsites.net/api/issues/addissue",
       {
         method: "POST",
         headers: {
@@ -95,7 +95,7 @@ export const updateIssueStatus = createAsyncThunk(
 
     try {
       const response = await fetch(
-        `https://issuetrackingapp.azurewebsites.net/api/Issues/UpdateIssue?IssueId=${issueId}&status=${status}`,
+        `https://issuetrackingapp123.azurewebsites.net/api/issues/updateissue?issueid=${issueId}&status=${status}`,
         {
           method: "PUT",
           headers: {
@@ -121,13 +121,13 @@ export const updateIssue = createAsyncThunk(
     console.log("data in slice",formData);
     try {
       const response = await fetch(
-        `https://issuetrackingapp.azurewebsites.net/api/Issues/UpdateentireIssue`,
+        `https://issuetrackingapp123.azurewebsites.net/api/issues/Updateentireissue`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ formData }),
+          body: JSON.stringify( formData ),
         }
       );
       
@@ -228,8 +228,9 @@ export const Issues = createSlice({
       state.loading = false;
       console.log("state.data before",state.data)
       state.data = state.data.map((ele) =>
-       ele.issueId === action.meta.arg.issueId ? action.meta.arg : ele
+       ele.issueId === action.payload.issueId ? action.payload : ele  
       );
+      //state.data.push(action.payload);
       console.log("state.data after",state.data)
     },
     [updateIssue.rejected]: (state, action) => {

@@ -1,0 +1,58 @@
+.table-icon {
+    color: #2d326b;
+    font-size: 18px;
+    margin-right: 8px;
+  }
+  
+  .table-info {
+    background-color: #cbc1c1;
+    color: #fff;
+    border-radius: 4px;
+    padding: 4px 8px;
+  }
+
+  .table-head {
+    background-color: #3c4072;
+    color: #fff;
+    display: flex;
+    align-items: center; 
+    text-align: center;
+    /* margin: 2%; */
+    height: 60px;
+    border: solid black 1px;
+
+    padding: 20px;
+   
+  }
+ 
+  .table-info-wrapper {
+    display: flex;
+    gap: 20px;
+  }
+
+  .View-Button{
+    /* justify-content: flex-end; */
+   
+    left:85%;
+    position:absolute;
+   
+  }
+
+  .Main-Container{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 5px;
+    margin-right: 18px;
+    margin-top: 10px;
+  }
+
+  .No-Issues{
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  .table-bordered{
+    border: 1px solid black;
+    /* margin-top: 0px; */
+  }
+  

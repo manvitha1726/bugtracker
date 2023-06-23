@@ -4,14 +4,22 @@ import ProjectButton from './ProjectButton';
 import ProjectCard from './ProjectCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProjects } from '../Features/ProjectsSlice';
-import Pagination from './Pagination/Pagination';
+// import Pagination from './Pagination/Pagination';
+import Carousel from "react-elastic-carousel";
 import './Home.css'
+const breakPoints = [
+  { width: 1, itemsToShow: 1 },
+  { width: 550, itemsToShow: 2, itemsToScroll: 2 },
+  { width: 768, itemsToShow: 4 },
+  { width: 1200, itemsToShow: 5}
+];
 
-function ProjectScreen({onProjectClick}) {
+function ProjectScreen() {
   const [searchField, setSearchField] = useState("");
   const { data, loading, error } = useSelector((state) => state.projects);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(5);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [postsPerPage, setPostsPerPage] = useState(5);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProjects());
@@ -30,16 +38,9 @@ function ProjectScreen({onProjectClick}) {
     setSearchField(e.target.value);
   };
 
-  const handleCardClick = (projectId) => {
-    onProjectClick(projectId);
-  };
-
-  // if (selectedProjectId) {
-  //   return <Dummy ProjectId={selectedProjectId}/>;
-  // }
-    const lastPostIndex = currentPage * postsPerPage;
-    const firstPostIndex = lastPostIndex - postsPerPage;
-    const currentPosts = filteredProjects.slice(firstPostIndex, lastPostIndex);
+    // const lastPostIndex = currentPage * postsPerPage;
+    // const firstPostIndex = lastPostIndex - postsPerPage;
+    // const currentPosts = filteredProjects.slice(firstPostIndex, lastPostIndex);
     
   return (
     
@@ -50,7 +51,6 @@ function ProjectScreen({onProjectClick}) {
         <h2 className="f2 pt4 ">Projects</h2>
       </div></div>
 
-      <br></br>
        <div className='alignright'>
       <ProjectButton /></div>
 
@@ -63,19 +63,25 @@ function ProjectScreen({onProjectClick}) {
         />
       </div>
       <div className='mt-4'>
-      {currentPosts.map((val) => (
+      <hr className="seperator" /><br/>
+      <div className="carousel-wrapper">
+      <Carousel breakPoints={breakPoints}>
+      {filteredProjects.map((val) => (
         <ProjectCard
           key={val.projectid}
           project={val}
-          onCardClick={handleCardClick}
         />
-      ))}
-      <Pagination
+      ))}  
+      </Carousel>
+
+     </div>
+      {/* <Pagination
       totalPosts={filteredProjects.length}
       postsPerPage={postsPerPage}
       setCurrentPage={setCurrentPage}
       currentPage={currentPage}
-      /></div>
+      /> */}
+      </div>
     </section>
     </center>
   );

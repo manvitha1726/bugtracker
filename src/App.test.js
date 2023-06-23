@@ -1,8 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import Home from './Components/Home';
+import Footer from './Components/Footer';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+describe('Rendering of components ', () => {
+
+  test('renders learn react link', () => {
+    render(<Home />);
+    const linkElement = screen.getByText(/Explore Projects/i);
+    expect(linkElement).toBeInTheDocument();
+    });
+  
 });

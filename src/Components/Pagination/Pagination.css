@@ -1,6 +1,4 @@
 .pagination-container {
-    position: fixed;
-    bottom: 40px; /* Adjust this value as needed */
     width: 100%;
     display: flex;
     justify-content: center;

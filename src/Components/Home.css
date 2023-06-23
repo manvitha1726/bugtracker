@@ -34,6 +34,9 @@
     cursor: pointer;
   }
 
+
+
+
 .icon-container {
   display: flex;
   flex-direction: column;
@@ -58,7 +61,7 @@ button
     cursor: pointer;
     background-color:black;
     color:white;
-    height: 40px;
+    height: 35px;
     padding:5px;
 }
 .heading{
@@ -69,21 +72,22 @@ button
    
     /* font-size:20px; */
 }
-.alignright{
+.alignright {
+  left:5%;
     top:5%;
-    left:5%;
     position:absolute;
-    
+ 
 }
 .align{
-    top:5%;
+    /* margin-top:1%; */
     left:79%;
+    top:5%;
     position:absolute;
 }
 .cardu{
    /* height:200px; */
    width:200px;
-   background:rgb(139, 200, 209);
+   background:rgb(133, 188, 196);
    box-shadow: 3px 3px 2px 3px rgb(240, 235, 235);
    font-weight:600;
    padding:20px;
@@ -118,3 +122,88 @@ button
 .copyrights{
     color:black;
 }
+
+.validations{
+    color: red;
+}
+
+.App {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .seperator {
+    width: 90%;
+  }
+  
+  .controls-wrapper {
+    width: 100%;
+  }
+  
+  .carousel-wrapper {
+    width: 80%;
+  }
+  
+
+  .carousel-wrapper .rec.rec-arrow {
+    background-color: #f0f0f0; 
+    color: #333; 
+    border-radius: 50%; 
+    width: 50px; 
+    height: 45px; 
+    font-size: 24px; 
+    position: relative; 
+    top: 29px; 
+  }
+  
+  .carousel-wrapper .rec.rec-arrow:hover {
+    background-color: #ccc;
+    color: #000; 
+  }
+
+.carousel-wrapper .rec-pagination .rec-dot {
+    background-color:white; 
+    width: 10px; 
+    height: 10px; 
+    border-radius: 50%; 
+    margin: 5px; 
+    transition: background-color 0.3s ease; 
+    
+  }
+  
+  .carousel-wrapper .rec-pagination .rec-dot:hover {
+    background-color: #888; 
+  }
+  .carousel-wrapper .rec-pagination {
+    position: absolute; 
+    bottom: 80px; 
+    left: 50%; 
+    transform: translateX(-50%);
+  }
+
+  .filters{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px black solid;
+    padding: 10px;
+
+  }
+
+  .Mains-Container{
+    display: grid;
+    grid-template-rows: 100px 180px 1fr;
+    grid-gap: 5px;
+    padding-right:1%;
+    padding-left: 0.5%;
+    padding-top:10px;
+    padding-bottom:10px;
+  }
+
+  .Issue-table{
+    border: 1px black solid;
+  }
