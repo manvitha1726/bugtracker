@@ -1,0 +1,26 @@
+.table-icon {
+    color: #2d326b;
+    font-size: 18px;
+    margin-right: 8px;
+  }
+  
+  .table-info {
+    background-color: #cbc1c1;
+    color: #fff;
+    border-radius: 4px;
+    padding: 4px 8px;
+  }
+  .table-head {
+    background-color: #2d326b;
+    color: #fff;
+    display: flex;
+    align-items: center; 
+    /* margin: 2%; */
+   
+  }
+ 
+  .table-info-wrapper {
+    display: flex;
+    gap: 20px;
+  }
+  
