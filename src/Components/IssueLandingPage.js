@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetIssueById, GetIssueByProjectId} from "../Features/IssueSlice";
 import './IssueForm.css';
 import IssueTable from "./IssueTable";
-import UnassignedBox from "./UnassignedBox";
 
 const IssueLandingPage = () => {
     const dispatch = useDispatch();
@@ -23,8 +22,6 @@ const IssueLandingPage = () => {
     useEffect(() => {
         if(dataDispatched){
             const arr1 = data.filter(issue => (issue.assignTo === null || issue.assignTo === 0));
-            
-            
             setUnassignedIssues(arr1)
             const arr2 = data.filter(issue => issue.status === "Close");
             setResolvedIssues(arr2)
@@ -50,7 +47,6 @@ const IssueLandingPage = () => {
                 <br /><br/>
                 {console.log("resolved inside issue table : ", resolvedIssues)}
                 <IssueTable issuesList={resolvedIssues.slice(0, 5)} noOfIssues={resolvedIssues.length} tableName={'Resolved'} />
-                {/* <UnassignedBox/> */}
             </div>
         )
     }

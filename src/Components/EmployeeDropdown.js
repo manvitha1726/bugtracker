@@ -1,25 +1,40 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchEmployees} from '../Features/EmployeeSlice';
+import {GetEmployeeByProjectId, fetchEmployees} from '../Features/EmployeeSlice';
 
 function EmployeeDropdown({val, callBackFunc}) {
     const [value, setValue] = React.useState();
+    const [isDataLoaded, setIsDataLoaded] = useState(false)
+    const [isDataDispatched, setIsDataDispatched] = useState(false)
     const dispatch = useDispatch();
     const {data, isLoading, isError} = useSelector((state) => state.employees);
+    const [options, setOptions] = useState([]);
+    const projectId = useSelector((state) => state.selectedFields.selectedProjectId);
+    
     useEffect(() => {
-      // console.log("val1 inside dropdown : ", val);
-        dispatch(fetchEmployees())
+      // console.log("projectId inside dropdown : ", projectId);
+        dispatch(GetEmployeeByProjectId(projectId))
         .then((response) => {
             // console.log("Result",response);
             if(response.payload){ 
-              dispatch(fetchEmployees());
+              dispatch(GetEmployeeByProjectId(projectId));
             }
           })
         .catch(error => {
             console.error('Error updating bug status:', error);
           });
+          // {console.log("data---", data);}
+          
+          setIsDataDispatched(true);
         // setValue1(data[0].empName)
     }, [val])
+    useEffect(() => {
+      if(isDataDispatched){
+          const optionsWithNone = [{empId: 0, empName: 'None'}, ...data];
+          setOptions(optionsWithNone);
+          setIsDataLoaded(true);
+      }
+    }, [data])
     if(isLoading){
       return <select></select>
     }
@@ -28,17 +43,17 @@ function EmployeeDropdown({val, callBackFunc}) {
     }
 
     const setFunc = (event) => {
-      console.log("event : ", event);
+      // console.log("event : ", event);
       callBackFunc(event.target.value);
     }
 
-    if(data!=null){
+    if(isDataLoaded){
         if(val==null){
             val = data[0].empId;
         }
     }
 
-    if(data != null){
+    if(isDataLoaded){
         return (
             <>
               {/* {console.log(data)} */}
@@ -50,7 +65,7 @@ function EmployeeDropdown({val, callBackFunc}) {
               value={value}
                 onChange={setFunc}
             >
-              {data.map((val,ind) => (
+              {options.map((val,ind) => (
                 <option key={val.empId} value={val.empId}>
                   {val.empName}
                 </option>

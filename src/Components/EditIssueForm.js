@@ -2,15 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetIssueById, updateIssue } from "../Features/IssueSlice";
 import './IssueForm.css';
+import { useNavigate } from "react-router-dom";
 function EditIssueForm() {
   const dispatch = useDispatch();
   const { dataById, loading, error } = useSelector((state) => state.issues);
   const issueId = useSelector((state) => state.selectedFields.selectedIssueId);
-  useEffect(() => {
-    console.log('issueId', issueId, dataById);
-    dispatch(GetIssueById(issueId));
-
-  }, []);
+  const navigate = useNavigate();
 
   const initialFormData = {
     issueId: issueId,
@@ -34,40 +31,67 @@ function EditIssueForm() {
     status: "",
     images: ""
   };
-  
-
-  if (dataById.length !== 0) {
-    initialFormData.issueName = dataById[0].issueName;
-    initialFormData.issueType = dataById[0].issueType;
-    initialFormData.moduleName = dataById[0].moduleName;
-    initialFormData.description = dataById[0].description;
-    initialFormData.summary = dataById[0].summary;
-    initialFormData.identfiedemp = dataById[0].identfiedemp;
-    initialFormData.dateidentified = dataById[0].dateidentified;
-    initialFormData.priority = dataById[0].priority;
-    initialFormData.targetdate = dataById[0].targetdate;
-    initialFormData.actualdate = dataById[0].actualdate;
-    initialFormData.assignTo = dataById[0].assignTo;
-    initialFormData.progressreport = dataById[0].progressreport;
-    initialFormData.ressummary = dataById[0].ressummary
-    initialFormData.stepsToReproduce = dataById[0].stepsToReproduce;
-    initialFormData.testingType = dataById[0].testingType;
-    initialFormData.iterationNumber = dataById[0].iterationNumber;
-    initialFormData.status = dataById[0].status;
-    initialFormData.projectId = dataById[0].projectId;
-    initialFormData.images = dataById[0].images;
-    //setFormData(initialFormData);
-  } 
-  // Define the form state
   console.log('initialformdata',initialFormData)
-  const [formData, setFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState([]);
  
   console.log('formdata',formData)
-  const [selectedIssue, setSelectedIssue] = useState(formData.issueType);
-  const [selectedTesting, setSelectedTesting] = useState(formData.testingType);
-  const [selectedPriority, setSelectedPriority] = useState(formData.priority);
-  const [selectedStatus, setSelectedStatus] = useState(formData.status);
+  const [selectedIssue, setSelectedIssue] = useState();
+  const [selectedTesting, setSelectedTesting] = useState();
+  const [selectedPriority, setSelectedPriority] = useState();
+  const [selectedStatus, setSelectedStatus] = useState();
   const [attachedFiles, setAttachedFiles] = useState([]);
+  const [dataDispatched, setDataDispatched] = useState(false)
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const {selectedProjectId} = useSelector((state) => state.selectedFields);
+
+  useEffect(() => {
+    console.log('issueId', issueId, dataById);
+    dispatch(GetIssueById(issueId));
+    setDataDispatched(true)
+
+  }, [issueId]);
+  // useEffect(() => {
+  //   console.log('formdata', formData);
+   
+  //   setSelectedIssue(formData.issueType);
+    
+  // }, [formData]);
+  useEffect(() => {
+    if(dataDispatched){
+      console.log('dataById', dataById);
+      initialFormData.issueName = dataById[0].issueName;
+      initialFormData.issueType = dataById[0].issueType;
+      initialFormData.moduleName = dataById[0].moduleName;
+      initialFormData.description = dataById[0].description;
+      initialFormData.summary = dataById[0].summary;
+      initialFormData.identfiedemp = dataById[0].identfiedemp;
+      initialFormData.dateidentified = dataById[0].dateidentified;
+      initialFormData.priority = dataById[0].priority;
+      initialFormData.targetdate = dataById[0].targetdate;
+      initialFormData.actualdate = dataById[0].actualdate;
+      initialFormData.assignTo = dataById[0].assignTo;
+      initialFormData.progressreport = dataById[0].progressreport;
+      initialFormData.ressummary = dataById[0].ressummary
+      initialFormData.stepsToReproduce = dataById[0].stepsToReproduce;
+      initialFormData.testingType = dataById[0].testingType;
+      initialFormData.iterationNumber = dataById[0].iterationNumber;
+      initialFormData.status = dataById[0].status;
+      initialFormData.projectId = dataById[0].projectId;
+      initialFormData.images = dataById[0].images;
+      setFormData(initialFormData);
+      // setSelectedIssue(dataById[0].issueType);
+      setDataLoaded(true)
+    }
+    
+  }, [dataById]);
+  
+  
+
+  // if (dataById.length !== 0) {
+    
+  // } 
+  // Define the form state
+ 
 
   const handleFileUpload = (event) => {
     const files = event.target.files;
@@ -99,6 +123,12 @@ function EditIssueForm() {
   //   const { name, value } = event.target;
   //   initialFormData.issueName = value
   // }
+
+  const NavigateBackClick = () => {
+    // navigate(`/projects/${selectedProjectId}/`);
+    // console.log("selected pj id : -", selectedProjectId);
+    navigate(`/projects/${selectedProjectId}/view-all-issues`)
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Obj given to update issue", formData)
@@ -114,11 +144,11 @@ function EditIssueForm() {
     console.log("formdata", loading, formData)
     return <h2>Loading.........</h2>
   } 
-  if(!loading && dataById.length !== 0)
+  if(dataLoaded)
   {
     return (
       <div className="main_container">
-        {console.log('inside return', loading, formData, initialFormData)}
+        {/* {console.log('inside return', loading, formData, initialFormData)} */}
         <form className="container" onSubmit={handleSubmit}>
           <h3 className="text-center">{`Edit Issue Details: ${formData.issueName}`}</h3><br />
           <div className="row">
@@ -227,7 +257,7 @@ function EditIssueForm() {
             <div className="col-25">
               <label className="form-label" htmlFor="description">Description</label></div>
             <div className="col-75">
-              <textarea id="description" name="Description" className="fixedwidthtext" value={formData.description} onChange={handleChange} />
+              <textarea id="description" name="description" className="fixedwidthtext" value={formData.description} onChange={handleChange} />
             </div></div>
 
           <div className="row">
@@ -281,6 +311,7 @@ function EditIssueForm() {
 
           <button type="submit">Save Changes</button>
         </form>
+        <button onClick={NavigateBackClick}>Close</button>
       </div>
     );
   }

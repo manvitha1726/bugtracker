@@ -25,9 +25,6 @@ const ProjectButton = () => {
   const handleInputChange = (event) => {
     setProjectName(event.target.value);
   };
-  const NavigateBackClick = () => {
-       navigate(`/`);
-   };
 
   const handleSubmit = (event) => {
     const data = {
@@ -48,7 +45,8 @@ const ProjectButton = () => {
 
   return (
     <div>
-      <FaArrowLeft onClick={NavigateBackClick}/> &nbsp;&nbsp;&nbsp;
+      {/* <img src={"C:\Users\SYR00395\Documents\Bug tracker\bugtracker\src\images.png"} alt="logo" width='5px' height='5px'/> */}
+
       <Button className="addprojectbt" onClick={handleOpenModal}>Add Project</Button>
 
       <Modal isOpen={isOpen} toggle={handleCloseModal}>

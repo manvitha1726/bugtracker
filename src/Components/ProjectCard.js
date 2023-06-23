@@ -30,7 +30,8 @@ function ProjectCard({ project }) {
 
   const handleClick = () => {
     dispatch(setSelectedProjectId(project.projectid));
-    navigate(`/projects/${project.projectid}`);
+    // navigate(`/projects/${project.projectid}`);
+    navigate(`/projects/${project.projectid}`)
   };
 
   return (

@@ -95,7 +95,7 @@ export const updateIssueStatus = createAsyncThunk(
 
     try {
       const response = await fetch(
-        `https://issuetrackingapp.azurewebsites.net/api/Issues/UpdateIssue?IssueId=${issueId}&status=${status}`,
+        `https://issuetrackingapp123.azurewebsites.net/api/issues/updateissue?issueid=${issueId}&status=${status}`,
         {
           method: "PUT",
           headers: {
@@ -127,7 +127,7 @@ export const updateIssue = createAsyncThunk(
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ formData }),
+          body: JSON.stringify( formData ),
         }
       );
       
@@ -228,8 +228,9 @@ export const Issues = createSlice({
       state.loading = false;
       console.log("state.data before",state.data)
       state.data = state.data.map((ele) =>
-       ele.issueId === action.meta.arg.issueId ? action.meta.arg : ele
+       ele.issueId === action.payload.issueId ? action.payload : ele  
       );
+      //state.data.push(action.payload);
       console.log("state.data after",state.data)
     },
     [updateIssue.rejected]: (state, action) => {

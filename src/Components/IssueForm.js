@@ -13,51 +13,47 @@ function IssueForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const projectId = useSelector((state) => state.selectedFields.selectedProjectId);
-  const NavigateBackClick1 = () => {
-    navigate(`/projects/${projectId}`);
-  };
-
-  const NavigateToIssues = () => {
-    navigate(`/projects/${projectId}`);
-   }
-
-
-const initialFormData = {
-  projectId: `${projectId}`,
-  issueName: "",
-  issueType: "",
-  moduleName: "",
-  description: "",
-  summary: "",
-  identfiedemp: "",
-  dateidentified: "",
-  priority: "Low",
-  targetdate: "",
-  assignTo: "",
-  progressreport: "",
-  stepsToReproduce: "",
-  testingType: "Smoke Testing",
-  iterationNumber: "",
-  status: "Open",
-  linkToPast: null,
-  images: ""
-  };
+  const projObj= useSelector((state) => state.projects);
+  const initialFormData = {
+    projectId: `${projectId}`,
+    issueName: "",
+    issueType: "",
+    moduleName: "",
+    description: "",
+    summary: "",
+    identfiedemp: "",
+    dateidentified: "",
+    priority: "Low",
+    targetdate: "",
+    assignTo: "",
+    progressreport: "",
+    stepsToReproduce: "",
+    testingType: "Smoke Testing",
+    iterationNumber: "",
+    status: "Open",
+    linkToPast: null,
+    images: ""
+    };
 
   const [val1, setVal1] = useState(1);
   const [formData, setFormData] = useState(initialFormData);
   const [selectedIssue, setSelectedIssue] = useState("Bug");
   const [selectedTesting, setSelectedTesting] = useState("Smoke Testing");
   const [selectedPriority, setSelectedPriority] = useState('Low');
-  const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState(1);
+  const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState();
+  const [IdentifiedEmployee, setIdentifiedEmployee] = useState();
   const [attachedFiles, setAttachedFiles] = useState('');
   const [errors,setErrors]= useState({});
   const [issues,setIssues]= useState([]);
 
   useEffect(() => {
     setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
-    setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
+    // setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
   }, [selectedAssignedEmployee]);
 
+  useEffect(() => {
+    setFormData((prevFormData) => ({ ...prevFormData, identfiedemp: `${IdentifiedEmployee}` }));
+  }, [IdentifiedEmployee]);
   useEffect(() => {
     console.log("image from form: ", attachedFiles);
     setFormData((prevFormData) => ({ ...prevFormData, images: attachedFiles }));
@@ -66,11 +62,19 @@ const initialFormData = {
   useEffect(() => {
     setFormData((prevFormData) => ({ ...prevFormData,  issueType: selectedIssue}));
     }, [selectedIssue])
-    const projObj= useSelector((state) => state.projects);
-    useEffect(() => {
-      dispatch(getAllProjects());
-      console.log("projects data",projObj.data);
-    }, []);
+
+  useEffect(() => {
+    dispatch(getAllProjects());
+    console.log("projects data",projObj.data);
+  }, []);
+
+  const NavigateBackClick1 = () => {
+    navigate(`/projects/${projectId}`);
+  };
+
+  const NavigateToIssues = () => {
+    navigate(`/projects/${projectId}`);
+  }
 
   const handleIssueSelection = (event) => {
     setSelectedIssue(event.target.value);
@@ -183,7 +187,7 @@ const initialFormData = {
             <label className="form-label" htmlFor="identfiedemp">Identfied Employee ID</label>
           </div>
           <div className="col-75">
-            <input className="fixedwidth" type="text" id="identfiedemp" name="identfiedemp" value={formData.identfiedemp} onChange={handleChange} required />
+            <EmployeeDropdown val={val1} callBackFunc={setIdentifiedEmployee} prjID={projectId} />
             <div className="validations">
               {errors.identfiedemp && <span>{errors.identfiedemp}</span>}
             </div>
@@ -197,7 +201,7 @@ const initialFormData = {
           <div className="col-75">
             <input className="fixedwidth" type="date" id="dateidentified" name="dateidentified" value={formData.dateidentified} onChange={handleChange} required />
             <div className="validations">
-{errors.dateidentified && <span>{errors.dateidentified}</span>}
+            {errors.dateidentified && <span>{errors.dateidentified}</span>}
 </div>
           </div>
         </div>

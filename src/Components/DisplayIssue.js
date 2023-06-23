@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetIssueById} from "../Features/IssueSlice";
 import { useNavigate } from 'react-router-dom';
+import Comments from "../comments/Comments";
+
 import './IssueForm.css';
+import { setSelectedProjectId } from "../Features/SelectedFieldsSlice";
 
 function DisplayIssue() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { dataById, loading, error} = useSelector((state) => state.issues);
     const {selectedProjectId,selectedIssueId} = useSelector((state) => state.selectedFields);
-    console.log("bewhc",selectedProjectId,selectedIssueId);
+
     useEffect(() => {
       dispatch(GetIssueById(selectedIssueId));
     }, [selectedIssueId]);
@@ -63,7 +66,9 @@ function DisplayIssue() {
        
     }
     const NavigateBackClick = () => {
-      navigate(`/projects/${selectedProjectId}/`);
+      // navigate(`/projects/${selectedProjectId}/`);
+      console.log("selected pj id : -", selectedProjectId);
+      navigate(`/projects/${selectedProjectId}/view-all-issues`)
     };
     
     if(loading){
@@ -231,9 +236,10 @@ function DisplayIssue() {
       </div>
       <center>
           <img src= {initialFormData.images} alt="img"/><br/>
-          <button onClick={NavigateBackClick}>Close</button>
+          
       </center>
         </form>
+        <Comments selectedIssueId={selectedIssueId}/>
       </div>
     );
   }

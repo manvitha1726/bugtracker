@@ -7,6 +7,8 @@ import IssueStatusBar from './Components/IssueStatusBar';
 import IssueForm from './Components/IssueForm';
 import DisplayIssue from './Components/DisplayIssue';
 import EditIssueForm from './Components/EditIssueForm';
+import IssueLandingPage from './Components/IssueLandingPage';
+import Mainpage from './Components/Mainpage';
 
 const App = ({selectedProjectId,selectedIssueId}) => {
 
@@ -17,10 +19,12 @@ const App = ({selectedProjectId,selectedIssueId}) => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<ProjectScreen/>}/>
-          <Route path={`/projects/${selectedProjectId}`} element={<IssueStatusBar/>}/>
+          <Route path={`/projects/${selectedProjectId}`} element={<Mainpage/>}/>
           <Route path={`/projects/${selectedProjectId}/AddIssue`} element={<IssueForm/>}/>
-          <Route path={`/projects/${selectedProjectId}/ViewIssue${selectedIssueId}`} element={<DisplayIssue/>}/>
+          <Route path={`/projects/${selectedProjectId}/display-issue${selectedIssueId}`} element={<DisplayIssue/>}/>
           <Route path={`/projects/${selectedProjectId}/EditIssue${selectedIssueId}`}element={<EditIssueForm />}/>
+          <Route path={`/projects/${selectedProjectId}/my-view`} element={<IssueLandingPage />}/>
+          <Route path={`/projects/${selectedProjectId}/view-all-issues`} element={<IssueStatusBar />}/>
         </Routes>
       </Router>
     </div>
