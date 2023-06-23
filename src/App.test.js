@@ -1,9 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 import Home from './Components/Home';
+import Footer from './Components/Footer';
 
-test('renders learn react link', () => {
-  render(<Home />);
-  const linkElement = screen.getByText(/Copyright © 2023 - All rights reserved by Syren/i);
-  expect(linkElement).toBeInTheDocument();
+
+describe('Rendering of components ', () => {
+
+  test('renders learn react link', () => {
+    render(<Home />);
+    const linkElement = screen.getByText(/Explore Projects/i);
+    expect(linkElement).toBeInTheDocument();
+    });
+  
 });

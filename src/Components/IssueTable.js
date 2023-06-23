@@ -20,12 +20,10 @@ const IssueTable = ({ issuesList, tableName, noOfIssues }) => {
   };
 
   return (
-    <div>
+    <div className='Main-Container'>
       <div className='table-head'>
-        <FaCalendarAlt className='table-icon' /> 
      <div className="table-info-wrapper">
         <a onClick={handleButtonClick}>{tableName}</a>
-       
         {
           issuesList.length > 0 ? (
             <span className='table-info'>
@@ -35,10 +33,11 @@ const IssueTable = ({ issuesList, tableName, noOfIssues }) => {
             <span className='table-info'> 0 - {issuesList.length} / {noOfIssues}</span>
           )
         }
-          <button onClick={handleButtonClick}>View Issues</button>
+       
+          <button className='View-Button' onClick={handleButtonClick}>View Issues</button>
       </div>
       </div>
-      <table className='table table-bordered rounded-lg'>
+      <table className='table-bordered'>
         <tbody>
           {issuesList.length > 0 ? (
             issuesList.map((issue) => (
@@ -54,7 +53,7 @@ const IssueTable = ({ issuesList, tableName, noOfIssues }) => {
               </tr>
             ))
           ) : (
-            <div>
+            <div className='No-Issues'>
               <p>No {tableName} issues</p>
             </div>
           )}
