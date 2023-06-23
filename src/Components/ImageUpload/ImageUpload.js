@@ -28,7 +28,7 @@ function ImageUpload({callBackFunc}) {
                onChange={onFileChange}
               />
               <button onClick={onFileUpload}>
-                  Click here to upload file
+                   Upload file
               </button>
           </div>
         )

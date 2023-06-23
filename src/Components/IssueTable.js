@@ -37,7 +37,7 @@ const IssueTable = ({ issuesList, tableName, noOfIssues }) => {
           <button className='View-Button' onClick={handleButtonClick}>View Issues</button>
       </div>
       </div>
-      <table className='table-bordered'>
+      <table className='table-'>
         <tbody>
           {issuesList.length > 0 ? (
             issuesList.map((issue) => (

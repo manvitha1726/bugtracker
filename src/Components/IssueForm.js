@@ -134,19 +134,19 @@ function IssueForm() {
   <>
         <form className="container">
         <h3 className="text-center">Enter Issue Details: {projObj.data[projectId-1].projectname}</h3><br/>
-        <div className="row">
-          <div className="col-25">
-            <label className="form-label" htmlFor="issueName">Issue Name</label>
-          </div>
-          <div className="col-75">
-            <input className="fixedwidth" type="text" id="issueName" name="issueName" value={formData.issueName} onChange={handleChange} required />
-            <div className="validations">
-          {errors.issueName && <span>{errors.issueName}</span>}
-          </div>
-          </div>
-        </div>
+        <div class="row">
+    <div class="col-25">
+      <label  className="form-label" for="inputEmail4">Issue Name</label> 
+      <input type="text" className="form-control" id="inputEmail4" placeholder="Issue Name"/>
+    </div>
+    <div class="col-75">
+    <label className="form-label" for="inputEmail4">Module Name</label> 
+      <input type="text" className="form-control" id="inputEmail4" placeholder="Module Name"/>
+    </div>
+    </div>
+
       
-        <div className="row">
+        {/* <div className="row">
           <div className="col-25">
             <label className="form-label" htmlFor="IssueType">Issue Type</label>
           </div>
@@ -156,160 +156,128 @@ function IssueForm() {
               <option value="Defect">Defect</option>
             </select>
           </div>
-        </div>
+        </div> */}
       
-        <div className="row">
-          <div className="col-25">
-            <label className="form-label" htmlFor="moduleName">Module Name</label>
-          </div>
-          <div className="col-75">
-            <input className="fixedwidth" type="text" id="moduleName" name="moduleName" value={formData.moduleName} onChange={handleChange} required />
-            <div className="validations">
-              {errors.moduleName && <span>{errors.moduleName}</span>}
+      <div class="row">
+      <div class="col-3">
+     <label for="inputPassword4">Issue Type</label> 
+      <select className="drop" id="IssueType" value={selectedIssue} onChange={handleIssueSelection} required>
+              <option value="Bug">Bug</option>
+              <option value="Defect">Defect</option>
+            </select>
             </div>
-          </div>
-        </div>
-      
-        <div className="row">
-          <div className="col-25">
-            <label className="form-label" htmlFor="summary">Summary</label>
-          </div>
-          <div className="col-75">
-            <textarea className="fixedwidthtext" id="summary" name="summary" value={formData.summary} onChange={handleChange} required />
-            <div className="validations">
-              {errors.summary && <span>{errors.summary}</span>}
-            </div>
-          </div>
-        </div>
-      
-        <div className="row">
-          <div className="col-25">
-            <label className="form-label" htmlFor="identfiedemp">Identfied Employee ID</label>
-          </div>
-          <div className="col-75">
-            <EmployeeDropdown val={val1} callBackFunc={setIdentifiedEmployee} prjID={projectId} />
+    <div class="col-3">
+      <label>Identified Employee</label>
+      <EmployeeDropdown val={val1} callBackFunc={setIdentifiedEmployee} prjID={projectId} />
             <div className="validations">
               {errors.identfiedemp && <span>{errors.identfiedemp}</span>}
             </div>
-          </div>
-        </div>
-      
-        <div className="row">
-          <div className="col-25">
-            <label className="form-label" htmlFor="dateidentified">Identified Date</label>
-          </div>
-          <div className="col-75">
-            <input className="fixedwidth" type="date" id="dateidentified" name="dateidentified" value={formData.dateidentified} onChange={handleChange} required />
-            <div className="validations">
-            {errors.dateidentified && <span>{errors.dateidentified}</span>}
-</div>
-          </div>
-        </div>
-      
-        <div className="row">
-          <div className="col-25">
-            <label className="form-label" htmlFor="priority">Priority</label>
-          </div>
-          <div className="col-75">
+    </div>
+    <div class="col-3">
+    <label className="" htmlFor="priority">Priority</label>
             <select id="IssueType" value={selectedPriority} onChange={handleSelectedPriority} required>
               <option value="Low">Low</option>
               <option value="Medium">Medium</option>
               <option value="High">High</option>
             </select>
-          </div>
-        </div>
-
-      <div className="row">
-        <div className="col-25">
-          <label className="form-label" htmlFor="targetdate">Target Date</label>
-        </div>
-        <div className="col-75">
-          <input className="fixedwidth" type="date" id="targetdate" name="targetdate" value={formData.targetdate} onChange={handleChange}/>
-          <div className="validations">
-{errors.targetdate && <span>{errors.targetdate}</span>}
-</div>
-        </div>
-      </div>
-
-      <div className="row">
-          <div className="col-25">
-              <label className="form-label" htmlFor="assignTo">Assigned To</label>
-          </div>
-         
-          <div className="col-75">
+    </div>
+    <div className="col-3">
+              <label className="" htmlFor="assignTo">Assigned To</label>
             <EmployeeDropdown val={val1} callBackFunc={setSelectedAssignedEmployee} />
-            <br /><br />
-            <AddEmployee func={setVal1} projectId={projectId} />
-            {/* {console.log("emp selected", selectedAssignedEmployee)} */}
+            {/* <br /><br />
+            {/* <AddEmployee func={setVal1} projectId={projectId} />
+            {console.log("emp selected", selectedAssignedEmployee)} */}
           </div>
-        </div>
+
+  </div>
+
+        <div class="row">
+    <div class="col-25">
+      <label className="form-label" for="inputEmail4">Identified Date</label> 
+      <input type="date" className="form-control" id="dateidentified" name="dateidentified"  value={formData.dateidentified} onChange={handleChange} required />
+    </div>
+    <div className="col-75">
+           <label className="form-label" htmlFor="targetdate">Target Date</label> 
+          <input type="date" className="form-control" id="targetdate" name="targetdate" value={formData.targetdate} onChange={handleChange}/>
+          </div>
+  </div>
 
         <div className="row">
           <div className="col-25">
-            <label className="form-label" htmlFor="progressreport">Progress Report</label>
+            <label className="form-label" htmlFor="progressreport">Progress Report</label> 
+            <input type="text" className="form-control" id="progressreport" placeholder="Progress Report" name="progressreport" value={formData.progressreport} onChange={handleChange}/>
           </div>
           <div className="col-75">
-            <input className="fixedwidth" type="text" id="progressreport" name="progressreport" value={formData.progressreport} onChange={handleChange}/>
-            <div className="validations">
-{errors.progressreport && <span>{errors.progressreport}</span>}
-</div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-25">
             <label className="form-label" htmlFor="stepsToReproduce">Steps To Reproduce</label>
-          </div>
-          <div className="col-75">
-            <input className="fixedwidth" type="text" id="stepsToReproduce" name="stepsToReproduce" value={formData.stepsToReproduce} onChange={handleChange}/>
-            <div className="validations">
-{errors.stepsToReproduce && <span>{errors.stepsToReproduce}</span>}
-</div>
-          </div>
+            <input type="text" className="form-control" id="stepsToReproduce" placeholder="StepsTo Reproduce" name="stepsToReproduce" value={formData.stepsToReproduce} onChange={handleChange}/>
+            </div>
         </div>
 
-        <div className="row">
-          <div className="col-25">
+        {/* <div className="row">
+          {/* <div className="col-25">
             <label className="form-label" htmlFor="description">Description</label>
-          </div>
+          </div> 
           <div className="col-75">
-            <textarea className="fixedwidthtext" id="description" name="description" value={formData.Description} onChange={handleChange}/>
+            <textarea id="description" placeholder="Description" name="description" value={formData.Description} onChange={handleChange}/>
             <div className="validations">
 {errors.description && <span>{errors.description}</span>}
 </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="row">
-          <div className="col-25">
-            <label className="form-label" htmlFor="testingType">Testing Type</label>
+        <div className="col-25">
+            <label className="form-label" htmlFor="iterationNumber">Iteration Number</label> 
+          <input type="number" className="form-control" id="iterationNumber"  name="iterationNumber" placeholder="Iteration Number" value={formData.iterationNumber} onChange={handleChange} />
           </div>
           <div className="col-75">
+            <label className="form-label" htmlFor="testingType">Testing Type</label>
             <select id="testingType" value={selectedTesting} onChange={handleTestingSelection}>
               <option value="Smoke Testing">Smoke Testing</option>
               <option value="Regression Testing">Regression Testing</option>
             </select>
           </div>
+         
         </div>
 
+
         <div className="row">
+          {/* <div className="col-25">
+            <label className="form-label" htmlFor="summary">Summary</label>
+          </div> */}
+          <div className="col">
+            <textarea cols={90} id="summary" placeholder="Summary" name="summary" value={formData.summary} onChange={handleChange} required />
+            {/* <div className="validations">
+              {errors.summary && <span>{errors.summary}</span>}
+            </div> */}
+            </div>
+        </div>
+      
+        <div className="row">
+          {/* <div className="col-25">
+            <label className="form-label" htmlFor="summary">Summary</label>
+          </div> */}
+          <div className="col">
+            <textarea cols={90} id="description" placeholder="Description" name="description" value={formData.Description} onChange={handleChange}/>
+          </div>
+        </div>
+
+        {/* <div className="row">
           <div className="col-25">
             <label className="form-label" htmlFor="iterationNumber">Iteration Number</label>
-          </div>
-          <div className="col-75">
           <input type="number" id="iterationNumber"  name="iterationNumber" value={formData.iterationNumber} onChange={handleChange} />
           <div className="validations">
 {errors.iterationNumber && <span>{errors.iterationNumber}</span>}
 </div>
-          </div>
-        </div>
+          </div> 
+        </div>*/}
 
         <div className="row">
           <div className="col-25">
             <label className="form-label" htmlFor="images">Upload Image</label>
           </div>
           
-          <div className="col-75">
+          <div className="col-50">
             {/* <input className="fixedwidth" type="file" multiple onChange={handleFileUpload} /> */}
             <ImageUpload callBackFunc={setAttachedFiles} />
           </div>
@@ -319,7 +287,6 @@ function IssueForm() {
         &nbsp;&nbsp;
                <button onClick={NavigateBackClick1}>Cancel</button>
         </form>
-       
         </>
         );
 

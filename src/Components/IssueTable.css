@@ -3,17 +3,22 @@
     font-size: 18px;
     margin-right: 8px;
   }
+
+  .table-, td, th{
+    border: 1px solid black;
+  }
   
   .table-info {
-    background-color: #cbc1c1;
-    color: #fff;
+    background-color: #ebe7e7;
+    color: black;
     border-radius: 4px;
     padding: 4px 8px;
+    opacity: 100%;
   }
 
   .table-head {
-    background-color: #3c4072;
-    color: #fff;
+    background-color: rgb(139, 200, 209);
+    color: black;
     display: flex;
     align-items: center; 
     text-align: center;
