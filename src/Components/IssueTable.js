@@ -40,7 +40,6 @@ const IssueTable = ({ issuesList, tableName, noOfIssues }) => {
       </div>
       <table className='table table-bordered rounded-lg'>
         <tbody>
-          {console.log('issueList inside issue table: ', issuesList)}
           {issuesList.length > 0 ? (
             issuesList.map((issue) => (
               <tr key={issue.issueId}>

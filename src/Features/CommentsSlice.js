@@ -6,7 +6,7 @@ export const getCommentsByIssueId = createAsyncThunk(
   async (selectedIssueId, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `https://issuetracker0.azurewebsites.net/api/comments/GetCommentByIssueId?IssueId=${selectedIssueId}`
+        `https://issuetrackingwebapp.azurewebsites.net/api/comments/GetCommentByIssueId?IssueId=${selectedIssueId}`
       );
       const result = await response.json();
       return result;
@@ -22,7 +22,7 @@ export const AddNewComment = createAsyncThunk(
   "addComment",
   async (data, { rejectWithValue }) => {
     const response = await fetch(
-      "add comment Api",
+      "https://issuetrackingwebapp.azurewebsites.net/api/comments/addcomment",
       {
         method: "POST",
         headers: {

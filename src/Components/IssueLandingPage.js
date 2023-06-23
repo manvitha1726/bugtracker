@@ -42,10 +42,8 @@ const IssueLandingPage = () => {
     if(dataLoaded){
         return (
             <div>
-                {console.log("Unassigned inside issue table : ", unassignedIssues)}
                 <IssueTable issuesList={unassignedIssues.slice(0, 5)} noOfIssues={unassignedIssues.length} tableName={'Unassigned'}  />
                 <br /><br/>
-                {console.log("resolved inside issue table : ", resolvedIssues)}
                 <IssueTable issuesList={resolvedIssues.slice(0, 5)} noOfIssues={resolvedIssues.length} tableName={'Resolved'} />
             </div>
         )

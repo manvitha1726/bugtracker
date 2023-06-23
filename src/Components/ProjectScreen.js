@@ -69,7 +69,7 @@ function ProjectScreen() {
       <Carousel breakPoints={breakPoints}>
       {filteredProjects.map((val) => (
         <ProjectCard
-          key={val.projectid}
+          key={val.projectId}
           project={val}
         />
       ))}  

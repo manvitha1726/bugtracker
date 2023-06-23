@@ -18,68 +18,52 @@ const Comments = ({selectedIssueId}) => {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [rootComments,setRootComments]=useState([]);
 
+  useEffect(() => {
+    dispatch(getCommentsApi(selectedIssueId))
+    setDataLoaded(true);
+    setBackendComments(data);
+    console.log("backend comments",data);
+   }, []);
+ 
+    useEffect(() => {
+      if(dataLoaded){
+         
+          const rootComments1 = backendComments.filter(
+              (backendComment) => backendComment.parentCommentId === null
+          );
+        setRootComments(rootComments1);
+        console.log("root comments1",rootComments1);
+      }
+   }, [data]);
   const getReplies = (commentId) =>
-    backendComments
-      .filter((backendComment) => backendComment.ParentCommentId === commentId)
+     backendComments
+      .filter((backendComment) => backendComment.parentCommentId === commentId)
       .sort(
         (a, b) =>
           new Date(a.CommentedOn).getTime() - new Date(b.CommentedOn).getTime()
       ); 
        
-  const addComment = (text, parentId) => {
-    const newComment={
-        Comment1 :text,
-        ParentCommentId:parentId,
-        EmpId: "",
-        IssueId :selectedIssueId
+  const addComment = (text) => {
+    const data={
+        comment1 :text,
+        parentCommentId:null,
+        empId: 4,
+        issueId :selectedIssueId
     }
-    createCommentApi(newComment)
+    createCommentApi(data)
     setActiveComment(null);
-    // .then((comment) => {
-    //   setBackendComments([comment, ...backendComments]);
-    //   setActiveComment(null);
-    // });
   };
 
   const updateComment = (text,commentId) => {
     dispatch(updateCommentApi(text,commentId))
     setActiveComment(null);
-    // .then(() => {
-    //   const updatedBackendComments = backendComments.map((backendComment) => {
-    //     if (backendComment.id === commentId) {
-    //       return { ...backendComment, body: text };
-    //     }
-    //     return backendComment;
-    //   });
-    //   setBackendComments(updatedBackendComments);
-    //   setActiveComment(null);
-    // });
   };
   const deleteComment = (commentId) => {
     if (window.confirm("Are you sure you want to remove comment?")) {
       dispatch(deleteCommentApi(commentId));
-    //   .then(() => {
-    //     const updatedBackendComments = backendComments.filter(
-    //       (backendComment) => backendComment.id !== commentId
-    //     );
-    //     setBackendComments(updatedBackendComments);
-    //   });
     }
   };
 
-  useEffect(() => {
-   dispatch(getCommentsApi(selectedIssueId))
-   setBackendComments(data);
-   console.log(backendComments);
-  }, [selectedIssueId]);
-
-   useEffect(() => {
-     const rootComments1 = backendComments.filter(
-    (backendComment) => backendComment.ParentCommentId === null
-  );
-  setRootComments(rootComments1);
-  setDataLoaded(true);
-  }, []);
   
   if(loading){
     return <h1>Loading...</h1>
@@ -94,8 +78,9 @@ if(dataLoaded){
     <div className="comments">
       <h3 className="comments-title">Comments</h3>
       <div className="comment-form-title">Write comment</div>
-      <CommentForm submitLabel="Write" handleSubmit={addComment} />
+      <CommentForm submitLabel="Write" handleSubmit={addComment}/>
       <div className="comments-container">
+      {console.log("root comments",rootComments)}  
         {rootComments.map((rootComment) => (
           <Comment
             key={rootComment.commentId}

@@ -292,11 +292,11 @@ function IssueStatusBar() {
             <tbody>
               {currentPosts.map(issue => ( 
                 <tr key={issue.issueId}>
-                  <td className='p-3'>
+                  <td className='p-3' style={{position:"relative"}}>
                     <a onClick={() => NavigateToSelectedIssue(issue.issueId)}>
                         {issue.issueName}
                     </a> &nbsp;&nbsp;&nbsp;
-                    <FaPencilAlt className='pointer-icon' onClick={() => handleEditIcon(issue.issueId)}/>
+                    <FaPencilAlt className='pointer-icon'  onClick={() => handleEditIcon(issue.issueId)}/>
                   </td>
                   <td className='p-3'> 
                     {issue.status}
@@ -324,16 +324,16 @@ function IssueStatusBar() {
                   
                 </tr>
               ))}
-              
-              <Pagination
+            
+              </tbody>
+            </table>
+            <Pagination
                   totalPosts={filteredData.length}
                   postsPerPage={postsPerPage}
                   setCurrentPage={setCurrentPage}
                   currentPage={currentPage}
                 />
                
-              </tbody>
-            </table>
           </div>
         </div>
       );
