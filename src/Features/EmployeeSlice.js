@@ -4,7 +4,7 @@ export const fetchEmployees = createAsyncThunk(
     "fetchEmployees", 
     async (args, {rejectWithValue}) => {
         try{
-            const response = await fetch("https://issuetrackingapp123.azurewebsites.net/api/employees/getallemployees");
+            const response = await fetch("https://issuetrackingwebapp.azurewebsites.net/api/employees/getallemployees");
             const result = await response.json();
             return result;
         }
@@ -20,7 +20,7 @@ export const GetEmployeeById = createAsyncThunk(
     async (employeeId, {rejectWithValue}) => {
         try{
             const response = await fetch(
-                `https://issuetrackingapp123.azurewebsites.net/api/employees/getemployeebyid?empid=${employeeId}`
+                `https://issuetrackingwebapp.azurewebsites.net/api/employees/getemployeebyid?empid=${employeeId}`
             );
             const result = await response.json();
             return result;
@@ -37,7 +37,7 @@ export const GetEmployeeByProjectId = createAsyncThunk(
         try{
             // console.log("proj - id inside slice :   ", projectId);
             const response = await fetch(
-                `https://issuetrackingapp123.azurewebsites.net/api/employees/getemployeebyprojectid?projectid=${projectId}`
+                `https://issuetrackingwebapp.azurewebsites.net/api/employees/getemployeebyprojectid?projectid=${projectId}`
             );
             const result = await response.json();
             return result;
@@ -54,7 +54,7 @@ export const addEmployees = createAsyncThunk(
     //const response = await fetch()
     try{
         console.log("empdata from slice",employeeData);
-        const response = fetch(`https://issuetrackingapp123.azurewebsites.net/api/employees/addemployee`, {  
+        const response = fetch(`https://issuetrackingwebapp.azurewebsites.net/api/employees/addemployee`, {  
           method: 'POST', 
           headers: {
             "Content-Type" : "application/json",

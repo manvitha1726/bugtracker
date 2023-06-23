@@ -67,7 +67,7 @@ function DisplayIssue() {
     }
     const NavigateBackClick = () => {
       // navigate(`/projects/${selectedProjectId}/`);
-      console.log("selected pj id : -", selectedProjectId);
+      // console.log("selected pj id : -", selectedProjectId);
       navigate(`/projects/${selectedProjectId}/view-all-issues`)
     };
     
@@ -80,8 +80,11 @@ function DisplayIssue() {
   
     return (
       <div>
+        <button style={{position:'absolute', right:'23%', top:'10%'}} onClick={NavigateBackClick} >Close</button>
+
         <form className="container" >
         <h3 className="text-center"> View Issue:{initialFormData.issueName}</h3><br/>
+
         <div className="row">
            <div className="col-25">
               <label className="form-label" htmlFor="name">Issue Name</label>

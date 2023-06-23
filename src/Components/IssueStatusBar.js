@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
-import { setSelectedIssueId } from '../Features/SelectedFieldsSlice';
+import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 import { FaPlus ,FaEye,FaPencilAlt,FaSort} from 'react-icons/fa';
 import { getAllProjects } from "../Features/ProjectsSlice";
 import {useNavigate} from 'react-router-dom'; 
@@ -24,15 +24,18 @@ function IssueStatusBar() {
     const [isDataFiltered, setIsDataFiltered] = useState(false);
     const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState(1);
     const [IdentifiedEmployee, setIdentifiedEmployee] = useState();
+    const [isFromLandingPage, setIsFromLandingPage] = useState(true);
+
     const [issueFilterVal, setIssueFilterVal] = useState({
       status: 'Any',
-      identfiedemp:0,
-      assignTo: 0,
+      identfiedemp:-1,
+      assignTo: -1,
       priority: 'Any',
       severity: 'Any'
     });
 
     const ProjectId = useSelector((state) => state.selectedFields.selectedProjectId);
+    const selectedFilters = useSelector((state) => state.selectedFields.selectedFilters);
     // console.log("projectidd",ProjectId);
 
     useEffect(() => { 
@@ -43,28 +46,42 @@ function IssueStatusBar() {
     const projObj= useSelector((state) => state.projects);
     useEffect(() => {
       dispatch(getAllProjects());
+      console.log("selected filters in ISB--", selectedFilters);
+      handleFiltersFromLandingPage();
+      // console.log("selected filters in ISB---", issueFilterVal);
+      handleFilterApply();
+
+
+
       // console.log("projects data",projObj.data);
     }, []);
+      
     useEffect(() => {
       // console.log("data : -", data);
-      const filteredData1 = data.filter(issue => {
-        const lowerCaseIssueName = issue.issueName.toLowerCase();
-        const lowerCaseStatus = issue.status.toLowerCase();
-        const lowerCasePriority = issue.priority.toLowerCase();
-        const lowerCaseSearchTerm=searchTerm.toLowerCase();
-      
-        return (
-          lowerCaseIssueName.includes(lowerCaseSearchTerm) ||
-          lowerCaseStatus.includes(lowerCaseSearchTerm) ||
-          lowerCasePriority.includes(lowerCaseSearchTerm)
-        );
-      }); 
+      if(!isFromLandingPage){
+        const filteredData1 = data.filter(issue => {
+          
+              const lowerCaseIssueName = issue.issueName.toLowerCase();
+              const lowerCaseStatus = issue.status.toLowerCase();
+              const lowerCasePriority = issue.priority.toLowerCase();
+              const lowerCaseSearchTerm=searchTerm.toLowerCase();
+            
+              return (
+                lowerCaseIssueName.includes(lowerCaseSearchTerm) ||
+                lowerCaseStatus.includes(lowerCaseSearchTerm) ||
+                lowerCasePriority.includes(lowerCaseSearchTerm)
+              );
+          
+        }); 
 
       setFilteredData(filteredData1)
+    
       setDataLoaded(true);
       const lastPostIndex = currentPage * postsPerPage;
       const firstPostIndex = lastPostIndex - postsPerPage;
       setCurrentPosts(filteredData1.slice(firstPostIndex, lastPostIndex));
+    }
+    // handleFilterApply();
     }, [data, searchTerm])  
 
     useEffect(() =>{
@@ -93,6 +110,14 @@ function IssueStatusBar() {
     useEffect(() => {
       setIssueFilterVal((prevFilters) => ({ ...prevFilters, identfiedemp: `${IdentifiedEmployee}` }));
     }, [IdentifiedEmployee]);
+
+
+    const handleFiltersFromLandingPage = () => {
+      if(selectedFilters!==null){
+        setIssueFilterVal(selectedFilters)
+        // setFiltersFromLandingPage(true);
+      }
+    }
 
     const handleSort = () => {
         const sortedData = [...filteredData].sort((a, b) => {
@@ -155,15 +180,32 @@ function IssueStatusBar() {
       setIssueFilterVal((prevFilters) => ({ ...prevFilters, [name]: value }));
      }
      const handleFilterApply = () => {
-      // console.log("filters : ", issueFilterVal);
+      console.log("filters : ", selectedFilters);
+      
       const filtered = data.filter(issue => {
         // Check if each field in issueFilterVal matches the corresponding issue property
-        const { status, identfiedemp, assignTo, priority, severity } = issueFilterVal;
-        // {console.log("iss11", issue);}
+        var status = 'Any', identfiedemp = -1, assignTo = -1, priority = 'Any', severity = 'Any';
+        if(selectedFilters!==null){
+          status = selectedFilters.status;
+          identfiedemp = selectedFilters.identfiedemp;
+          assignTo = selectedFilters.assignTo;
+          priority = selectedFilters.priority;
+          severity = selectedFilters.severity;
+          dispatch(setSelectedFilters(null));
+        }
+        else{
+          status = issueFilterVal.status;
+          identfiedemp = issueFilterVal.identfiedemp;
+          assignTo = issueFilterVal.assignTo;
+          priority = issueFilterVal.priority;
+          severity = issueFilterVal.severity;
+        }
+        console.log(status, identfiedemp, assignTo, priority, severity);
+        {console.log("iss11", issue);}
         if (
           (status === 'Any' || issue.status === status) &&
-          (identfiedemp === "undefined" || identfiedemp == 0 || issue.identfiedemp == identfiedemp) &&
-          (assignTo === '1' || assignTo == 0 || issue.assignTo == assignTo) &&
+          (identfiedemp === "undefined" || identfiedemp == -1 || issue.identfiedemp == identfiedemp) &&
+          (assignTo === '1' || assignTo == -1 || issue.assignTo == assignTo) &&
           (priority === 'Any' || issue.priority === priority) &&
           (severity === 'Any' || issue.severity === severity)
         ) {
@@ -172,6 +214,7 @@ function IssueStatusBar() {
         return false; // Exclude issue from the filtered list
       });
       console.log("filtered : ", filtered);
+      setDataLoaded(true)
       setFilteredData(filtered);
       setIsDataFiltered(true);
         
@@ -181,6 +224,11 @@ function IssueStatusBar() {
       console.log(issueId);
       dispatch(setSelectedIssueId(issueId));
       navigate(`/projects/${ProjectId}/display-issue${issueId}`);
+     }
+
+     const handleSearch = (event) => {
+      setSearchTerm(event.target.value)
+      setIsFromLandingPage(false);
      }
 
      const handleFilterReset = () => {
@@ -208,15 +256,17 @@ function IssueStatusBar() {
             type="text"
             placeholder="Search Issue"
             value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
+            onChange={handleSearch}
           /></div>
           <div className='alignright text-center'>
           <div style={{display:"flex",flexDirection:"row"}}>
-          <div>
-          <FaPlus
-            className="icon rounded p-1 " style={{backgroundColor:"rgb(139, 200, 209)"}}
-            onClick={handlePlusIconClick} 
-          /> <p>Add Issue</p>
+          <div onClick={handlePlusIconClick} className='FaPlusIcon'>
+              <FaPlus
+              
+                className="icon rounded p-1 FaPlusIcon" style={{backgroundColor:"rgb(139, 200, 209)"}}
+                
+              /> 
+              <p>Add Issue</p>
           </div>
           </div>
           </div>
@@ -224,14 +274,14 @@ function IssueStatusBar() {
 
           <div className='filters' >
             <hr/>
-            <h3>Filters</h3>
+            <h3 style={{paddingLeft:'2%'}}>Filters</h3>
               
-              <div className='filter-row' style={{display:'flex', flexDirection:'row'}}>
+              <div className='filter-row' style={{display:'flex', flexDirection:'row', paddingLeft:'2%', paddingRight:'2%'}}>
                 <div className='each-filter' style={{display:'flex', flexDirection:'column'}}>
                     <label>Status</label>
                     <select 
                       name='status'
-                      value={issueFilterVal.status|| 'Any'}
+                      value={issueFilterVal.status}
                       onChange={handleFilterChange}
                     >
                       <option value="Any">Any</option>
@@ -278,13 +328,13 @@ function IssueStatusBar() {
                 &nbsp;&nbsp;&nbsp;
                 <div className='each-filter' style={{display:'flex', flexDirection:'column'}}>
                     <label>Assigned Employee</label>
-                    <EmployeeDropdown callBackFunc={setSelectedAssignedEmployee} />
+                    <EmployeeDropdown callBackFunc={setSelectedAssignedEmployee} employeeFromFiltersLandingPage={issueFilterVal.assignTo} />
                 </div>                
               </div>
               <br />
-              <button onClick={handleFilterApply}>Apply Filters</button>
+              <button style={{paddingLeft:'2%'}} onClick={handleFilterApply}>Apply Filters</button>
               &nbsp;&nbsp;&nbsp;
-              <button onClick={handleFilterReset}>Reset</button>
+              <button style={{paddingLeft:'2%'}} onClick={handleFilterReset}>Reset</button>
             <hr/>
           </div>
 
@@ -302,8 +352,8 @@ function IssueStatusBar() {
             <tbody>
               {currentPosts.map(issue => ( 
                 <tr key={issue.issueId}>
-                  <td className='p-3'>
-                    <a onClick={() => NavigateToSelectedIssue(issue.issueId)}>
+                  <td className='p-3 table-1stcol'>
+                    <a onClick={() => NavigateToSelectedIssue(issue.issueId)} className='clickable-'>
                         {issue.issueName}
                     </a> &nbsp;&nbsp;&nbsp;
                     <FaPencilAlt className='pointer-icon' onClick={() => handleEditIcon(issue.issueId)}/>
@@ -334,14 +384,15 @@ function IssueStatusBar() {
                   
                 </tr>
               ))}
-              <Pagination
+              
+              </tbody>
+            </table>
+            <Pagination
                   totalPosts={filteredData.length}
                   postsPerPage={postsPerPage}
                   setCurrentPage={setCurrentPage}
                   currentPage={currentPage}
                 />
-              </tbody>
-            </table>
           </div>
         </div>
       );

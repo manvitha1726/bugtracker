@@ -139,3 +139,31 @@ button
     background-color: #888; /* Set the background color of the dot on hover */
   }
   
+  .clickable- {
+    cursor: pointer;
+  }
+
+  .clickable-:hover{
+    color: green;
+  }
+  .table-1stcol{
+    position: relative;
+  }
+  .pointer-icon{
+    position: absolute;
+    right: 10%;
+  }
+  .pointer-icon:hover{
+    cursor: pointer;
+
+  }
+
+  .FaPlusIcon {
+    cursor: pointer;
+  }
+
+  .FaPlusIcon > FaPlus{
+    height: 30px;
+    width: 30px;
+  }
+ 
