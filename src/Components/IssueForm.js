@@ -30,7 +30,7 @@ function IssueForm() {
     stepsToReproduce: "",
     testingType: "Smoke Testing",
     iterationNumber: "",
-    status: "Open",
+    seviority: 'S1',
     linkToPast: null,
     images: ""
     };
@@ -38,6 +38,7 @@ function IssueForm() {
   const [val1, setVal1] = useState(1);
   const [formData, setFormData] = useState(initialFormData);
   const [selectedIssue, setSelectedIssue] = useState("Bug");
+  const [selectedSeviority, setSelectedSeviority] = useState("S1");
   const [selectedTesting, setSelectedTesting] = useState("Smoke Testing");
   const [selectedPriority, setSelectedPriority] = useState('Low');
   const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState();
@@ -74,6 +75,10 @@ function IssueForm() {
 
   const NavigateToIssues = () => {
     navigate(`/projects/${projectId}`);
+  }
+  const handleSelectedSeviority = (event) => {
+    setSelectedSeviority(event.target.value);
+    setFormData((prevFormData) => ({ ...prevFormData, seviority: event.target.value }));
   }
 
   const handleIssueSelection = (event) => {
@@ -180,13 +185,38 @@ function IssueForm() {
               <option value="Medium">Medium</option>
               <option value="High">High</option>
             </select>
-    </div>
-    <div className="col-3">
-              <label className="" htmlFor="assignTo">Assigned To</label>
-            <EmployeeDropdown val={val1} callBackFunc={setSelectedAssignedEmployee} />
-            {/* <br /><br />
-            {/* <AddEmployee func={setVal1} projectId={projectId} />
-            {console.log("emp selected", selectedAssignedEmployee)} */}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-25">
+            <label className="form-label" htmlFor="priority">Seviority</label>
+          </div>
+          <div className="col-75">
+            <select id="seviority" value={selectedSeviority} onChange={handleSelectedSeviority} required>
+              <option value="S1">S1</option>
+              <option value="S2">S2</option>
+              <option value="S3">S3</option>
+              <option value="S4">S4</option>
+            </select>
+          </div>
+        </div>
+
+      <div className="row">
+        <div className="col-25">
+          <label className="form-label" htmlFor="targetdate">Target Date</label>
+        </div>
+        <div className="col-75">
+          <input className="fixedwidth" type="date" id="targetdate" name="targetdate" value={formData.targetdate} onChange={handleChange}/>
+          <div className="validations">
+{errors.targetdate && <span>{errors.targetdate}</span>}
+</div>
+        </div>
+      </div>
+
+      <div className="row">
+          <div className="col-25">
+              <label className="form-label" htmlFor="assignTo">Assigned To</label>
           </div>
 
   </div>

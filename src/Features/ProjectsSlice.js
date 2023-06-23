@@ -52,7 +52,7 @@ export const Projects = createSlice({
     [addNewProject.fulfilled]: (state, action) => {
       state.loading = false;
       console.log("action",action);
-      state.data.push(action.payload);
+      state.data.push(action.meta.arg);
     },
   },
 

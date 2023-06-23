@@ -4,21 +4,41 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 import { FaCalendarAlt } from 'react-icons/fa'; // Import the calendar icon
 import './IssueTable.css';
+import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 
-const IssueTable = ({ issuesList, tableName, noOfIssues }) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { selectedProjectId } = useSelector((state) => state.selectedFields);
-  
-  const handleButtonClick = () => {
-    navigate(`/projects/${selectedProjectId}/view-all-issues`);
-  };
-
-  const handleNavigateToIssue = (issueId) => {
-    dispatch(setSelectedIssueId(issueId));
-    navigate(`/projects/${selectedProjectId}/display-issue${issueId}`);
-  };
-
+const IssueTable = ({issuesList, tableName, noOfIssues}) => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const {selectedProjectId} = useSelector((state) => state.selectedFields);
+    const selectedFilters = useSelector((state) => state.selectedFields.selectedFilters);
+    const handleButtonClick = () => {
+        if(tableName === 'Unassigned'){
+            dispatch(setSelectedFilters({
+                assignTo: 0,
+                status: 'Any',
+                identfiedemp:-1,
+                priority: 'Any',
+                severity: 'Any'
+            }))
+            // console.log("selectedFilters in ISB : ", selectedFilters);
+            navigate(`/projects/${selectedProjectId}/view-all-issues`)
+        }
+        else{
+            dispatch(setSelectedFilters({
+                status: "Close",
+                assignTo: -1,
+                identfiedemp:-1,
+                priority: 'Any',
+                severity: 'Any'
+            }))
+            console.log("selectedFilters in Issue table : ", selectedFilters);
+            navigate(`/projects/${selectedProjectId}/view-all-issues`)
+        }
+    }
+    const handleNavigateToIssue = (issueId) => {
+        dispatch(setSelectedIssueId(issueId));
+        navigate(`/projects/${selectedProjectId}/display-issue${issueId}`);
+    }
   return (
     <div className='Main-Container'>
       <div className='table-head'>

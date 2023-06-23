@@ -280,3 +280,32 @@ button
   .Issue-table{
     border: 1px black solid;
   }
+  
+  .clickable- {
+    cursor: pointer;
+  }
+
+  .clickable-:hover{
+    color: green;
+  }
+  .table-1stcol{
+    position: relative;
+  }
+  .pointer-icon{
+    position: absolute;
+    right: 10%;
+  }
+  .pointer-icon:hover{
+    cursor: pointer;
+
+  }
+
+  .FaPlusIcon {
+    cursor: pointer;
+  }
+
+  .FaPlusIcon > FaPlus{
+    height: 30px;
+    width: 30px;
+  }
+ 

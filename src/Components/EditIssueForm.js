@@ -27,6 +27,7 @@ function EditIssueForm() {
     ressummary: "",
     stepsToReproduce: "",
     testingType: "",
+    lastmodifydoneemp:1,
     iterationNumber: "",
     status: "",
     images: ""
@@ -39,6 +40,7 @@ function EditIssueForm() {
   const [selectedTesting, setSelectedTesting] = useState();
   const [selectedPriority, setSelectedPriority] = useState();
   const [selectedStatus, setSelectedStatus] = useState();
+  const [selectedSeviority, setSelectedSeviority] = useState("S1");
   const [attachedFiles, setAttachedFiles] = useState([]);
   const [dataDispatched, setDataDispatched] = useState(false)
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -78,7 +80,13 @@ function EditIssueForm() {
       initialFormData.status = dataById[0].status;
       initialFormData.projectId = dataById[0].projectId;
       initialFormData.images = dataById[0].images;
+      initialFormData.seviority = dataById[0].seviority;
+      initialFormData.testingType = dataById[0].testingType;
       setFormData(initialFormData);
+      setSelectedSeviority(dataById[0].seviority)
+      setSelectedPriority(dataById[0].priority)
+      setSelectedStatus(dataById[0].status)
+      setSelectedTesting(dataById[0].testingType)
       // setSelectedIssue(dataById[0].issueType);
       setDataLoaded(true)
     }
@@ -88,7 +96,6 @@ function EditIssueForm() {
   
 
   // if (dataById.length !== 0) {
-    
   // } 
   // Define the form state
  
@@ -96,23 +103,32 @@ function EditIssueForm() {
   const handleFileUpload = (event) => {
     const files = event.target.files;
     setAttachedFiles([...attachedFiles, ...files]);
+    setFormData((prevFormData) => ({ ...prevFormData, images: event.target.value }));
   };
 
   const handleIssueSelection = (event) => {
     setSelectedIssue(event.target.value);
     console.log("selectedissue", selectedIssue)
+    setFormData((prevFormData) => ({ ...prevFormData, issueType: event.target.value }));
   };
   const handleStatusSelection = (event) => {
     setSelectedStatus(event.target.value);
+    setFormData((prevFormData) => ({ ...prevFormData, status: event.target.value }));
   }
 
   const handleTestingSelection = (event) => {
     setSelectedTesting(event.target.value);
+    setFormData((prevFormData) => ({ ...prevFormData, testingType: event.target.value }));
   };
 
   const handleSelectedPriority = (event) => {
     setSelectedPriority(event.target.value);
+    setFormData((prevFormData) => ({ ...prevFormData, priority: event.target.value }));
   };
+  const handleSelectedSeviority = (event) => {
+    setSelectedSeviority(event.target.value);
+    setFormData((prevFormData) => ({ ...prevFormData, seviority: event.target.value }));
+  }
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -204,11 +220,26 @@ function EditIssueForm() {
             <div className="col-75">
               <select id="IssueType" value={selectedPriority} onChange={handleSelectedPriority}>
                 <option value="bug">Low</option>
-                <option value="Defect">Medium</option>
-                <option value="Defect">High</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
               </select>
             </div>
           </div>
+
+          
+          <div className="row">
+          <div className="col-25">
+            <label className="form-label" htmlFor="seviority">Seviority</label>
+          </div>
+          <div className="col-75">
+            <select id="seviority" value={selectedSeviority} onChange={handleSelectedSeviority} >
+              <option value="S1">S1</option>
+              <option value="S2">S2</option>
+              <option value="S3">S3</option>
+              <option value="S4">S4</option>
+            </select>
+          </div>
+        </div>
 
           <div className="row">
             <div className="col-25">
