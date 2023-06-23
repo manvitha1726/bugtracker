@@ -39,9 +39,9 @@ function ProjectScreen() {
     <center>
     <section className="garamond">
       <div className='pa1 '>
-      <div className="navy georgia grow">
-        <h2 className="f2 pt4 ">Projects</h2>
-      </div></div>
+            <div className="navy georgia grow">
+              <h2 className="f2 pt4 ">Projects</h2>
+            </div></div>
 
       <br></br>
        <div className='alignright'>
