@@ -3,10 +3,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 //Get comments by issue Id 
 export const getCommentsByIssueId = createAsyncThunk(
   "getCommentsByIssueId",
-  async (issueId, { rejectWithValue }) => {
+  async (selectedIssueId, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `getall comments api issueId=${issueId}`
+        `https://issuetracker0.azurewebsites.net/api/comments/GetCommentByIssueId?IssueId=${selectedIssueId}`
       );
       const result = await response.json();
       return result;

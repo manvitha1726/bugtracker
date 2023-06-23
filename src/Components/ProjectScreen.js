@@ -64,7 +64,7 @@ function ProjectScreen() {
         />
       </div>
       <div className='mt-4'>
-      <hr className="seperator" />
+      <hr className="seperator" /><br/>
       <div className="carousel-wrapper">
       <Carousel breakPoints={breakPoints}>
       {filteredProjects.map((val) => (

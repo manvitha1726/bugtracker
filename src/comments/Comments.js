@@ -10,7 +10,7 @@ import {
 } from "../Features/CommentsSlice";
 import { useDispatch, useSelector } from 'react-redux';
 
-const Comments = (selectedIssueId) => {
+const Comments = ({selectedIssueId}) => {
   const dispatch = useDispatch();
   const [backendComments, setBackendComments] = useState([]);
   const [activeComment, setActiveComment] = useState(null);
@@ -24,12 +24,12 @@ const Comments = (selectedIssueId) => {
       .sort(
         (a, b) =>
           new Date(a.CommentedOn).getTime() - new Date(b.CommentedOn).getTime()
-      );
+      ); 
+       
   const addComment = (text, parentId) => {
     const newComment={
-        Comment :text,
+        Comment1 :text,
         ParentCommentId:parentId,
-        username: "",
         EmpId: "",
         IssueId :selectedIssueId
     }
@@ -70,15 +70,16 @@ const Comments = (selectedIssueId) => {
   useEffect(() => {
    dispatch(getCommentsApi(selectedIssueId))
    setBackendComments(data);
-  }, []);
+   console.log(backendComments);
+  }, [selectedIssueId]);
 
    useEffect(() => {
      const rootComments1 = backendComments.filter(
-    (backendComment) => backendComment.parentId === null
+    (backendComment) => backendComment.ParentCommentId === null
   );
   setRootComments(rootComments1);
   setDataLoaded(true);
-  }, [data]);
+  }, []);
   
   if(loading){
     return <h1>Loading...</h1>

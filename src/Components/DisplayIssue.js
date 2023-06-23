@@ -12,7 +12,7 @@ function DisplayIssue() {
     const navigate = useNavigate();
     const { dataById, loading, error} = useSelector((state) => state.issues);
     const {selectedProjectId,selectedIssueId} = useSelector((state) => state.selectedFields);
-    // console.log("bewhc",selectedProjectId,selectedIssueId);
+
     useEffect(() => {
       dispatch(GetIssueById(selectedIssueId));
     }, [selectedIssueId]);

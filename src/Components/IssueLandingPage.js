@@ -22,8 +22,6 @@ const IssueLandingPage = () => {
     useEffect(() => {
         if(dataDispatched){
             const arr1 = data.filter(issue => (issue.assignTo === null || issue.assignTo === 0));
-            
-            
             setUnassignedIssues(arr1)
             const arr2 = data.filter(issue => issue.status === "Close");
             setResolvedIssues(arr2)

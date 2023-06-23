@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
 import { setSelectedIssueId } from '../Features/SelectedFieldsSlice';
-import { FaPlus ,FaEye,FaPencilAlt,FaSort} from 'react-icons/fa';
+import { FaPlus ,FaPencilAlt,FaSort} from 'react-icons/fa';
 import { getAllProjects } from "../Features/ProjectsSlice";
 import {useNavigate} from 'react-router-dom'; 
 import Pagination from './Pagination/Pagination';
@@ -33,20 +33,16 @@ function IssueStatusBar() {
     });
 
     const ProjectId = useSelector((state) => state.selectedFields.selectedProjectId);
-    // console.log("projectidd",ProjectId);
 
     useEffect(() => { 
-      // console.log("projectidd",ProjectId);
       dispatch(GetIssueByProjectId(ProjectId)) 
     },[])
 
     const projObj= useSelector((state) => state.projects);
     useEffect(() => {
       dispatch(getAllProjects());
-      // console.log("projects data",projObj.data);
     }, []);
     useEffect(() => {
-      // console.log("data : -", data);
       const filteredData1 = data.filter(issue => {
         const lowerCaseIssueName = issue.issueName.toLowerCase();
         const lowerCaseStatus = issue.status.toLowerCase();
@@ -198,28 +194,22 @@ function IssueStatusBar() {
    
   if(dataLoaded){
       return (
-        
         <div>
-          {/* {console.log("filetred data",filteredData)} */}
-          <h1 className='text-center heading'>{projObj.data[ProjectId-1].projectname} Issues</h1>
-          <div className='align'>
-            <input
-            className="pa2 bb br3  ma2 shadow"
-            type="text"
-            placeholder="Search Issue"
-            value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
-          /></div>
-          <div className='alignright text-center'>
-          <div style={{display:"flex",flexDirection:"row"}}>
-          <div>
-          <FaPlus
-            className="icon rounded p-1 " style={{backgroundColor:"rgb(139, 200, 209)"}}
-            onClick={handlePlusIconClick} 
-          /> <p>Add Issue</p>
+         <div className="row-container">
+              <div className='alignright'>
+                <div className="icon-container">
+                  <FaPlus className="icon rounded p-1" style={{ backgroundColor: "rgb(139, 200, 209)" }} onClick={handlePlusIconClick} />
+                  <p>Add Issue</p>
+                </div>
+              </div>
+              <div className='heading-container'>
+                <h1 className='text-center heading'>{projObj.data[ProjectId-1].projectname} Issues</h1>
+              </div>
+              <div className='align'>
+                <input className="pa2 bb br3 ma2 shadow" type="text" placeholder="Search Issue" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+              </div>
           </div>
-          </div>
-          </div>
+
 
 
           <div className='filters' >
@@ -334,12 +324,14 @@ function IssueStatusBar() {
                   
                 </tr>
               ))}
+              
               <Pagination
                   totalPosts={filteredData.length}
                   postsPerPage={postsPerPage}
                   setCurrentPage={setCurrentPage}
                   currentPage={currentPage}
                 />
+               
               </tbody>
             </table>
           </div>

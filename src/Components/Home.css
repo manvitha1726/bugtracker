@@ -12,6 +12,28 @@
     align-items: center;
     color:rgb(247, 238, 238);
 }
+.row-container {
+  display: flex;
+  align-items: center;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 20px;
+  padding-top:20px;
+   
+}
+
+.icon-container p {
+  margin-top: 0;
+}
+
+.heading-container {
+  margin-right: 15%;
+  flex-grow: 1;
+}
 
 button
 {
@@ -30,14 +52,13 @@ button
    
     /* font-size:20px; */
 }
-.alignright{
-    top:5%;
-    left:5%;
-    position:absolute;
-    
+.alignright {
+  display: flex;
+  align-items: center;
+ 
 }
 .align{
-    top:5%;
+    /* margin-top:1%; */
     left:79%;
     position:absolute;
 }
@@ -105,37 +126,40 @@ button
     width: 80%;
   }
   
-  .rec-carousel-item:focus {
-    outline: none;
-    box-shadow: inset 0 0 1px 0px rgb(139, 200, 209);
-  }
-  /* carousel.css */
 
-.carousel-wrapper .rec.rec-arrow {
-    background-color: #f0f0f0;
+  .carousel-wrapper .rec.rec-arrow {
+    background-color: #f0f0f0; 
     color: #333; 
     border-radius: 50%; 
-    width: 40px; 
-    height: 40px; 
+    width: 50px; 
+    height: 45px; 
     font-size: 24px; 
+    position: relative; 
+    top: 29px; 
   }
   
   .carousel-wrapper .rec.rec-arrow:hover {
-    background-color: #131212; 
+    background-color: #ccc;
     color: #000; 
   }
-  /* carousel.css */
 
 .carousel-wrapper .rec-pagination .rec-dot {
-    background-color: #bbb; /* Set the background color of the dot */
-    width: 10px; /* Set the width of the dot */
-    height: 10px; /* Set the height of the dot */
-    border-radius: 50%; /* Make the dot circular */
-    margin: 5px; /* Set the margin around the dot */
-    transition: background-color 0.3s ease; /* Add a smooth transition for the background color */
+    background-color:white; 
+    width: 10px; 
+    height: 10px; 
+    border-radius: 50%; 
+    margin: 5px; 
+    transition: background-color 0.3s ease; 
+    
   }
   
   .carousel-wrapper .rec-pagination .rec-dot:hover {
-    background-color: #888; /* Set the background color of the dot on hover */
+    background-color: #888; 
   }
-  
+  .carousel-wrapper .rec-pagination {
+    position: absolute; 
+    bottom: 80px; 
+    left: 50%; 
+    transform: translateX(-50%);
+  }
+
