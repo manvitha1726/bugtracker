@@ -8,6 +8,7 @@ import {useNavigate} from 'react-router-dom';
 import Pagination from './Pagination/Pagination';
 import './Home.css';
 import EmployeeDropdown from './EmployeeDropdown';
+import { right } from '@popperjs/core';
 
 function IssueStatusBar() {
     const dispatch = useDispatch()
@@ -194,16 +195,16 @@ function IssueStatusBar() {
    
   if(dataLoaded){
       return (
-        <div>
+        <div className='Mains-Container'>
          <div className="row-container">
-              <div className='alignright'>
+              
                 <div className="icon-container">
-                  <FaPlus className="icon rounded p-1" style={{ backgroundColor: "rgb(139, 200, 209)" }} onClick={handlePlusIconClick} />
-                  <p>Add Issue</p>
-                </div>
+                  <FaPlus className="icon rounded p-1" style={{ backgroundColor: "black",height:'25px',width:'25px',color:'white',marginLeft:'80px',}} onClick={handlePlusIconClick} />
+                  <p style={{color:'black ',marginLeft:'80px'}}>Add Issue</p>
+                
               </div>
               <div className='heading-container'>
-                <h1 className='text-center heading'>{projObj.data[ProjectId-1].projectname} Issues</h1>
+                <h1 className='text-center'>{projObj.data[ProjectId-1].projectname} Issues</h1>
               </div>
               <div className='align'>
                 <input className="pa2 bb br3 ma2 shadow" type="text" placeholder="Search Issue" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
@@ -213,11 +214,10 @@ function IssueStatusBar() {
 
 
           <div className='filters' >
-            <hr/>
-            <h3>Filters</h3>
+            <h3>Filter</h3>
               
               <div className='filter-row' style={{display:'flex', flexDirection:'row'}}>
-                <div className='each-filter' style={{display:'flex', flexDirection:'column'}}>
+                <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Status</label>
                     <select 
                       name='status'
@@ -232,7 +232,7 @@ function IssueStatusBar() {
                     </select>
                 </div>
                 &nbsp;&nbsp;&nbsp;
-                <div className='each-filter' style={{display:'flex', flexDirection:'column'}}>
+                <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Priority</label>
                     <select 
                       name='priority'
@@ -246,7 +246,7 @@ function IssueStatusBar() {
                     </select>
                 </div>
                 &nbsp;&nbsp;&nbsp;
-                <div className='each-filter' style={{display:'flex', flexDirection:'column'}}>
+                <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Severity</label>
                     <select 
                       name='severity'
@@ -261,24 +261,26 @@ function IssueStatusBar() {
                     </select>
                 </div>
                 &nbsp;&nbsp;&nbsp;
-                <div className='each-filter' style={{display:'flex', flexDirection:'column'}}>
+                <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Identfied by</label>
                     <EmployeeDropdown callBackFunc={setIdentifiedEmployee} />
                 </div>
                 &nbsp;&nbsp;&nbsp;
-                <div className='each-filter' style={{display:'flex', flexDirection:'column'}}>
+                <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Assigned Employee</label>
                     <EmployeeDropdown callBackFunc={setSelectedAssignedEmployee} />
                 </div>                
               </div>
               <br />
+              <div>
               <button onClick={handleFilterApply}>Apply Filters</button>
               &nbsp;&nbsp;&nbsp;
               <button onClick={handleFilterReset}>Reset</button>
-            <hr/>
+              </div>
+          
           </div>
 
-          <div className='m-5'>
+          <div className='Issue-table'>
           <table className="table table-bordered rounded-lg">
             <thead>
               <tr>
@@ -292,7 +294,7 @@ function IssueStatusBar() {
             <tbody>
               {currentPosts.map(issue => ( 
                 <tr key={issue.issueId}>
-                  <td className='p-3'>
+                  <td className='p-3 ' style={{position:"relative"}}>
                     <a onClick={() => NavigateToSelectedIssue(issue.issueId)}>
                         {issue.issueName}
                     </a> &nbsp;&nbsp;&nbsp;
@@ -325,15 +327,16 @@ function IssueStatusBar() {
                 </tr>
               ))}
               
-              <Pagination
+              
+               
+              </tbody>
+            </table>
+            <Pagination
                   totalPosts={filteredData.length}
                   postsPerPage={postsPerPage}
                   setCurrentPage={setCurrentPage}
                   currentPage={currentPage}
                 />
-               
-              </tbody>
-            </table>
           </div>
         </div>
       );

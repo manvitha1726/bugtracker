@@ -15,7 +15,27 @@
 .row-container {
   display: flex;
   align-items: center;
+  border: solid black 1px;
+  background-color: rgb(199, 231, 231);
 }
+
+
+.pointer-icon{
+    position: absolute;
+    right: 10%;
+
+  }
+
+  .pointer-icon:hover{
+    cursor: pointer;
+  }
+
+  .FaPlusIcon {
+    cursor: pointer;
+  }
+
+
+
 
 .icon-container {
   display: flex;
@@ -41,7 +61,7 @@ button
     cursor: pointer;
     background-color:black;
     color:white;
-    height: 40px;
+    height: 35px;
     padding:5px;
 }
 .heading{
@@ -53,19 +73,21 @@ button
     /* font-size:20px; */
 }
 .alignright {
-  display: flex;
-  align-items: center;
+  left:5%;
+    top:5%;
+    position:absolute;
  
 }
 .align{
     /* margin-top:1%; */
     left:79%;
+    top:5%;
     position:absolute;
 }
 .cardu{
    /* height:200px; */
    width:200px;
-   background:rgb(139, 200, 209);
+   background:rgb(133, 188, 196);
    box-shadow: 3px 3px 2px 3px rgb(240, 235, 235);
    font-weight:600;
    padding:20px;
@@ -163,3 +185,25 @@ button
     transform: translateX(-50%);
   }
 
+  .filters{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px black solid;
+    padding: 10px;
+
+  }
+
+  .Mains-Container{
+    display: grid;
+    grid-template-rows: 100px 180px 1fr;
+    grid-gap: 5px;
+    padding-right:1%;
+    padding-left: 0.5%;
+    padding-top:10px;
+    padding-bottom:10px;
+  }
+
+  .Issue-table{
+    border: 1px black solid;
+  }
