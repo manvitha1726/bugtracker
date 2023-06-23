@@ -1,0 +1,63 @@
+/* ExpandableBox.css */
+
+.expandable-box {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .expandable-box.expanded {
+    height: auto;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .expand-button {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .content {
+    border-top: 1px solid #ccc;
+    margin-top: 16px;
+    padding-top: 16px;
+  }
+  
+  .input-row {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .fetch-button {
+    margin-top: 16px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .fetch-button:hover {
+    background-color: #0069d9;
+  }
+  
+  .fetch-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 
+  }
