@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProjects } from '../Features/ProjectsSlice';
 // import Pagination from './Pagination/Pagination';
 import Carousel from "react-elastic-carousel";
-import './Home.css'
+import './Home.css';
+
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
   { width: 550, itemsToShow: 2, itemsToScroll: 2 },
