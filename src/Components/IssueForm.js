@@ -211,15 +211,14 @@ function IssueForm() {
           <div className="validations">
 {errors.targetdate && <span>{errors.targetdate}</span>}
 </div>
-        </div>
-      </div>
-
-      <div className="row">
-          <div className="col-25">
-              <label className="form-label" htmlFor="assignTo">Assigned To</label>
-          </div>
-
-  </div>
+    </div>
+       </div>
+       <div className="row">
+           <div className="col-25">
+               <label className="form-label" htmlFor="assignTo">Assigned To</label>
+               <EmployeeDropdown val={val1} callBackFunc={setSelectedAssignedEmployee} />
+           </div>
+   </div>
 
         <div class="row">
     <div class="col-25">

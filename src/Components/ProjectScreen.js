@@ -49,7 +49,7 @@ function ProjectScreen() {
       <div className='pa1 '>
       <div className="navy georgia grow">
         <h2 className="f2 pt4 ">Projects</h2>
-      </div></div>
+      </div></div> 
 
        <div className='alignright'>
       <ProjectButton /></div>
@@ -73,7 +73,6 @@ function ProjectScreen() {
         />
       ))}  
       </Carousel>
-
      </div>
       {/* <Pagination
       totalPosts={filteredProjects.length}

@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import NavigationBar from './NavigationBar';
 import IssueLandingPage from './IssueLandingPage';
 import IssueStatusBar from './IssueStatusBar';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Mainpage = () => {
   const [selectedItem, setSelectedItem] = useState("MyView");
+  const projectId = useSelector((state) => state.selectedFields.selectedProjectId);
+ const navigate=useNavigate();
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
+    navigate(`/projects/${projectId}/${item}`);
   };
 
   return (
@@ -16,7 +21,7 @@ const Mainpage = () => {
         <NavigationBar onItemClick={handleItemClick} />
       </div>
       <div style={{ width: '90%' }}>
-        {selectedItem === 'MyView' && <IssueLandingPage />}
+        {selectedItem === 'MyView' && <IssueLandingPage onItemClick={handleItemClick}/>}
         {selectedItem === 'ViewIssues' && <IssueStatusBar />}
         {selectedItem === 'RoadMap' && <div>Road Map Content</div>}
       </div>

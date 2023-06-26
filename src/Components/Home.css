@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
   border: solid black 1px;
-  background-color: rgb(199, 231, 231);
+  background-color:rgb(199, 206, 207);
 }
 
 
@@ -81,7 +81,7 @@ button
 .heading{
 
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    text-shadow: 2px 2px 5px rgb(75, 70, 70);
+    /* text-shadow: 2px 2px 5px rgb(75, 70, 70); */
     color:black;
    
     /* font-size:20px; */
@@ -120,8 +120,9 @@ button
 
 .priority-container {
   display: flex;
-  justify-content: space-between;
-  margin: 10px;
+  justify-content: center;
+  margin: 30px;
+  gap:4px;
   
 }
 .priority-ball {

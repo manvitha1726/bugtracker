@@ -1,17 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 import { FaCalendarAlt } from 'react-icons/fa'; // Import the calendar icon
 import './IssueTable.css';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 
-const IssueTable = ({issuesList, tableName, noOfIssues}) => {
+const IssueTable = ({issuesList, tableName, noOfIssues,onItemClick}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const {selectedProjectId} = useSelector((state) => state.selectedFields);
     const selectedFilters = useSelector((state) => state.selectedFields.selectedFilters);
-    const handleButtonClick = () => {
+   
+    const handleButtonClick = (item) => {
         if(tableName === 'Unassigned'){
             dispatch(setSelectedFilters({
                 assignTo: 0,
@@ -21,7 +21,8 @@ const IssueTable = ({issuesList, tableName, noOfIssues}) => {
                 severity: 'Any'
             }))
             // console.log("selectedFilters in ISB : ", selectedFilters);
-            navigate(`/projects/${selectedProjectId}/view-all-issues`)
+            // navigate(`/projects/${selectedProjectId}/IssueStatus`) //disturbed functionality
+            onItemClick(item);
         }
         else{
             dispatch(setSelectedFilters({
@@ -32,7 +33,8 @@ const IssueTable = ({issuesList, tableName, noOfIssues}) => {
                 severity: 'Any'
             }))
             console.log("selectedFilters in Issue table : ", selectedFilters);
-            navigate(`/projects/${selectedProjectId}/view-all-issues`)
+            // navigate(`/projects/${selectedProjectId}/IssueStatus`)
+            onItemClick(item);
         }
     }
     const handleNavigateToIssue = (issueId) => {
@@ -43,7 +45,7 @@ const IssueTable = ({issuesList, tableName, noOfIssues}) => {
     <div className='Main-Container'>
       <div className='table-head'>
      <div className="table-info-wrapper">
-        <a onClick={handleButtonClick}>{tableName}</a>
+        <a onClick={()=>handleButtonClick('ViewIssues')}>{tableName}</a>
         {
           issuesList.length > 0 ? (
             <span className='table-info'>
@@ -54,7 +56,7 @@ const IssueTable = ({issuesList, tableName, noOfIssues}) => {
           )
         }
        
-          <button className='View-Button' onClick={handleButtonClick}>View Issues</button>
+          <button className='View-Button' onClick={()=>handleButtonClick('ViewIssues')} >View Issues</button>
       </div>
       </div>
       <table className='table-'>

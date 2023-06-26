@@ -72,7 +72,7 @@ select {
   font-size: 1.00em;
   letter-spacing: 0.5px;
   cursor: pointer;
-  background-color:rgb(139, 200, 209);
+  background-color:rgba(215, 212, 212, 0.975);
   border: none;
   color: #ffffff;
   background-repeat: no-repeat;
@@ -87,7 +87,7 @@ select::-ms-expand {
 }
 select option {
   background-color: #ffffff;
-  color:rgb(139, 200, 209);
+  color:rgb(15, 16, 16);
   letter-spacing: 0.06em;
   font-weight: 400;
   font-size: 1.12em;

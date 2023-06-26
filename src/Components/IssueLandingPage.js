@@ -4,7 +4,7 @@ import { GetIssueById, GetIssueByProjectId} from "../Features/IssueSlice";
 import './IssueForm.css';
 import IssueTable from "./IssueTable";
 
-const IssueLandingPage = () => {
+const IssueLandingPage = ({onItemClick}) => {
     const dispatch = useDispatch();
     // const navigate = useNavigate();
     const { data, loading, error} = useSelector((state) => state.issues);
@@ -42,9 +42,9 @@ const IssueLandingPage = () => {
     if(dataLoaded){
         return (
             <div>
-                <IssueTable issuesList={unassignedIssues.slice(0, 5)} noOfIssues={unassignedIssues.length} tableName={'Unassigned'}  />
+                <IssueTable issuesList={unassignedIssues.slice(0, 5)} noOfIssues={unassignedIssues.length} tableName={'Unassigned'} onItemClick={onItemClick} />
                 <br /><br/>
-                <IssueTable issuesList={resolvedIssues.slice(0, 5)} noOfIssues={resolvedIssues.length} tableName={'Resolved'} />
+                <IssueTable issuesList={resolvedIssues.slice(0, 5)} noOfIssues={resolvedIssues.length} tableName={'Resolved'} onItemClick={onItemClick}/>
             </div>
         )
     }

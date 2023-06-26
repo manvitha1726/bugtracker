@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import Comments from "../comments/Comments";
 
 import './IssueForm.css';
-import { setSelectedProjectId } from "../Features/SelectedFieldsSlice";
 
 function DisplayIssue() {
     const dispatch = useDispatch();
@@ -242,7 +241,9 @@ function DisplayIssue() {
           
       </center>
         </form>
-        <Comments selectedIssueId={selectedIssueId}/>
+        <div style={{margin:"10%"}}>
+          <Comments selectedIssueId={selectedIssueId}/>
+        </div>
       </div>
     );
   }

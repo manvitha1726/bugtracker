@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
-import { FaPlus ,FaEye,FaPencilAlt,FaSort} from 'react-icons/fa';
+import { FaPlus,FaPencilAlt,FaSort} from 'react-icons/fa';
 import { getAllProjects } from "../Features/ProjectsSlice";
 import {useNavigate} from 'react-router-dom'; 
 import Pagination from './Pagination/Pagination';
 import './Home.css';
 import EmployeeDropdown from './EmployeeDropdown';
-import { right } from '@popperjs/core';
 
-function IssueStatusBar() {
-    const dispatch = useDispatch()
+function IssueStatusBar() {     
+    const dispatch = useDispatch();  
     const navigate = useNavigate();
     const { data, loading, error } = useSelector((state) => state.issues);
     const [searchTerm, setSearchTerm] = useState('');
@@ -265,7 +264,7 @@ function IssueStatusBar() {
 
 
           <div className='filters' >
-            <h3>Filter</h3>
+            <h5  style={{"font-family":"'Trebuchet MS'"}}>Filter</h5>
               
               <div className='filter-row' style={{display:'flex', flexDirection:'row'}}>
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
@@ -335,10 +334,10 @@ function IssueStatusBar() {
           <table className="table table-bordered rounded-lg">
             <thead>
               <tr>
-                <th className='p-3 text-center' style={{backgroundColor:"rgb(139, 200, 209)"}}>Issue</th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(139, 200, 209)"}}>Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
-                <th className='p-3 text-center' style={{backgroundColor:"rgb(139, 200, 209)"}}>Priority &nbsp;<FaSort onClick={handleSort}/></th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(139, 200, 209)"}}>Severity</th>
+                <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Issue</th>
+                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
+                <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Priority &nbsp;<FaSort onClick={handleSort}/></th>
+                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Severity</th>
               
               </tr>
             </thead>
