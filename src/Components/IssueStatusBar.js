@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
-import { FaPlus,FaPencilAlt,FaSort} from 'react-icons/fa';
 import { FaPlus ,FaEye,FaPencilAlt,FaSort, FaImage} from 'react-icons/fa';
 import { getAllProjects } from "../Features/ProjectsSlice";
 import {useNavigate} from 'react-router-dom'; 
@@ -266,7 +265,7 @@ function IssueStatusBar() {
                 
               </div>
               <div className='heading-container'>
-                <h1>{projObj.data[ProjectId-1].projectname} Issues</h1>
+                <h3>{projObj.data[ProjectId-1].projectname} Issues</h3>
               </div>
               <div className='align'>
                 <input className="pa2 bb br3 ma2 shadow" type="text" placeholder="Search Issue" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
@@ -350,11 +349,6 @@ function IssueStatusBar() {
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
                 <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Priority &nbsp;<FaSort onClick={handleSort}/></th>
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Severity</th>
-              
-                <th className='p-3 text-center' style={{backgroundColor:"rgb(139, 200, 209)"}}>Issue</th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(139, 200, 209)"}}>Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
-                <th className='p-3 text-center' style={{backgroundColor:"rgb(139, 200, 209)"}}>Priority &nbsp;<FaSort onClick={handleSort}/></th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(139, 200, 209)"}}>Severity</th>
               </tr>
             </thead>
             <tbody>

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetIssueById} from "../Features/IssueSlice";
 import { useNavigate } from 'react-router-dom';
 import Comments from "../comments/Comments";
+import EmployeeDropdown from "./EmployeeDropdown";
 
 import './IssueForm.css';
 
@@ -67,122 +68,161 @@ function DisplayIssue() {
        
     }
     const NavigateBackClick = () => {
-      // navigate(`/projects/${selectedProjectId}/`);
-      console.log("selected pj id : -", selectedProjectId);
-      navigate(`/projects/${selectedProjectId}/view-all-issues`)
+      navigate(`/projects/${selectedProjectId}/ViewIssues`)
     };
     
     if(loading){
-        return <h2>Loading.........</h2>
+      return (
+        <div class="text-center my-auto">
+          <br/><br/><br/><br/><br/><br/><br/><br/>
+          <div class="spinner-border" role="status">
+          </div>
+          <br/>
+          <span>Loading....</span>
+        </div>
+      )
     }
     if(error !== null){
         return <h2>Oops something went wrong...</h2>
     }
   
+
     return (
-      <div>
-        <form className="container" >
-        <h3 className="text-center"> View Issue:{initialFormData.issueName}</h3><br/>
-        <div className="row">
-           <div className="col-25">
+      <div className="main_container">
+        <form className="container">
+          <h3 className="text-center">{`Issue : ${initialFormData.issueName}`}</h3><br />
+          <div className="row">
+            <div className="col-25">
               <label className="form-label" htmlFor="name">Issue Name</label>
-              <input className="fixedwidth" type="text" id="name" name="name" disabled value={initialFormData.issueName} />
-          </div>
-          <div className="col-50">
-            <label  className="form-label" htmlFor="IssueType" >IssueType</label>
-            <select disabled id="IssueType" >
-              <option value={initialFormData.issueType} >{initialFormData.issueType}</option>
-            </select>
+              <input  className="form-control" type="text" id="name" name="issueName" value={initialFormData.issueName} disabled/>
             </div>
-            <div className="col-50">
-            <label  className="form-label" htmlFor="IssueType" >Severity</label>
-            <select disabled id="IssueType" >
-              <option value={initialFormData.seviority} >{initialFormData.seviority}</option>
-            </select>
+
+            <div className="col-75">
+            <label className="form-label" htmlFor="moduleName">Module Name</label>
+              <input className="form-control" type="text" id="moduleName" name="moduleName" value={initialFormData.moduleName} disabled/>
+            </div> 
+          </div>
+
+          <div className="row">
+            <div className="col-3">
+              <label className="form-label" htmlFor="IssueType">Issue Type</label>
+              <select id="IssueType" disabled>
+                <option value={initialFormData.issueType}>{initialFormData.issueType}</option>
+              </select>
             </div>
-        </div>
 
+            <div className="col-3">
+              <label className="form-label" htmlFor="status">Status</label>
+              <select id="status" disabled>
+                <option value={initialFormData.status}>{initialFormData.status}</option>
+              </select>
+            </div>
 
-      <div className="row">
-      <div className="col-25">
-          <label className="form-label" htmlFor="moduleName">Module Name</label>
-          <input className="fixedwidth" type="text" id="moduleName" name="moduleName" disabled value={initialFormData.moduleName} />
-          </div>
-          <div className="col-75">
-          <label className="form-label" htmlFor="identifiedemp">Identfied Employee</label>
-          <input className="fixedwidth" type="text" disabled id="identfiedemp" name="identfiedemp" value={initialFormData.identfiedemp} />
-          </div>
-      </div>
-
-      <div className="row">
-      <div className="col-25">
-          <label className="form-label" htmlFor="dateidentified">Date Identified</label>
-          <input className="fixedwidth" type="text" disabled id="dateidentified" name="dateidentified" value={initialFormData.dateidentified} />
-          </div>
-          <div className="col-75">
-          <label className="form-label" htmlFor="targetdate">Target Date</label>
-          <input className="fixedwidth" type="text" disabled id="targetdate" name="targetdate" value={initialFormData.targetdate}/>
-          </div>
-      </div>
-
-
-      <div className="row">
-      <div className="col-25">
-          <label className="form-label" htmlFor="actualdate">Actual Date</label>
-          <input className="fixedwidth" type="text" disabled id="actualdate" name="actualdate" value={initialFormData.actualdate}/>
-          </div>
-          <div className="col-75">
-          <label className="form-label" htmlFor="assignTo">AssignTo</label>
-          <input className="fixedwidth" type="text" disabled id="assignTo" name="assignTo" value={initialFormData.assignTo} />
-          </div>
-      </div>
-
-      <div className="row">
-      <div className="col-25">
-          <label className="form-label" htmlFor="progressreport">Progress Report</label>
-          <input className="fixedwidth" type="text" disabled id="progressreport" name="progressreport" value={initialFormData.progressreport} />
-          </div>
-          <div className="col-75">
-          <label className="form-label" htmlFor="ressummary">Ressummary</label>
-          <input className="fixedwidth" type="text" disabled id="ressummary" name="ressummary" value={initialFormData.ressummary} />
-          </div>
-      </div>
-
-      <div className="row">
-      <div className="col-25">
-          <label className="form-label" htmlFor="stepsToReproduce">Steps To Reproduce</label>
-          <input className="fixedwidth" type="text" disabled id="stepsToReproduce" name="stepsToReproduce" value={initialFormData.stepsToReproduce} />
-          </div>
-          <div className="col-75">
-        <label className="form-label" htmlFor="iterationNumber">Iteration Number</label>
-        <input className="fixedwidth" type="text" id="iterationNumber" name="iterationNumber" disabled value={initialFormData.iterationNumber} />
-        </div>
-      </div>
-
-      <div className="row">
-      <div className="col">
-        <label className="form-label" htmlFor="description">Description</label>
-        <textarea id="description" name="Description" disabled value={initialFormData.description} />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col">
-        <label className="form-label" htmlFor="status">Status</label>
-        <textarea id="status" name="status" disabled value={initialFormData.status} />
-        </div>
-      </div>
-
-      
-
-      <center>
-          <img src= {initialFormData.images} alt="img"/><br/>
+            <div className="col-3">
+              <label className="form-label" htmlFor="priority">Priority</label>
+              <select id="priority" disabled>
+                <option value={initialFormData.priority}>{initialFormData.priority}</option>
+              </select>
+            </div>
           
-      </center>
+
+            <div className="col-3">
+              <label className="form-label" htmlFor="testingtype">Testing Type</label>
+              <select id="testingtype" disabled>
+                <option value={initialFormData.testingType}>{initialFormData.testingType}</option>
+              </select>
+            </div>
+          </div>
+
+            <div className="row">
+              <div className="col-25">
+                <label className="form-label" htmlFor="dateidentified">Identified Date</label>
+                <input className="form-control" type="text" id="dateidentified" name="dateidentified" value={initialFormData.dateidentified} disabled />
+              </div>
+              <div className="col-75">
+                  <label className="form-label" htmlFor="targetdate">Target Resolution Date</label>
+                  <input className="form-control" type="text" id="targetdate" name="targetdate" value={initialFormData.targetdate} disabled/>
+              </div>
+            </div>
+
+            <div className="row">
+                <div className="col-25">
+                  <label className="form-label" htmlFor="actualdate">Actual Resolution Date</label>
+                  <input className="form-control" type="text" id="actualdate" name="actualdate" value={initialFormData.actualdate} disabled/>
+                </div>
+
+                <div className="col-75">
+                  <label className="form-label" htmlFor="assignTo">Assigned To</label>
+                  {/* <input className="form-control" type="text" id="assignTo" name="assignTo" value={initialFormData.assignTo} disabled/> */}
+                  <EmployeeDropdown empid={initialFormData.assignTo} />
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-25">
+                  <label className="form-label" htmlFor="progressreport">Progress Report</label>
+                  <input className="form-control" type="text" id="progressreport" name="progressreport" value={initialFormData.progressreport} disabled />
+                </div>
+                <div className="col-75">
+                  <label className="form-label" htmlFor="stepsToReproduce">Steps To Reproduce</label>
+                  <input className="form-control" type="text" id="stepsToReproduce" name="stepsToReproduce" value={initialFormData.stepsToReproduce} disabled />
+                </div>
+            </div>
+
+          <div className="row">
+            <div className="col-25">
+              <label className="form-label" htmlFor="iterationNumber">Iteration Number</label>
+              <input type="number" id="iterationNumber" className="form-control" name="iterationNumber" value={initialFormData.iterationNumber} disabled />
+            </div>
+            <div className="col-75">
+              <label className="form-label" htmlFor="linkToPast">Link To Past:</label>
+              <input className="fixedwidth" type="text" id="linkToPast" name="linkToPast" value={initialFormData.linkToPast} disabled/>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col">
+              <label className="form-label" htmlFor="summary">Summary</label>
+              <textarea placeholder="Summary" id="summary" name="summary" value={initialFormData.summary} disabled/>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col">
+              <label className="form-label" htmlFor="description">Description</label>
+              <textarea id="description" placeholder="Description" name="description" value={initialFormData.description} disabled />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-25">
+              <label className="form-label" htmlFor="identifiedemp">Identfied By</label>
+              {/* <input className="fixedwidth" type="text" id="identfiedemp" name="identfiedemp" value={initialFormData.identfiedemp} disabled/> */}
+              <EmployeeDropdown empid={initialFormData.identfiedemp} />
+            </div>
+            <div className="col-3">
+                <label className="form-label" htmlFor="seviority">Seviority</label>
+                <select id="seviority" disabled >
+                  <option value={initialFormData.seviority}>{initialFormData.seviority}</option>
+                </select>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col">
+              <label className="form-label" htmlFor="ressummary">Ressolution Summary</label>
+              <textarea  id="ressummary" name="ressummary" value={initialFormData.ressummary} disabled/>
+            </div>
+          </div>
+
+          <center><img src={initialFormData.images} alt="Uploaded Image" /></center><br />
+
         </form>
-        <Comments selectedIssueId={selectedIssueId}/>
-        <button onClick={NavigateBackClick} >Close</button>
+        <div style={{margin:"10%"}}>
+          <Comments selectedIssueId={selectedIssueId}/>
+        </div>
+        <center><button onClick={NavigateBackClick}>Close</button></center>
       </div>
     );
-  }
-  
+}
   export default DisplayIssue;

@@ -208,7 +208,7 @@ function EditIssueForm() {
             </div>
 
             <div className="col-3">
-              <label className="" htmlFor="priority">Priority</label>
+              <label className="form-label" htmlFor="priority">Priority</label>
               <select id="IssueType" value={selectedPriority} onChange={handleSelectedPriority}>
                 <option value="bug">Low</option>
                 <option value="Medium">Medium</option>
@@ -218,7 +218,7 @@ function EditIssueForm() {
           
 
             <div className="col-3">
-              <label className="" htmlFor="testingtype">Testing Type</label>
+              <label className="form-label" htmlFor="testingtype">Testing Type</label>
               <select id="testingtype" value={selectedTesting} onChange={handleTestingSelection}>
                 <option value="Smoke Testing">Smoke Testing</option>
                 <option value="Regression Testing">Regression Testing</option>

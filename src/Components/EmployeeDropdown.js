@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {GetEmployeeByProjectId, fetchEmployees} from '../Features/EmployeeSlice';
 
-function EmployeeDropdown({val, callBackFunc}) {
-    const [value, setValue] = React.useState();
+function EmployeeDropdown({val, callBackFunc, empid}) {
+    const [value, setValue] = React.useState(empid);
     const [isDataLoaded, setIsDataLoaded] = useState(false)
     const [isDataDispatched, setIsDataDispatched] = useState(false)
     const dispatch = useDispatch();
