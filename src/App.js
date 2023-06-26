@@ -10,7 +10,6 @@ import EditIssueForm from './Components/EditIssueForm';
 import IssueLandingPage from './Components/IssueLandingPage';
 import Mainpage from './Components/Mainpage';
 import ImagePopup from './Components/ImagePopup';
-import EditIssueForm1 from './Components/EditIssueForm1';
 
 const App = ({selectedProjectId,selectedIssueId}) => {
 

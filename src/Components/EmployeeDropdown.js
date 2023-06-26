@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {GetEmployeeByProjectId, fetchEmployees} from '../Features/EmployeeSlice';
 
-function EmployeeDropdown({val, callBackFunc}) {
-    const [value, setValue] = React.useState();
+function EmployeeDropdown({val, callBackFunc, setEmpId}) {
+    const [value, setValue] = React.useState(setEmpId);
     const [isDataLoaded, setIsDataLoaded] = useState(false)
     const [isDataDispatched, setIsDataDispatched] = useState(false)
     const dispatch = useDispatch();
@@ -30,7 +30,7 @@ function EmployeeDropdown({val, callBackFunc}) {
     }, [val])
     useEffect(() => {
       if(isDataDispatched){
-          const optionsWithNone = [{empId: -1, empName: 'Any'}, {empId:0, empName: 'None'}, ...data];
+          const optionsWithNone = [{empId: -1, empName: 'Any'}, {empId:'null', empName: 'None'}, ...data];
           setOptions(optionsWithNone);
           setIsDataLoaded(true);
       }
@@ -56,10 +56,6 @@ function EmployeeDropdown({val, callBackFunc}) {
     if(isDataLoaded){
         return (
             <>
-              {/* {console.log(data)} */}
-              {/* {data.map((val,ind) => (
-                console.log(val)
-              ))} */}
             <select
               disabled={isLoading}
               value={value}

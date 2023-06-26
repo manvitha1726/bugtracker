@@ -60,9 +60,13 @@ label {
   font-size: 18px;
   cursor: pointer;
 }
-input,textarea{
+input{
   margin:8px auto;
   padding:10px;
+  /* width: 100%; */
+}
+
+textarea {
   width: 100%;
 }
 .options {
