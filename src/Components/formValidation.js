@@ -12,6 +12,7 @@ const schema = Joi.object({
     stepsToReproduce: Joi.string().required().label('Steps To Reproduce'),
     description: Joi.string().required().min(30).max(300).label('Description'),
     iterationNumber: Joi.number().integer().positive().required().label('Iteration Number'),
+    // dateidentified: Joi.date().iso().required().label('Date Identified'),
     // // projectName: Joi.string().required().label('Project Name'),
     // assignTo: Joi.number().optional().integer().allow(null),
     // images: Joi.string().allow(null,''),
