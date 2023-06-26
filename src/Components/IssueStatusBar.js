@@ -254,7 +254,7 @@ function IssueStatusBar() {
                 
               </div>
               <div className='heading-container'>
-                <h1 className='text-center'>{projObj.data[ProjectId-1].projectname} Issues</h1>
+                <h1>{projObj.data[ProjectId-1].projectname} Issues</h1>
               </div>
               <div className='align'>
                 <input className="pa2 bb br3 ma2 shadow" type="text" placeholder="Search Issue" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
