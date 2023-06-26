@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedIssueId } from '../Features/SelectedFieldsSlice';
+// import { setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 import { FaCalendarAlt } from 'react-icons/fa'; // Import the calendar icon
 import './IssueTable.css';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';

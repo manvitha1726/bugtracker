@@ -34,7 +34,15 @@ const IssueLandingPage = () => {
     
     
     if(loading){
-        return <h2>Loading.........</h2>
+        return (
+            <div class="text-center my-auto">
+              <br/><br/><br/><br/><br/><br/><br/><br/>
+              <div class="spinner-border" role="status">
+              </div>
+              <br/>
+              <span>Loading....</span>
+            </div>
+          )
     }
     if(error !== null){
         return <h2>Oops something went wrong...</h2>

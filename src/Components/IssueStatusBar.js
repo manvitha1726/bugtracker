@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
-import { FaPlus ,FaEye,FaPencilAlt,FaSort} from 'react-icons/fa';
+import { FaPlus ,FaEye,FaPencilAlt,FaSort, FaImage} from 'react-icons/fa';
 import { getAllProjects } from "../Features/ProjectsSlice";
 import {useNavigate} from 'react-router-dom'; 
 import Pagination from './Pagination/Pagination';
 import './Home.css';
 import EmployeeDropdown from './EmployeeDropdown';
 import { right } from '@popperjs/core';
+import ImagePopup from './ImagePopup';
 
 function IssueStatusBar() {
     const dispatch = useDispatch()
@@ -26,6 +27,7 @@ function IssueStatusBar() {
     const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState(1);
     const [IdentifiedEmployee, setIdentifiedEmployee] = useState();
     const [isFromLandingPage, setIsFromLandingPage] = useState(true);
+    const [showImagePopup, setShowImagePopup] = useState(false);
 
     const [issueFilterVal, setIssueFilterVal] = useState({
       status: 'Any',
@@ -184,13 +186,13 @@ function IssueStatusBar() {
       
       const filtered = data.filter(issue => {
         // Check if each field in issueFilterVal matches the corresponding issue property
-        var status = 'Any', identfiedemp = -1, assignTo = -1, priority = 'Any', severity = 'Any';
+        var status = 'Any', identfiedemp = -1, assignTo = -1, priority = 'Any', seviority = 'Any';
         if(selectedFilters!==null){
           status = selectedFilters.status;
           identfiedemp = selectedFilters.identfiedemp;
           assignTo = selectedFilters.assignTo;
           priority = selectedFilters.priority;
-          severity = selectedFilters.severity;
+          seviority = selectedFilters.severity;
           dispatch(setSelectedFilters(null));
         }
         else{
@@ -198,16 +200,16 @@ function IssueStatusBar() {
           identfiedemp = issueFilterVal.identfiedemp;
           assignTo = issueFilterVal.assignTo;
           priority = issueFilterVal.priority;
-          severity = issueFilterVal.severity;
+          seviority = issueFilterVal.severity;
         }
-        console.log(status, identfiedemp, assignTo, priority, severity);
+        console.log(status, identfiedemp, assignTo, priority, seviority);
         {console.log("iss11", issue);}
         if (
           (status === 'Any' || issue.status === status) &&
           (identfiedemp === "undefined" || identfiedemp == -1 || issue.identfiedemp == identfiedemp) &&
           (assignTo === '1' || assignTo == -1 || issue.assignTo == assignTo) &&
           (priority === 'Any' || issue.priority === priority) &&
-          (severity === 'Any' || issue.severity === severity)
+          (seviority === 'Any' || issue.severity === seviority)
         ) {
           return true; // Include issue in the filtered list
         }
@@ -237,7 +239,15 @@ function IssueStatusBar() {
      }
 
   if(loading){
-    return <h1>Loading...</h1>
+    return (
+      <div class="text-center my-auto">
+        <br/><br/><br/><br/><br/><br/><br/><br/>
+        <div class="spinner-border" role="status">
+        </div>
+        <br/>
+        <span>Loading....</span>
+      </div>
+    )
    }
 
   if(error){
@@ -339,17 +349,26 @@ function IssueStatusBar() {
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(139, 200, 209)"}}>Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
                 <th className='p-3 text-center' style={{backgroundColor:"rgb(139, 200, 209)"}}>Priority &nbsp;<FaSort onClick={handleSort}/></th>
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(139, 200, 209)"}}>Severity</th>
-              
               </tr>
             </thead>
             <tbody>
               {currentPosts.map(issue => ( 
                 <tr key={issue.issueId}>
                   <td className='p-3 table-1stcol' style={{position:"relative"}}>
+                    
                     <a onClick={() => NavigateToSelectedIssue(issue.issueId)} className='clickable-'>
                         {issue.issueName}
                     </a> &nbsp;&nbsp;&nbsp;
-                    <FaPencilAlt className='pointer-icon'  onClick={() => handleEditIcon(issue.issueId)}/>
+                    {/* {console.log("images url : ", issue.images)} */}
+                    {
+                    !(issue.images == '' || issue.images == 'string') ?
+                    <FaImage className='pointer-icon1' onClick={() => setShowImagePopup(true)} />
+                    :
+                    <p className='pointer-icon1'></p>
+                    }
+                    
+                    <ImagePopup  imageUrl={issue.images} show={showImagePopup} onHide ={() => setShowImagePopup(false)}/>
+                    <FaPencilAlt className='pointer-icon2'  onClick={() => handleEditIcon(issue.issueId)}/>
                   </td>
                   <td className='p-3'> 
                     {issue.status}
@@ -370,7 +389,7 @@ function IssueStatusBar() {
                   </td>
                   
                   <td >
-                    Will display severity here
+                    {issue.seviority}
                   {/* <center>
                   <FaEye className='pointer-icon' onClick={() => handleViewIcon(issue.issueId)} /></center> */}
                   </td>

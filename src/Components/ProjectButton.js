@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 import { addNewProject } from '../Features/ProjectsSlice';
 import {useNavigate} from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
-import './IssueForm.css'
-import './Home.css';
+// import './IssueForm.css'
+// import './Home.css';
 import validateForm from './ProjectFormValidation';
 const ProjectButton = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -29,7 +29,7 @@ function AddEmployee({func, projectId}) {
             empName: employeeName,
             projectId: projectId
         }
-        console.log(employeeData);
+        // console.log(employeeData);
         dispatch(addEmployees(employeeData))
         .then((response) => {
             // console.log("Result",response);
