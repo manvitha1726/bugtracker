@@ -53,7 +53,7 @@ export const addEmployees = createAsyncThunk(
     async (employeeData, {rejectWithValue}) => {
     //const response = await fetch()
     try{
-        console.log("empdata from slice",employeeData);
+        // console.log("empdata from slice",employeeData);
         const response = fetch(`https://issuetrackingwebapp.azurewebsites.net/api/employees/addemployee`, {  
           method: 'POST', 
           headers: {
@@ -63,7 +63,7 @@ export const addEmployees = createAsyncThunk(
           body: JSON.stringify(employeeData) // body data type must match "Content-Type" header
         })
         const result = await response.json();
-        console.log(result);
+        // console.log(result);
         return result;
    }catch(err){
     return rejectWithValue("Found an error!",err.response.data)

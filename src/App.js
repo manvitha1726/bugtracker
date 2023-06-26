@@ -8,25 +8,29 @@ import DisplayIssue from './Components/DisplayIssue';
 import EditIssueForm from './Components/EditIssueForm';
 import Mainpage from './Components/Mainpage';
 import IssueStatusBar from './Components/IssueStatusBar';
+import Header from './Components/Header';
+
 
 const App = ({selectedProjectId,selectedIssueId}) => {
 
   return (
     <div>
-      
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<ProjectScreen/>}/>
-          <Route path={`/projects/${selectedProjectId}`} element={<Mainpage/>}/>
-          <Route path={`/projects/${selectedProjectId}/AddIssue`} element={<IssueForm/>}/>
-          <Route path={`/projects/${selectedProjectId}/display-issue${selectedIssueId}`} element={<DisplayIssue/>}/>
-          <Route path={`/projects/${selectedProjectId}/EditIssue${selectedIssueId}`}element={<EditIssueForm />}/>
-          <Route path={`/projects/${selectedProjectId}/MyView`} element={<Mainpage />}/>
-          <Route path={`/projects/${selectedProjectId}/ViewIssues`} element={<Mainpage />}/>
-          <Route path={`/projects/${selectedProjectId}/RoadMap`} element={<Mainpage/>}/>
-          <Route path={`/projects/${selectedProjectId}/IssueStatus`} element={<IssueStatusBar/>}/>
-        </Routes>
+     
+       <Router>
+          <Header/>
+          {/* <hr/> */}
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<ProjectScreen/>}/>
+            <Route path={`/projects/${selectedProjectId}`} element={<Mainpage/>}/>
+            <Route path={`/projects/${selectedProjectId}/AddIssue`} element={<IssueForm/>}/>
+            <Route path={`/projects/${selectedProjectId}/display-issue${selectedIssueId}`} element={<DisplayIssue/>}/>
+            <Route path={`/projects/${selectedProjectId}/EditIssue${selectedIssueId}`}element={<EditIssueForm />}/>
+            <Route path={`/projects/${selectedProjectId}/MyView`} element={<Mainpage />}/>
+            <Route path={`/projects/${selectedProjectId}/ViewIssues`} element={<Mainpage />}/>
+            <Route path={`/projects/${selectedProjectId}/RoadMap`} element={<Mainpage/>}/>
+            <Route path={`/projects/${selectedProjectId}/IssueStatus`} element={<IssueStatusBar/>}/>
+          </Routes>
       </Router>
     </div>
   );

@@ -8,6 +8,7 @@ function ImageUpload({callBackFunc}) {
     const [fileSelected, setFileSelected] = useState();
     //const [fileUploaded, setFileUploaded] = useState('');
     const [imageURL, setImageURL] = useState(null);
+    const [isUploaded, setIsUploaded] = useState(false);
 
     const [uploading, setUploading] = useState(false);
     const [inputKey, setInputKey] = useState(Math.random().toString(36));
@@ -49,15 +50,27 @@ function ImageUpload({callBackFunc}) {
             setFileSelected(null);
             //setFileUploaded(fileSelected.name);
             setUploading(false);
+            setIsUploaded(true);
             setInputKey(Math.random().toString(36));
         }
       };
 
   return (
     <>
-
-      {storageConfigured && !uploading && DisplayUploadImage()}
-      {storageConfigured && uploading && <div>Uploading</div>}
+      {
+        !isUploaded ?
+        storageConfigured && !uploading && DisplayUploadImage()
+        :
+        <img src={imageURL} alt='uploaded image' />
+      }
+      {storageConfigured && uploading && <>
+          <div class="text-center my-auto">
+            <div class="spinner-border" role="status">
+            </div>
+            <br/>
+            <span>Uploading....</span>
+          </div>
+        </>}
       <hr />
       {/* {console.log("image url : ", imageURL)} */}
       {/* {console.log(getBlobsInContainer())} */}

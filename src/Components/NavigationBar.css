@@ -1,15 +1,15 @@
 .left-nav-bar {
-  position: fixed;
-  top: 0;
+  position: relative;
+  top: 1.5%;
   left: 0;
   height: 100vh;
-  width: 9%;
   background-color: black;
   display: flex;
   flex-direction: column;
+  margin-right: 3%;
   align-items: center;
   justify-content: top;
-  /* border: 2px solid white; */
+
 }
 
 .nav-item {

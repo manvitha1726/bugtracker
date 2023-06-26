@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProjects } from '../Features/ProjectsSlice';
 // import Pagination from './Pagination/Pagination';
 import Carousel from "react-elastic-carousel";
-import './Home.css';
+// import './Home.css';
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
@@ -29,7 +29,15 @@ function ProjectScreen() {
   const filteredProjects = data.filter(project => project.projectname.toLowerCase()
   .includes(searchField.toLowerCase()));
   if (loading) {
-    return <h1>Loading...</h1>;
+    return (
+      <div class="text-center my-auto">
+        <br/><br/><br/><br/><br/><br/><br/><br/>
+        <div class="spinner-border" role="status">
+        </div>
+        <br/>
+        <span>Loading....</span>
+      </div>
+    )
   }
   if (error) {
     return <h2>Oops Something wrong..</h2>;
@@ -44,12 +52,13 @@ function ProjectScreen() {
     // const currentPosts = filteredProjects.slice(firstPostIndex, lastPostIndex);
     
   return (
-    
+    <div>
     <center>
+    <hr/>
     <section className="garamond">
       <div className='pa1 '>
       <div className="navy georgia grow">
-        <h2 className="f2 pt4 ">Projects</h2>
+        <h2 className="f2  ">Projects</h2>
       </div></div> 
 
        <div className='alignright'>
@@ -64,14 +73,14 @@ function ProjectScreen() {
         />
       </div>
       <div className='mt-4'>
-      <hr className="seperator" /><br/>
+      {/* <hr className="seperator" /> */}<br/>
       <div className="carousel-wrapper">
       <Carousel breakPoints={breakPoints}>
       {filteredProjects.map((val) => (
         <ProjectCard
           key={val.projectId}
           project={val}
-        />
+        />  
       ))}  
       </Carousel>
      </div>
@@ -84,6 +93,7 @@ function ProjectScreen() {
       </div>
     </section>
     </center>
+    </div>
   );
   }
 

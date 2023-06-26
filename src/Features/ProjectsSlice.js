@@ -55,6 +55,5 @@ export const Projects = createSlice({
       state.data.push(action.meta.arg);
     },
   },
-
 });
 export default Projects.reducer;
