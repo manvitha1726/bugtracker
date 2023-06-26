@@ -293,9 +293,6 @@ button
     padding-bottom:10px;
   }
 
-  .Issue-table{
-    border: 1px black solid;
-  }
   
   .clickable- {
     cursor: pointer;
@@ -307,11 +304,20 @@ button
   .table-1stcol{
     position: relative;
   }
-  .pointer-icon{
+
+  .pointer-icon1{
+    position: absolute;
+    right: 20%;
+  }
+  .pointer-icon1:hover{
+    cursor: pointer;
+
+  }
+  .pointer-icon2{
     position: absolute;
     right: 10%;
   }
-  .pointer-icon:hover{
+  .pointer-icon2:hover{
     cursor: pointer;
 
   }

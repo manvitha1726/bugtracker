@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProjects } from '../Features/ProjectsSlice';
 // import Pagination from './Pagination/Pagination';
 import Carousel from "react-elastic-carousel";
-import './Home.css'
+// import './Home.css'
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
   { width: 550, itemsToShow: 2, itemsToScroll: 2 },
@@ -28,7 +28,15 @@ function ProjectScreen() {
   const filteredProjects = data.filter(project => project.projectname.toLowerCase()
   .includes(searchField.toLowerCase()));
   if (loading) {
-    return <h1>Loading...</h1>;
+    return (
+      <div class="text-center my-auto">
+        <br/><br/><br/><br/><br/><br/><br/><br/>
+        <div class="spinner-border" role="status">
+        </div>
+        <br/>
+        <span>Loading....</span>
+      </div>
+    )
   }
   if (error) {
     return <h2>Oops Something wrong..</h2>;

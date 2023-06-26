@@ -28,11 +28,15 @@
 
 .col-75 {
   float: center;
-  width: 40%;
+  width: 55%;
   margin-top: 6px;
   text-align: left;
-  padding-left: 10%; 
+  padding-left: 15%; 
   padding-right: 1%;
+}
+
+.col-75 input {
+  width: 100%;
 }
 
 .row::after {
@@ -59,6 +63,7 @@ label {
 input,textarea{
   margin:8px auto;
   padding:10px;
+  width: 100%;
 }
 .options {
   margin-top: 1em;
@@ -113,7 +118,7 @@ img{
   width: 20%;
   margin-top: 6px;
   text-align: left;
-  padding-left: 5%; 
+  padding-left: 7%; 
 }
 .validations{
   color: red;
@@ -126,4 +131,167 @@ img{
 {
   font-size: medium;
   color: rgb(45, 202, 226);
+}
+
+.fixedwidth {
+  width: 250px;
+  margin-right: 10px;
+}
+
+.fixedwidthtext {
+  width: 250px;
+  height: 50px;
+}
+
+.container {
+  width: 60%;
+  border-radius: 5px;
+  background-color: white;
+  padding: 20px;
+  align-items: center;
+  margin: 20px auto; 
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+}
+
+.col-25 {
+  float: center;
+  width: 40%;
+  margin-top: 6px;
+  text-align: left;
+  padding-left: 1%; 
+}
+
+
+
+.form-control
+{
+  width: 120%;
+}
+
+/* .row{
+padding: 10px;
+} */
+
+.col-50
+{
+  float: center;
+  width: 20%;
+  margin-top: 6px;
+  text-align: left;
+  padding-left: 5%; 
+}
+
+.col-75
+{
+  float: center;
+  width: 45%;
+  margin-top: 6px;
+  text-align: left;
+  padding-left: 10%; 
+  padding-right: 1%;
+}
+
+.col-75 input
+{
+  width: 100%;
+}
+
+label
+{
+  width: 500%;
+}
+
+/* .drop
+{
+  width: 0%;
+} */
+
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+  padding: 10px;
+}
+input:focus,textarea:focus{
+  margin:8px 0;
+  padding:10px;
+  border:1.5px solid #aaa;
+  border-radius:4px;
+  outline:none;
+  transition:.2s;
+  box-sizing:border-box;
+  border-color: rgb(139, 200, 209);
+  box-shadow: 0 0 8px 0 rgb(139, 200, 209)
+}
+label {
+  font-size: 18px;
+  cursor: pointer;
+}
+input,textarea{
+  margin:8px auto;
+  padding:10px;
+}
+.options {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.col
+{
+  padding-left: 1%; 
+  width: 200%;
+}
+
+select {
+  appearance: none;
+  width: 9em;
+  padding: 0.30em 0.5em;
+  font-size: 1.00em;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  background-color:rgb(139, 200, 209);
+  border: none;
+  color: #ffffff;
+  background-repeat: no-repeat;
+  background-size: 1.0em;
+  background-image: url("arrow.png");
+  background-position: 7.5em;
+  outline: none;
+  border-radius: 0.3em;
+}
+select::-ms-expand {
+  display: none;
+}
+select option {
+  background-color: #ffffff;
+  color:rgb(139, 200, 209);
+  letter-spacing: 0.06em;
+  font-weight: 400;
+  font-size: 1.12em;
+}
+
+.required:before {
+  content: "*";
+  font-weight: bold;
+  color: red;
+}
+img{
+  width:70%;
+  height:60%;
+}
+
+.validations{
+  color: red;
+}
+
+.form-label
+{
+  font-size: medium;
+  color: rgb(45, 202, 226);
+}
+
+select
+{
+  height: 50%;
 }

@@ -33,7 +33,8 @@ function IssueForm() {
     seviority: 'S1',
     linkToPast: null,
     images: ""
-    };
+  
+  };
 
   const [val1, setVal1] = useState(1);
   const [formData, setFormData] = useState(initialFormData);
@@ -149,50 +150,31 @@ function IssueForm() {
       <input type="text" className="form-control" id="inputEmail4" placeholder="Module Name"/>
     </div>
     </div>
-
-      
-        {/* <div className="row">
-          <div className="col-25">
-            <label className="form-label" htmlFor="IssueType">Issue Type</label>
-          </div>
-          <div className="col-75">
-            <select id="IssueType" value={selectedIssue} onChange={handleIssueSelection} required>
-              <option value="Bug">Bug</option>
-              <option value="Defect">Defect</option>
-            </select>
-          </div>
-        </div> */}
-      
       <div class="row">
-      <div class="col-3">
-     <label for="inputPassword4">Issue Type</label> 
-      <select className="drop" id="IssueType" value={selectedIssue} onChange={handleIssueSelection} required>
-              <option value="Bug">Bug</option>
-              <option value="Defect">Defect</option>
-            </select>
-            </div>
-    <div class="col-3">
-      <label>Identified Employee</label>
-      <EmployeeDropdown val={val1} callBackFunc={setIdentifiedEmployee} prjID={projectId} />
-            <div className="validations">
-              {errors.identfiedemp && <span>{errors.identfiedemp}</span>}
-            </div>
-    </div>
-    <div class="col-3">
-    <label className="" htmlFor="priority">Priority</label>
-            <select id="IssueType" value={selectedPriority} onChange={handleSelectedPriority} required>
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-            </select>
-          </div>
+        <div class="col-3">
+            <label className="form-label">Issue Type</label> 
+              <select className="drop" id="IssueType" value={selectedIssue} onChange={handleIssueSelection} required>
+                      <option value="Bug">Bug</option>
+                      <option value="Defect">Defect</option>
+                    </select>
         </div>
-
-        <div className="row">
-          <div className="col-25">
+        <div class="col-3">
+          <label className="form-label">Identified Employee</label>
+          <EmployeeDropdown val={val1} callBackFunc={setIdentifiedEmployee} prjID={projectId} />
+                <div className="validations">
+                  {errors.identfiedemp && <span>{errors.identfiedemp}</span>}
+                </div>
+        </div>
+        <div class="col-3">
+        <label className="form-label" htmlFor="priority">Priority</label>
+                <select id="IssueType" value={selectedPriority} onChange={handleSelectedPriority} required>
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                </select>
+        </div>
+        <div className="col-3">
             <label className="form-label" htmlFor="priority">Seviority</label>
-          </div>
-          <div className="col-75">
             <select id="seviority" value={selectedSeviority} onChange={handleSelectedSeviority} required>
               <option value="S1">S1</option>
               <option value="S2">S2</option>
@@ -200,26 +182,7 @@ function IssueForm() {
               <option value="S4">S4</option>
             </select>
           </div>
-        </div>
-
-      <div className="row">
-        <div className="col-25">
-          <label className="form-label" htmlFor="targetdate">Target Date</label>
-        </div>
-        <div className="col-75">
-          <input className="fixedwidth" type="date" id="targetdate" name="targetdate" value={formData.targetdate} onChange={handleChange}/>
-          <div className="validations">
-{errors.targetdate && <span>{errors.targetdate}</span>}
-</div>
-    </div>
-       </div>
-       <div className="row">
-           <div className="col-25">
-               <label className="form-label" htmlFor="assignTo">Assigned To</label>
-               <EmployeeDropdown val={val1} callBackFunc={setSelectedAssignedEmployee} />
-           </div>
-   </div>
-
+      </div>
         <div class="row">
     <div class="col-25">
       <label className="form-label" for="inputEmail4">Identified Date</label> 
@@ -255,20 +218,27 @@ function IssueForm() {
         </div> */}
 
         <div className="row">
-        <div className="col-25">
-            <label className="form-label" htmlFor="iterationNumber">Iteration Number</label> 
-          <input type="number" className="form-control" id="iterationNumber"  name="iterationNumber" placeholder="Iteration Number" value={formData.iterationNumber} onChange={handleChange} />
-          </div>
-          <div className="col-75">
-            <label className="form-label" htmlFor="testingType">Testing Type</label>
-            <select id="testingType" value={selectedTesting} onChange={handleTestingSelection}>
-              <option value="Smoke Testing">Smoke Testing</option>
-              <option value="Regression Testing">Regression Testing</option>
-            </select>
-          </div>
-         
+            <div className="col-25">
+                <label className="form-label" htmlFor="iterationNumber">Iteration Number</label> 
+              <input type="number" className="form-control" id="iterationNumber"  name="iterationNumber" placeholder="Iteration Number" value={formData.iterationNumber} onChange={handleChange} />
+            </div>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;
+            <div className="col-50">
+                <label className="form-label" htmlFor="testingType">Testing Type</label>
+                <select id="testingType" value={selectedTesting} onChange={handleTestingSelection}>
+                  <option value="Smoke Testing">Smoke Testing</option>
+                  <option value="Regression Testing">Regression Testing</option>
+                </select>
+            </div>
+            <div className="col-50">
+                <label className="form-label" htmlFor="assignTo">Assigned To</label>
+                <br/>
+                <EmployeeDropdown val={val1} callBackFunc={setSelectedAssignedEmployee} />
+                
+            </div>
         </div>
-
 
         <div className="row">
           {/* <div className="col-25">
@@ -301,26 +271,22 @@ function IssueForm() {
           </div> 
         </div>*/}
 
-        <div className="row">
-          <div className="col-25">
+        <div className="row" style={{display:'flex', flexDirection:'row'}}>
             <label className="form-label" htmlFor="images">Upload Image</label>
-          </div>
-          
-          <div className="col-50">
-            {/* <input className="fixedwidth" type="file" multiple onChange={handleFileUpload} /> */}
             <ImageUpload callBackFunc={setAttachedFiles} />
-          </div>
         </div>
 
-        <button type="submit" onClick={handleSubmit}>Add Issue</button> 
-        &nbsp;&nbsp;
-               <button onClick={NavigateBackClick1}>Cancel</button>
+        <center>
+            <button type="submit" onClick={handleSubmit}>Add Issue</button> 
+            &nbsp;&nbsp;
+            <button onClick={NavigateBackClick1}>Cancel</button>
+        </center>
         </form>
         </>
         );
 
-        }
+}
       
 
-        export default IssueForm;
+export default IssueForm;
       
