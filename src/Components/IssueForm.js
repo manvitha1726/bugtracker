@@ -142,11 +142,11 @@ function IssueForm() {
         <div class="row">
     <div class="col-25">
       <label  className="form-label" for="inputEmail4">Issue Name</label> 
-      <input type="text" className="form-control" id="inputEmail4" placeholder="Issue Name"/>
+      <input type="text" className="form-control" id="inputEmail4" name="issueName" placeholder="Issue Name"/>
     </div>
     <div class="col-75">
     <label className="form-label" for="inputEmail4">Module Name</label> 
-      <input type="text" className="form-control" id="inputEmail4" placeholder="Module Name"/>
+      <input type="text" className="form-control" id="inputEmail4" name="moduleName" placeholder="Module Name"/>
     </div>
     </div>
       <div class="row">
@@ -183,7 +183,6 @@ function IssueForm() {
           </div>
       </div>
         <div class="row">
-    <div className="col-25">
     <div className="col-25">
            <label className="form-label" htmlFor="targetdate">Target Date</label> 
           <input type="date" className="form-control" id="targetdate" name="targetdate" value={formData.targetdate} onChange={handleChange}/>
