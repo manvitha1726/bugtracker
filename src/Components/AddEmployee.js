@@ -50,6 +50,7 @@ function AddEmployee({func, projectId}) {
             >
                 Add New Employee
             </button>
+            </button>
             <Modal
                 isOpen={isOpen}
                 toggle={handleCloseModal}>
@@ -73,7 +74,7 @@ function AddEmployee({func, projectId}) {
                     </form>
                 </ModalBody>
                 <ModalFooter>
-                    <Button className='add-employee-bt' onClick={handleSubmit}>Submit</Button>{' '}
+                    <button className='add-employee-bt' onClick={handleSubmit}>Submit</button>{' '}
                 </ModalFooter>
             </Modal>
         </div>

@@ -31,6 +31,7 @@ function EmployeeDropdown({val, callBackFunc, empid}) {
     useEffect(() => {
       if(isDataDispatched){
           const optionsWithNone = [{empId: -1, empName: 'Any'}, {empId:0, empName: 'None'}, ...data];
+          const optionsWithNone = [{empId: -1, empName: 'Any'}, {empId:0, empName: 'None'}, ...data];
           setOptions(optionsWithNone);
           setIsDataLoaded(true);
       }

@@ -199,9 +199,9 @@ function IssueStatusBar() {
           priority = issueFilterVal.priority;
           seviority = issueFilterVal.seviority;
         }
-        console.log(status.toString(), identfiedemp.toString(), assignTo.toString(), priority.toString(), seviority.toString());
-        {console.log("iss11", issue);}
-        {console.log(`${issue.assignTo}`, assignTo, `${issue.identfiedemp}` == identfiedemp);}
+        // console.log(status.toString(), identfiedemp.toString(), assignTo.toString(), priority.toString(), seviority.toString());
+        // {console.log("iss11", issue);}
+        // {console.log(`${issue.assignTo}`, assignTo, `${issue.identfiedemp}` == identfiedemp);}
         // {console.log("as1 : ", assignTo === '1' , assignTo == -1  , issue.assignTo == assignTo, `${issue.assignTo}`, assignTo, assignTo, 'null' === null)}
         if (
           (status === 'Any' || issue.status === status) &&

@@ -140,56 +140,56 @@ function IssueForm() {
         <h3 className="text-center">Enter Issue Details: {projObj.data[projectId-1].projectname}</h3><br/>
         <div class="row">
     <div class="col-25">
-      <label  className="form-label" for="inputEmail4">Issue Name</label> 
-      <input type="text" className="form-control" id="inputEmail4" name="issueName" onChange={handleChange} placeholder="Issue Name"/>
+      <label  className="form-label" for="issueName">Issue Name</label> 
+      <input type="text" className="form-control" id="issueName" name="issueName" onChange={handleChange} placeholder="Issue Name"/>
     </div>
     <div class="col-75">
-    <label className="form-label" for="inputEmail4">Module Name</label> 
-      <input type="text" className="form-control" id="inputEmail4" name="moduleName" onChange={handleChange} placeholder="Module Name"/>
+    <label className="form-label" for="moduleName">Module Name</label> 
+      <input type="text" className="form-control" id="moduleName" name="moduleName" onChange={handleChange} placeholder="Module Name"/>
     </div>
-    </div>
-      <div class="row">
-        <div class="col-3">
-            <label className="form-label">Issue Type</label> 
-              <select className="drop" id="IssueType" value={selectedIssue} onChange={handleIssueSelection} required>
-                      <option value="Bug">Bug</option>
-                      <option value="Defect">Defect</option>
-                    </select>
         </div>
-        <div class="col-3">
-          <label className="form-label">Identified Employee</label>
-          <EmployeeDropdown val={val1} callBackFunc={setIdentifiedEmployee} prjID={projectId} />
-                <div className="validations">
-                  {errors.identfiedemp && <span>{errors.identfiedemp}</span>}
-                </div>
-        </div>
-        <div class="col-3">
-        <label className="form-label" htmlFor="priority">Priority</label>
-                <select id="IssueType" value={selectedPriority} onChange={handleSelectedPriority} required>
-                  <option value="Low">Low</option>
-                  <option value="Medium">Medium</option>
-                  <option value="High">High</option>
-                </select>
-        </div>
-        <div className="col-3">
-            <label className="form-label" htmlFor="priority">Seviority</label>
-            <select id="seviority" value={selectedSeviority} onChange={handleSelectedSeviority} required>
-              <option value="S1">S1</option>
-              <option value="S2">S2</option>
-              <option value="S3">S3</option>
-              <option value="S4">S4</option>
-            </select>
-          </div>
-      </div>
         <div class="row">
-    <div className="col-25">
-           <label className="form-label" htmlFor="targetdate">Target Date</label> 
-          <input type="date" className="form-control" id="targetdate" name="targetdate" value={formData.targetdate} onChange={handleChange}/>
-          <div className="validations">
-            {errors.targetdate && <span>{errors.targetdate}</span>}
+          <div class="col-3">
+              <label className="form-label">Issue Type</label> 
+                <select className="drop" id="IssueType" value={selectedIssue} onChange={handleIssueSelection} required>
+                        <option value="Bug">Bug</option>
+                        <option value="Defect">Defect</option>
+                      </select>
           </div>
+          <div class="col-3">
+            <label className="form-label">Identified Employee</label>
+            <EmployeeDropdown val={val1} callBackFunc={setIdentifiedEmployee} prjID={projectId} />
+                  <div className="validations">
+                    {errors.identfiedemp && <span>{errors.identfiedemp}</span>}
+                  </div>
           </div>
-  </div>
+          <div class="col-3">
+          <label className="form-label" htmlFor="priority">Priority</label>
+                  <select id="IssueType" value={selectedPriority} onChange={handleSelectedPriority} required>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                  </select>
+          </div>
+          <div className="col-3">
+              <label className="form-label" htmlFor="priority">Seviority</label>
+              <select id="seviority" value={selectedSeviority} onChange={handleSelectedSeviority} required>
+                <option value="S1">S1</option>
+                <option value="S2">S2</option>
+                <option value="S3">S3</option>
+                <option value="S4">S4</option>
+              </select>
+            </div>
+        </div>
+        <div class="row">
+            <div className="col-25">
+                <label className="form-label" htmlFor="targetdate">Target Date</label> 
+                <input type="date" className="form-control" id="targetdate" name="targetdate" value={formData.targetdate} onChange={handleChange}/>
+                <div className="validations">
+                  {errors.targetdate && <span>{errors.targetdate}</span>}
+                </div>
+            </div>
+        </div>
 
         <div className="row">
           <div className="col-25">
@@ -201,7 +201,7 @@ function IssueForm() {
           </div>
           <div className="col-75">
             <label className="form-label" htmlFor="stepsToReproduce">Steps To Reproduce</label>
-            <input type="text" className="form-control" id="stepsToReproduce" placeholder="StepsTo Reproduce" name="stepsToReproduce" value={formData.stepsToReproduce} onChange={handleChange}/>
+            <input type="text" className="form-control" id="stepsToReproduce" placeholder="Steps To Reproduce" name="stepsToReproduce" value={formData.stepsToReproduce} onChange={handleChange}/>
             <div className="validations">
               {errors.stepsToReproduce && <span>{errors.stepsToReproduce}</span>}
             </div>
@@ -235,6 +235,7 @@ function IssueForm() {
                 
             </div>
         </div>
+        <br/><br/>
         <br/><br/>
 
         <div className="row">
