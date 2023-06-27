@@ -142,11 +142,11 @@ function IssueForm() {
         <div class="row">
     <div class="col-25">
       <label  className="form-label" for="inputEmail4">Issue Name</label> 
-      <input type="text" className="form-control" id="inputEmail4" placeholder="Issue Name"/>
+      <input type="text" className="form-control" id="inputEmail4" name="issueName" placeholder="Issue Name"/>
     </div>
     <div class="col-75">
     <label className="form-label" for="inputEmail4">Module Name</label> 
-      <input type="text" className="form-control" id="inputEmail4" placeholder="Module Name"/>
+      <input type="text" className="form-control" id="inputEmail4" name="moduleName" placeholder="Module Name"/>
     </div>
     </div>
       <div class="row">
@@ -191,6 +191,7 @@ function IssueForm() {
             {errors.targetdate && <span>{errors.targetdate}</span>}
           </div>
           </div>
+  </div>
   </div>
 
         <div className="row">
