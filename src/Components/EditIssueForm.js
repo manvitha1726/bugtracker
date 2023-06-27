@@ -144,7 +144,7 @@ function EditIssueForm() {
   const NavigateBackClick = () => {
     // navigate(`/projects/${selectedProjectId}/`);
     // console.log("selected pj id : -", selectedProjectId);
-    navigate(`/projects/${selectedProjectId}/view-all-issues`)
+    navigate(`/projects/${selectedProjectId}/ViewIssues`)
   };
   const handleSubmit = (event) => {
     event.preventDefault();

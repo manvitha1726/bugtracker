@@ -44,12 +44,12 @@ function AddEmployee({func, projectId}) {
     return (
         <div className='employee-add-card'>
             <br/>
-            <Button 
+            <button style={{width:"170px"}} 
                 className='add-employee-bt'
                 onClick={handleOpenModal}
             >
                 Add New Employee
-            </Button>
+            </button>
             <Modal
                 isOpen={isOpen}
                 toggle={handleCloseModal}>

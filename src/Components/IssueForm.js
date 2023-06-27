@@ -22,7 +22,6 @@ function IssueForm() {
     description: "",
     summary: "",
     identfiedemp: "",
-    dateidentified: "",
     priority: "Low",
     targetdate: "",
     assignTo: "",
@@ -142,11 +141,11 @@ function IssueForm() {
         <div class="row">
     <div class="col-25">
       <label  className="form-label" for="inputEmail4">Issue Name</label> 
-      <input type="text" className="form-control" id="inputEmail4" name="issueName" placeholder="Issue Name"/>
+      <input type="text" className="form-control" id="inputEmail4" name="issueName" onChange={handleChange} placeholder="Issue Name"/>
     </div>
     <div class="col-75">
     <label className="form-label" for="inputEmail4">Module Name</label> 
-      <input type="text" className="form-control" id="inputEmail4" name="moduleName" placeholder="Module Name"/>
+      <input type="text" className="form-control" id="inputEmail4" name="moduleName" onChange={handleChange} placeholder="Module Name"/>
     </div>
     </div>
       <div class="row">
@@ -223,7 +222,7 @@ function IssueForm() {
               &nbsp;&nbsp;&nbsp;&nbsp;
             <div className="col-50">
                 <label className="form-label" htmlFor="testingType">Testing Type</label>
-                <select id="testingType" value={selectedTesting} onChange={handleTestingSelection}>
+                <select id="testingType" style={{ height:" 30%"}} value={selectedTesting} onChange={handleTestingSelection}>
                   <option value="Smoke Testing">Smoke Testing</option>
                   <option value="Regression Testing">Regression Testing</option>
                 </select>
@@ -232,9 +231,11 @@ function IssueForm() {
                 <label className="form-label" htmlFor="assignTo">Assigned To</label>
                 <br/>
                 <EmployeeDropdown val={val1} callBackFunc={setSelectedAssignedEmployee} />
+              <AddEmployee func={setVal1} projectId={projectId} />
                 
             </div>
         </div>
+        <br/><br/>
 
         <div className="row">
           {/* <div className="col-25">
