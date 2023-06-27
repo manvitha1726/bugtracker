@@ -4,6 +4,7 @@ import { GetIssueById, updateIssue } from "../Features/IssueSlice";
 import './IssueForm.css';
 import { useNavigate } from "react-router-dom";
 import EmployeeDropdown from "./EmployeeDropdown";
+import ImageUpload from "./ImageUpload/ImageUpload";
 function EditIssueForm() {
   const dispatch = useDispatch();
   const { dataById, loading, error } = useSelector((state) => state.issues);
@@ -318,8 +319,9 @@ function EditIssueForm() {
             <div className="col-25">
               <label className="form-label" htmlFor="images">Upload Image</label></div>
             <div className="col-75">
-              <input className="fixedwidth" type="file" multiple onChange={handleFileUpload} />
-            </div> </div>
+              <ImageUpload callBackFunc={setAttachedFiles} />
+            </div> 
+          </div>
 
           <center><img src={formData.images} alt="Uploaded Image" /></center><br />
 
