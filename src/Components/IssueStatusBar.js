@@ -199,14 +199,14 @@ function IssueStatusBar() {
           priority = issueFilterVal.priority;
           seviority = issueFilterVal.seviority;
         }
-        console.log(status.toString(), identfiedemp.toString(), assignTo.toString(), priority.toString(), seviority.toString());
-        {console.log("iss11", issue);}
-        {console.log(`${issue.assignTo}`, assignTo, `${issue.identfiedemp}` == identfiedemp);}
+        // console.log(status.toString(), identfiedemp.toString(), assignTo.toString(), priority.toString(), seviority.toString());
+        // {console.log("iss11", issue);}
+        // {console.log(`${issue.assignTo}`, assignTo, `${issue.identfiedemp}` == identfiedemp);}
         // {console.log("as1 : ", assignTo === '1' , assignTo == -1  , issue.assignTo == assignTo, `${issue.assignTo}`, assignTo, assignTo, 'null' === null)}
         if (
           (status === 'Any' || issue.status === status) &&
-          (identfiedemp === "undefined" ||  identfiedemp == -1 || `${issue.identfiedemp}` == identfiedemp) &&
-          (assignTo === 'undefined' || assignTo == -1  || `${issue.assignTo}` == assignTo) &&
+          (identfiedemp === "undefined" ||  identfiedemp == -1 || issue.identfiedemp == identfiedemp) &&
+          (assignTo === 'undefined' || assignTo == -1  || ((issue.assignTo == null) && assignTo == 0)) &&
           (priority === 'Any' || issue.priority === priority) &&
           (seviority === 'Any' || issue.seviority === seviority)
         ) {

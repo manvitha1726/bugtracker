@@ -14,7 +14,7 @@ const IssueTable = ({issuesList, tableName, noOfIssues,onItemClick}) => {
     const handleButtonClick = (item) => {
         if(tableName === 'Unassigned'){
             dispatch(setSelectedFilters({
-                assignTo: 'null',
+                assignTo: 0,
                 status: 'Any',
                 identfiedemp:-1,
                 priority: 'Any',

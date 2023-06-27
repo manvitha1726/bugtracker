@@ -41,6 +41,8 @@ function EditIssueForm() {
   const [selectedIssue, setSelectedIssue] = useState();
   const [selectedTesting, setSelectedTesting] = useState();
   const [selectedPriority, setSelectedPriority] = useState();
+  const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState();
+  const [IdentifiedEmployee, setIdentifiedEmployee] = useState();
   const [selectedStatus, setSelectedStatus] = useState();
   const [selectedSeviority, setSelectedSeviority] = useState("S1");
   const [attachedFiles, setAttachedFiles] = useState([]);
@@ -100,6 +102,15 @@ function EditIssueForm() {
   // if (dataById.length !== 0) {
   // } 
   // Define the form state
+
+  useEffect(() => {
+    setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
+    // setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
+  }, [selectedAssignedEmployee]);
+
+  useEffect(() => {
+    setFormData((prevFormData) => ({ ...prevFormData, identfiedemp: `${IdentifiedEmployee}` }));
+  }, [IdentifiedEmployee]);
  
 
   const handleFileUpload = (event) => {
@@ -249,7 +260,7 @@ function EditIssueForm() {
                 <div className="col-75">
                   <label className="form-label" htmlFor="assignTo">Assigned To</label>
                   {/* <input className="form-control" type="text" id="assignTo" name="assignTo" value={formData.assignTo} onChange={handleChange} /> */}
-                  <EmployeeDropdown setEmpId={formData.assignTo} />
+                  <EmployeeDropdown setEmpId={formData.assignTo} callBackFunc={setSelectedAssignedEmployee} />
                 </div>
             </div>
 
@@ -300,7 +311,7 @@ function EditIssueForm() {
             <div className="col-25">
               <label className="form-label" htmlFor="identifiedemp">Identfied By</label>
               {/* <input className="fixedwidth" type="text" id="identfiedemp" name="identfiedemp" value={formData.identfiedemp} onChange={handleChange} /> */}
-              <EmployeeDropdown setEmpId={formData.identfiedemp} />
+              <EmployeeDropdown setEmpId={formData.identfiedemp} callBackFunc={setIdentifiedEmployee}/>
             </div>
             <div className="col-3">
                 <label className="form-label" htmlFor="seviority">Seviority</label>
