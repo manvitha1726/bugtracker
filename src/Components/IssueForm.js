@@ -184,7 +184,6 @@ function IssueForm() {
       </div>
         <div class="row">
     <div className="col-25">
-    <div className="col-25">
            <label className="form-label" htmlFor="targetdate">Target Date</label> 
           <input type="date" className="form-control" id="targetdate" name="targetdate" value={formData.targetdate} onChange={handleChange}/>
           <div className="validations">

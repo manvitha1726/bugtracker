@@ -8,7 +8,6 @@ import {useNavigate} from 'react-router-dom';
 import Pagination from './Pagination/Pagination';
 import './Home.css';
 import EmployeeDropdown from './EmployeeDropdown';
-import { right } from '@popperjs/core';
 import ImagePopup from './ImagePopup';
 
 function IssueStatusBar() {     
