@@ -6,6 +6,7 @@ const schema = Joi.object({
     moduleName: Joi.string().min(6).required().label('Module Name'),
     summary: Joi.string().required().min(30).max(300).label('Summary'),
     identfiedemp : Joi.string().required().label('Identfied Demp'),
+    // dateidentified: Joi.date().iso().required().label('Date Identified'),
     targetdate: Joi.date().iso().required().label('Target Date'),
     progressreport: Joi.string().required().label('Progress Report'),
     stepsToReproduce: Joi.string().required().label('Steps To Reproduce'),

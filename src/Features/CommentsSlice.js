@@ -18,9 +18,8 @@ export const getCommentsByIssueId = createAsyncThunk(
 
 
 //Add new Comment
-export const AddNewComment = createAsyncThunk(
-  "addComment",
-  async (data, { rejectWithValue }) => {
+export const AddNewComment = createAsyncThunk("addComment",async (data, { rejectWithValue }) => {
+    try{
     const response = await fetch(
       "https://issuetrackingwebapp.azurewebsites.net/api/comments/addcomment",
       {
@@ -28,12 +27,17 @@ export const AddNewComment = createAsyncThunk(
         headers: {
           "Content-Type": "application/json",
         },
+        mode:'cors',
         body: JSON.stringify(data),
       }
     );
     const result = await response.json();
     return result;
   }
+  catch(err){
+    return rejectWithValue("Found an error!",err.response.data)
+  }
+}
 );
 
 //Delete Comment
@@ -42,12 +46,12 @@ export const deleteComment = createAsyncThunk(
   async (commentId,{ rejectWithValue }) => {
     try {
       const response = await fetch(
-        `delete comment api commentId=${commentId}`,
+        `https://issuetrackingwebapp.azurewebsites.net/api/comments/deletecomment?commentId=${commentId}`,
         {
           method: "DELETE",
         }
       );
-      const result = await response.json(commentId);
+      const result = await response.json();
       return result;
     } catch (err) {
       console.log(err);
@@ -59,17 +63,17 @@ export const deleteComment = createAsyncThunk(
 //update Comment
 export const updateComment = createAsyncThunk(
   "comments/updateComment",
-  async (text,commentId, { rejectWithValue }) => {  
+  async (data, { rejectWithValue }) => {  
 
     try {
       const response = await fetch(
-        `update comment text=${text} commentId=${commentId}`,
+        `https://issuetrackingwebapp.azurewebsites.net/api/comments/updatecomment`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(text),
+          body: JSON.stringify(data),
         }
       );
       const result = await response.json();  

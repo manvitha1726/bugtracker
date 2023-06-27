@@ -3,9 +3,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import { addNewProject } from '../Features/ProjectsSlice';
 import {useNavigate} from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa';
-// import './IssueForm.css'
-// import './Home.css';
+
 import validateForm from './ProjectFormValidation';
 const ProjectButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,8 +43,6 @@ const ProjectButton = () => {
 
   return (
     <div>
-      {/* <img src={"C:\Users\SYR00395\Documents\Bug tracker\bugtracker\src\images.png"} alt="logo" width='5px' height='5px'/> */}
-
       <Button className="addprojectbt" onClick={handleOpenModal}>Add Project</Button>
 
       <Modal isOpen={isOpen} toggle={handleCloseModal}>
@@ -62,7 +58,7 @@ const ProjectButton = () => {
           </form>
         </ModalBody>
         <ModalFooter>
-          <Button className="addprojectbt" onClick={handleSubmit}>Submit</Button>{' '}
+          <button onClick={handleSubmit}>Submit</button>{' '}
         </ModalFooter>
       </Modal>
     </div>

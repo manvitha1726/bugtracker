@@ -22,7 +22,7 @@ function IssueForm() {
     description: "",
     summary: "",
     identfiedemp: "",
-    // dateidentified: "",
+    dateidentified: "",
     priority: "Low",
     targetdate: "",
     assignTo: "",
@@ -114,8 +114,6 @@ function IssueForm() {
             stepsToReproduce:formData.stepsToReproduce,
             description:formData.description,
             iterationNumber:formData.iterationNumber
-            // dateidentified:formData.dateidentified,
-
     }
     event.preventDefault();
     console.log("Before submit validation data", validationData);
@@ -142,21 +140,15 @@ function IssueForm() {
         <form className="container">
         <h3 className="text-center">Enter Issue Details: {projObj.data[projectId-1].projectname}</h3><br/>
         <div class="row">
-          <div class="col-25">
-            <label  className="form-label" for="inputEmail4">Issue Name</label> 
-            <input type="text" onChange={handleChange} className="form-control" id="inputEmail4" name="issueName" placeholder="Issue Name"/>
-            <div className="validations">
-              {errors.issueName && <span>{errors.issueName}</span>}
-            </div>
-          </div>
-          <div class="col-75">
-            <label className="form-label" for="inputEmail4">Module Name</label> 
-              <input type="text" onChange={handleChange} className="form-control" id="inputEmail4" name="moduleName" placeholder="Module Name"/>
-              <div className="validations">
-                {errors.moduleName && <span>{errors.moduleName}</span>}
-              </div>
-          </div>
-        </div>
+    <div class="col-25">
+      <label  className="form-label" for="inputEmail4">Issue Name</label> 
+      <input type="text" className="form-control" id="inputEmail4" placeholder="Issue Name"/>
+    </div>
+    <div class="col-75">
+    <label className="form-label" for="inputEmail4">Module Name</label> 
+      <input type="text" className="form-control" id="inputEmail4" placeholder="Module Name"/>
+    </div>
+    </div>
       <div class="row">
         <div class="col-3">
             <label className="form-label">Issue Type</label> 
@@ -191,6 +183,7 @@ function IssueForm() {
           </div>
       </div>
         <div class="row">
+    <div className="col-25">
     <div className="col-25">
            <label className="form-label" htmlFor="targetdate">Target Date</label> 
           <input type="date" className="form-control" id="targetdate" name="targetdate" value={formData.targetdate} onChange={handleChange}/>
@@ -286,4 +279,3 @@ function IssueForm() {
       
 
 export default IssueForm;
-      
