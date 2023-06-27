@@ -9,11 +9,10 @@ const Header = () => {
   };
 
   return (
-    <div>
-    <div className='header-container' onClick={handleClick}>
+    <div data-testid="header-element">
+    <div className='header-container header-background-color' onClick={handleClick}>
       <img src={icon} style={{width:"80px",height:"80px",marginLeft:"35px"}}/>
       <h1 className='heading'>Issue Tracking Tool</h1>
-     
     </div>
      </div>
   );

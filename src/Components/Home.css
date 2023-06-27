@@ -84,7 +84,6 @@ button
   position: sticky;
   top: 0;
   width: 100%;
-  background-color: #ffffff;
   z-index: 999;
   height: 80px;
   display: flex;
@@ -330,4 +329,11 @@ button
     height: 30px;
     width: 30px;
   }
+
+  .header-background-color{
+    background-color: #ffffff;
+  }
+
+
+
  

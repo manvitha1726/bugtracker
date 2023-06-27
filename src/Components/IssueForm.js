@@ -109,7 +109,6 @@ function IssueForm() {
             moduleName:formData.moduleName,
             summary:formData.summary,
             identfiedemp:formData.identfiedemp,
-            dateidentified:formData.dateidentified,
             targetdate:formData.targetdate,
             progressreport:formData.progressreport,
             stepsToReproduce:formData.stepsToReproduce,
@@ -143,11 +142,11 @@ function IssueForm() {
         <div class="row">
     <div class="col-25">
       <label  className="form-label" for="inputEmail4">Issue Name</label> 
-      <input type="text" className="form-control" id="inputEmail4" placeholder="Issue Name"/>
+      <input type="text" className="form-control" id="inputEmail4" name="issueName" placeholder="Issue Name"/>
     </div>
     <div class="col-75">
     <label className="form-label" for="inputEmail4">Module Name</label> 
-      <input type="text" className="form-control" id="inputEmail4" placeholder="Module Name"/>
+      <input type="text" className="form-control" id="inputEmail4" name="moduleName" placeholder="Module Name"/>
     </div>
     </div>
       <div class="row">
@@ -161,6 +160,7 @@ function IssueForm() {
         <div class="col-3">
           <label className="form-label">Identified Employee</label>
           <EmployeeDropdown val={val1} callBackFunc={setIdentifiedEmployee} prjID={projectId} />
+
                 <div className="validations">
                   {errors.identfiedemp && <span>{errors.identfiedemp}</span>}
                 </div>
@@ -184,13 +184,12 @@ function IssueForm() {
           </div>
       </div>
         <div class="row">
-    <div class="col-25">
-      <label className="form-label" for="inputEmail4">Identified Date</label> 
-      <input type="date" className="form-control" id="dateidentified" name="dateidentified"  value={formData.dateidentified} onChange={handleChange} required />
-    </div>
-    <div className="col-75">
+    <div className="col-25">
            <label className="form-label" htmlFor="targetdate">Target Date</label> 
           <input type="date" className="form-control" id="targetdate" name="targetdate" value={formData.targetdate} onChange={handleChange}/>
+          <div className="validations">
+            {errors.targetdate && <span>{errors.targetdate}</span>}
+          </div>
           </div>
   </div>
 
@@ -198,29 +197,27 @@ function IssueForm() {
           <div className="col-25">
             <label className="form-label" htmlFor="progressreport">Progress Report</label> 
             <input type="text" className="form-control" id="progressreport" placeholder="Progress Report" name="progressreport" value={formData.progressreport} onChange={handleChange}/>
+            <div className="validations">
+              {errors.progressreport && <span>{errors.progressreport}</span>}
+            </div>
           </div>
           <div className="col-75">
             <label className="form-label" htmlFor="stepsToReproduce">Steps To Reproduce</label>
             <input type="text" className="form-control" id="stepsToReproduce" placeholder="StepsTo Reproduce" name="stepsToReproduce" value={formData.stepsToReproduce} onChange={handleChange}/>
+            <div className="validations">
+              {errors.stepsToReproduce && <span>{errors.stepsToReproduce}</span>}
+            </div>
             </div>
         </div>
-
-        {/* <div className="row">
-          {/* <div className="col-25">
-            <label className="form-label" htmlFor="description">Description</label>
-          </div> 
-          <div className="col-75">
-            <textarea id="description" placeholder="Description" name="description" value={formData.Description} onChange={handleChange}/>
-            <div className="validations">
-{errors.description && <span>{errors.description}</span>}
-</div>
-          </div>
-        </div> */}
 
         <div className="row">
             <div className="col-25">
                 <label className="form-label" htmlFor="iterationNumber">Iteration Number</label> 
               <input type="number" className="form-control" id="iterationNumber"  name="iterationNumber" placeholder="Iteration Number" value={formData.iterationNumber} onChange={handleChange} />
+            
+              <div className="validations">
+                  {errors.iterationNumber && <span>{errors.iterationNumber}</span>}
+              </div>
             </div>
             
             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -236,9 +233,10 @@ function IssueForm() {
                 <label className="form-label" htmlFor="assignTo">Assigned To</label>
                 <br/>
                 <EmployeeDropdown val={val1} callBackFunc={setSelectedAssignedEmployee} />
-                
+                <AddEmployee func={setVal1} projectId={projectId} />
             </div>
         </div>
+        <br/><br/>
 
         <div className="row">
           {/* <div className="col-25">
@@ -246,9 +244,9 @@ function IssueForm() {
           </div> */}
           <div className="col">
             <textarea cols={90} id="summary" placeholder="Summary" name="summary" value={formData.summary} onChange={handleChange} required />
-            {/* <div className="validations">
+            <div className="validations">
               {errors.summary && <span>{errors.summary}</span>}
-            </div> */}
+            </div>
             </div>
         </div>
       
@@ -258,19 +256,12 @@ function IssueForm() {
           </div> */}
           <div className="col">
             <textarea cols={90} id="description" placeholder="Description" name="description" value={formData.Description} onChange={handleChange}/>
+            <div className="validations">
+              {errors.description && <span>{errors.description}</span>}
+            </div>
           </div>
         </div>
-
-        {/* <div className="row">
-          <div className="col-25">
-            <label className="form-label" htmlFor="iterationNumber">Iteration Number</label>
-          <input type="number" id="iterationNumber"  name="iterationNumber" value={formData.iterationNumber} onChange={handleChange} />
-          <div className="validations">
-{errors.iterationNumber && <span>{errors.iterationNumber}</span>}
-</div>
-          </div> 
-        </div>*/}
-
+        
         <div className="row" style={{display:'flex', flexDirection:'row'}}>
             <label className="form-label" htmlFor="images">Upload Image</label>
             <ImageUpload callBackFunc={setAttachedFiles} />
@@ -289,4 +280,3 @@ function IssueForm() {
       
 
 export default IssueForm;
-      
