@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetIssueById, updateIssue } from "../Features/IssueSlice";
 import './IssueForm.css';
 import { useNavigate } from "react-router-dom";
+import EmployeeDropdown from "./EmployeeDropdown";
+import ImageUpload from "./ImageUpload/ImageUpload";
 function EditIssueForm() {
   const dispatch = useDispatch();
   const { dataById, loading, error } = useSelector((state) => state.issues);
@@ -39,6 +41,8 @@ function EditIssueForm() {
   const [selectedIssue, setSelectedIssue] = useState();
   const [selectedTesting, setSelectedTesting] = useState();
   const [selectedPriority, setSelectedPriority] = useState();
+  const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState();
+  const [IdentifiedEmployee, setIdentifiedEmployee] = useState();
   const [selectedStatus, setSelectedStatus] = useState();
   const [selectedSeviority, setSelectedSeviority] = useState("S1");
   const [attachedFiles, setAttachedFiles] = useState([]);
@@ -98,6 +102,15 @@ function EditIssueForm() {
   // if (dataById.length !== 0) {
   // } 
   // Define the form state
+
+  useEffect(() => {
+    setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
+    // setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
+  }, [selectedAssignedEmployee]);
+
+  useEffect(() => {
+    setFormData((prevFormData) => ({ ...prevFormData, identfiedemp: `${IdentifiedEmployee}` }));
+  }, [IdentifiedEmployee]);
  
 
   const handleFileUpload = (event) => {
@@ -143,7 +156,7 @@ function EditIssueForm() {
   const NavigateBackClick = () => {
     // navigate(`/projects/${selectedProjectId}/`);
     // console.log("selected pj id : -", selectedProjectId);
-    navigate(`/projects/${selectedProjectId}/view-all-issues`)
+    navigate(`/projects/${selectedProjectId}/ViewIssues`)
   };
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -208,7 +221,7 @@ function EditIssueForm() {
             </div>
 
             <div className="col-3">
-              <label className="" htmlFor="priority">Priority</label>
+              <label className="form-label" htmlFor="priority">Priority</label>
               <select id="IssueType" value={selectedPriority} onChange={handleSelectedPriority}>
                 <option value="bug">Low</option>
                 <option value="Medium">Medium</option>
@@ -218,7 +231,7 @@ function EditIssueForm() {
           
 
             <div className="col-3">
-              <label className="" htmlFor="testingtype">Testing Type</label>
+              <label className="form-label" htmlFor="testingtype">Testing Type</label>
               <select id="testingtype" value={selectedTesting} onChange={handleTestingSelection}>
                 <option value="Smoke Testing">Smoke Testing</option>
                 <option value="Regression Testing">Regression Testing</option>
@@ -246,7 +259,8 @@ function EditIssueForm() {
 
                 <div className="col-75">
                   <label className="form-label" htmlFor="assignTo">Assigned To</label>
-                  <input className="form-control" type="text" id="assignTo" name="assignTo" value={formData.assignTo} onChange={handleChange} />
+                  {/* <input className="form-control" type="text" id="assignTo" name="assignTo" value={formData.assignTo} onChange={handleChange} /> */}
+                  <EmployeeDropdown setEmpId={formData.assignTo} callBackFunc={setSelectedAssignedEmployee} />
                 </div>
             </div>
 
@@ -287,9 +301,17 @@ function EditIssueForm() {
           </div>
 
           <div className="row">
+            <div className="col">
+              <label className="form-label" htmlFor="ressummary">Ressolution Summary</label>
+              <textarea id="ressummary" placeholder="ressummary" name="ressummary" value={formData.ressummary} onChange={handleChange} />
+            </div>
+          </div>
+
+          <div className="row">
             <div className="col-25">
               <label className="form-label" htmlFor="identifiedemp">Identfied By</label>
-              <input className="fixedwidth" type="text" id="identfiedemp" name="identfiedemp" value={formData.identfiedemp} onChange={handleChange} />
+              {/* <input className="fixedwidth" type="text" id="identfiedemp" name="identfiedemp" value={formData.identfiedemp} onChange={handleChange} /> */}
+              <EmployeeDropdown setEmpId={formData.identfiedemp} callBackFunc={setIdentifiedEmployee}/>
             </div>
             <div className="col-3">
                 <label className="form-label" htmlFor="seviority">Seviority</label>
@@ -302,25 +324,21 @@ function EditIssueForm() {
             </div>
           </div>
 
-          <div className="row">
-            <div className="col">
-              <label className="form-label" htmlFor="ressummary">Ressolution Summary</label>
-              <input className="fixedwidth" type="text" id="ressummary" name="ressummary" value={formData.ressummary} onChange={handleChange} />
-            </div>
-          </div>
+          
 
           <div>
             <div className="col-25">
               <label className="form-label" htmlFor="images">Upload Image</label></div>
             <div className="col-75">
-              <input className="fixedwidth" type="file" multiple onChange={handleFileUpload} />
-            </div> </div>
+              <ImageUpload callBackFunc={setAttachedFiles} />
+            </div> 
+          </div>
 
           <center><img src={formData.images} alt="Uploaded Image" /></center><br />
 
           <button type="submit">Save Changes</button>
+          <button onClick={NavigateBackClick}>Close</button>
         </form>
-        <button onClick={NavigateBackClick}>Close</button>
       </div>
     );
   }

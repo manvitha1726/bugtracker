@@ -9,7 +9,6 @@ import {useNavigate} from 'react-router-dom';
 import Pagination from './Pagination/Pagination';
 import './Home.css';
 import EmployeeDropdown from './EmployeeDropdown';
-import { right } from '@popperjs/core';
 import ImagePopup from './ImagePopup';
 
 function IssueStatusBar() {     
@@ -25,7 +24,7 @@ function IssueStatusBar() {
     const [currentPosts, setCurrentPosts] = useState([]);
     const [dataSorted, setDataSorted] = useState(false);
     const [isDataFiltered, setIsDataFiltered] = useState(false);
-    const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState(1);
+    const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState();
     const [IdentifiedEmployee, setIdentifiedEmployee] = useState();
     const [isFromLandingPage, setIsFromLandingPage] = useState(true);
     const [showImagePopup, setShowImagePopup] = useState(false);
@@ -35,7 +34,7 @@ function IssueStatusBar() {
       identfiedemp:-1,
       assignTo: -1,
       priority: 'Any',
-      severity: 'Any'
+      seviority: 'Any'
     });
 
     const ProjectId = useSelector((state) => state.selectedFields.selectedProjectId);
@@ -53,9 +52,6 @@ function IssueStatusBar() {
       handleFiltersFromLandingPage();
       // console.log("selected filters in ISB---", issueFilterVal);
       handleFilterApply();
-
-
-
       // console.log("projects data",projObj.data);
     }, []);
       
@@ -184,7 +180,8 @@ function IssueStatusBar() {
      }
      const handleFilterApply = () => {
       console.log("filters : ", selectedFilters);
-      
+      {console.log("selectedAssignedEmployee,", selectedAssignedEmployee);}
+      {console.log("IdentifiedEmployee : ", selectedAssignedEmployee);}
       const filtered = data.filter(issue => {
         // Check if each field in issueFilterVal matches the corresponding issue property
         var status = 'Any', identfiedemp = -1, assignTo = -1, priority = 'Any', seviority = 'Any';
@@ -201,16 +198,18 @@ function IssueStatusBar() {
           identfiedemp = issueFilterVal.identfiedemp;
           assignTo = issueFilterVal.assignTo;
           priority = issueFilterVal.priority;
-          seviority = issueFilterVal.severity;
+          seviority = issueFilterVal.seviority;
         }
-        console.log(status, identfiedemp, assignTo, priority, seviority);
-        {console.log("iss11", issue);}
+        // console.log(status.toString(), identfiedemp.toString(), assignTo.toString(), priority.toString(), seviority.toString());
+        // {console.log("iss11", issue);}
+        // {console.log(`${issue.assignTo}`, assignTo, `${issue.identfiedemp}` == identfiedemp);}
+        // {console.log("as1 : ", assignTo === '1' , assignTo == -1  , issue.assignTo == assignTo, `${issue.assignTo}`, assignTo, assignTo, 'null' === null)}
         if (
           (status === 'Any' || issue.status === status) &&
-          (identfiedemp === "undefined" || identfiedemp == -1 || issue.identfiedemp == identfiedemp) &&
-          (assignTo === '1' || assignTo == -1 || issue.assignTo == assignTo) &&
+          (identfiedemp === "undefined" ||  identfiedemp == -1 || issue.identfiedemp == identfiedemp) &&
+          (assignTo === 'undefined' || assignTo == -1  || ((issue.assignTo == null) && assignTo == 0)) &&
           (priority === 'Any' || issue.priority === priority) &&
-          (seviority === 'Any' || issue.severity === seviority)
+          (seviority === 'Any' || issue.seviority === seviority)
         ) {
           return true; // Include issue in the filtered list
         }
@@ -266,7 +265,7 @@ function IssueStatusBar() {
                 
               </div>
               <div className='heading-container'>
-                <h1>{projObj.data[ProjectId-1].projectname} Issues</h1>
+                <h3>{projObj.data[ProjectId-1].projectname} Issues</h3>
               </div>
               <div className='align'>
                 <input className="pa2 bb br3 ma2 shadow" type="text" placeholder="Search Issue" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
@@ -311,15 +310,15 @@ function IssueStatusBar() {
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Severity</label>
                     <select 
-                      name='severity'
-                      value={issueFilterVal.severity|| 'Any'}
+                      name='seviority'
+                      value={issueFilterVal.seviority|| 'Any'}
                       onChange={handleFilterChange}
                     >
                       <option value="Any">Any</option>
                       <option value="S1">S1</option>
                       <option value="S2">S2</option>
                       <option value="S3">S3</option>
-                      <option value="S3">S4</option>
+                      <option value="S4">S4</option>
                     </select>
                 </div>
                 &nbsp;&nbsp;&nbsp;
@@ -350,11 +349,6 @@ function IssueStatusBar() {
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
                 <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Priority &nbsp;<FaSort onClick={handleSort}/></th>
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Severity</th>
-              
-                <th className='p-3 text-center' style={{backgroundColor:"rgb(139, 200, 209)"}}>Issue</th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(139, 200, 209)"}}>Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
-                <th className='p-3 text-center' style={{backgroundColor:"rgb(139, 200, 209)"}}>Priority &nbsp;<FaSort onClick={handleSort}/></th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(139, 200, 209)"}}>Severity</th>
               </tr>
             </thead>
             <tbody>

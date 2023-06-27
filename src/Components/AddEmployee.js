@@ -44,12 +44,13 @@ function AddEmployee({func, projectId}) {
     return (
         <div className='employee-add-card'>
             <br/>
-            <Button style={{width:"170px"}}
+            <button 
+                style={{width:"170px"}}
                 className='add-employee-bt'
                 onClick={handleOpenModal}
             >
                 Add New Employee
-            </Button>
+            </button>
             <Modal
                 isOpen={isOpen}
                 toggle={handleCloseModal}>
@@ -73,7 +74,7 @@ function AddEmployee({func, projectId}) {
                     </form>
                 </ModalBody>
                 <ModalFooter>
-                    <Button className='add-employee-bt' onClick={handleSubmit}>Submit</Button>{' '}
+                    <button className='add-employee-bt' onClick={handleSubmit}>Submit</button>{' '}
                 </ModalFooter>
             </Modal>
         </div>

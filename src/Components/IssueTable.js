@@ -71,7 +71,7 @@ const IssueTable = ({issuesList, tableName, noOfIssues,onItemClick}) => {
                 </td>
                 <td>{issue.status}</td>
                 <td>{issue.priority}</td>
-                <td>{issue.dateidentified.substring(0, 10)}</td>
+                <td>{new Date(issue.dateidentified).toLocaleString(undefined, {dateStyle: "medium",timeStyle: "short"})}</td>
               </tr>
             ))
           ) : (
