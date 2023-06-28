@@ -27,7 +27,7 @@
     border: solid black 1px;
     border-bottom: none;
     padding: 20px;
-   
+    width:100%;
   }
   td, th {
     /* text-align: center; */
