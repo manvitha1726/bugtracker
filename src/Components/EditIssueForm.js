@@ -5,6 +5,7 @@ import './IssueForm.css';
 import { useNavigate } from "react-router-dom";
 import EmployeeDropdown from "./EmployeeDropdown";
 import ImageUpload from "./ImageUpload/ImageUpload";
+import ImageCarouselModal from "./ImageCarouselModal.js";
 function EditIssueForm() {
   const dispatch = useDispatch();
   const { dataById, loading, error } = useSelector((state) => state.issues);
@@ -91,6 +92,13 @@ function EditIssueForm() {
       setSelectedPriority(dataById[0].priority)
       setSelectedStatus(dataById[0].status)
       setSelectedTesting(dataById[0].testingType)
+      if(dataById[0].assignTo == null){
+          setSelectedAssignedEmployee(0)
+      }
+      else{
+          setSelectedAssignedEmployee(dataById[0].assignTo);
+      }
+      setIdentifiedEmployee(dataById[0].identfiedemp);
       // setSelectedIssue(dataById[0].issueType);
       setDataLoaded(true)
     }
@@ -189,7 +197,7 @@ function EditIssueForm() {
           <h3 className="text-center">{`Edit Issue Details: ${formData.issueName}`}</h3><br />
           <div className="row">
             <div className="col-25">
-              <label className="form-label" htmlFor="name">Issue Name</label>
+              <label className="form-label" htmlFor="name">Short Description</label>
             
               <input  className="form-control" type="text" id="name" name="issueName" value={formData.issueName} onChange={handleChange} />
             </div>
@@ -223,92 +231,22 @@ function EditIssueForm() {
             <div className="col-3">
               <label className="form-label" htmlFor="priority">Priority</label>
               <select id="IssueType" value={selectedPriority} onChange={handleSelectedPriority}>
-                <option value="bug">Low</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
+                <option value="P1">P1</option>
+                <option value="P2">P2</option>
+                <option value="P3">P3</option>
               </select>
             </div>
           
-
             <div className="col-3">
-              <label className="form-label" htmlFor="testingtype">Testing Type</label>
-              <select id="testingtype" value={selectedTesting} onChange={handleTestingSelection}>
-                <option value="Smoke Testing">Smoke Testing</option>
-                <option value="Regression Testing">Regression Testing</option>
-                {/* Add more options as needed */}
-              </select>
-            </div>
-          </div>
-
-            <div className="row">
-              <div className="col-25">
-                <label className="form-label" htmlFor="dateidentified">Identified Date</label>
-                <input className="form-control" type="text" id="dateidentified" name="dateidentified" value={formData.dateidentified} onChange={handleChange} />
-              </div>
-              <div className="col-75">
-                  <label className="form-label" htmlFor="targetdate">Target Resolution Date</label>
-                  <input className="form-control" type="text" id="targetRsolution" name="targetRsolution" value={formData.targetdate} onChange={handleChange} />
-              </div>
-            </div>
-
-            <div className="row">
-                <div className="col-25">
-                  <label className="form-label" htmlFor="actualdate">Actual Resolution Date</label>
-                  <input className="form-control" type="text" id="actualdate" name="actualdate" value={formData.actualdate} onChange={handleChange} />
-                </div>
-
-                <div className="col-75">
                   <label className="form-label" htmlFor="assignTo">Assigned To</label>
                   {/* <input className="form-control" type="text" id="assignTo" name="assignTo" value={formData.assignTo} onChange={handleChange} /> */}
                   <EmployeeDropdown setEmpId={formData.assignTo} callBackFunc={setSelectedAssignedEmployee} />
                 </div>
-            </div>
-
-            <div className="row">
-                <div className="col-25">
-                  <label className="form-label" htmlFor="progressreport">Progress Report</label>
-                  <input className="form-control" type="text" id="progressreport" name="progressreport" value={formData.progressreport} onChange={handleChange} />
-                </div>
-                <div className="col-75">
-                  <label className="form-label" htmlFor="stepsToReproduce">Steps To Reproduce</label>
-                  <input className="form-control" type="text" id="stepsToReproduce" name="stepsToReproduce" value={formData.stepsToReproduce} onChange={handleChange} />
-                </div>
-            </div>
-
-          <div className="row">
-            <div className="col-25">
-              <label className="form-label" htmlFor="iterationNumber">Iteration Number</label>
-              <input type="number" id="iterationNumber" className="form-control" name="iterationNumber" value={formData.iterationNumber} onChange={handleChange} />
-            </div>
-            <div className="col-75">
-              <label className="form-label" htmlFor="linkToPast">Link To Past:</label>
-              <input className="fixedwidth" type="text" id="linkToPast" name="linkToPast" value={formData.linkToPast} onChange={handleChange} />
-            </div>
+            
           </div>
 
           <div className="row">
-            <div className="col">
-              <label className="form-label" htmlFor="summary">Summary</label>
-              <textarea placeholder="Summary" id="summary" name="summary" value={formData.summary} onChange={handleChange} />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col">
-              <label className="form-label" htmlFor="description">Description</label>
-              <textarea id="description" placeholder="Description" name="description" value={formData.description} onChange={handleChange} />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col">
-              <label className="form-label" htmlFor="ressummary">Ressolution Summary</label>
-              <textarea id="ressummary" placeholder="ressummary" name="ressummary" value={formData.ressummary} onChange={handleChange} />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-25">
+            <div className="col-3">
               <label className="form-label" htmlFor="identifiedemp">Identfied By</label>
               {/* <input className="fixedwidth" type="text" id="identfiedemp" name="identfiedemp" value={formData.identfiedemp} onChange={handleChange} /> */}
               <EmployeeDropdown setEmpId={formData.identfiedemp} callBackFunc={setIdentifiedEmployee}/>
@@ -322,22 +260,75 @@ function EditIssueForm() {
                   <option value="S4">S4</option>
                 </select>
             </div>
+
+            <div className="col-3">
+              <label className="form-label" htmlFor="testingtype">Testing Type</label>
+              <select id="testingtype" value={selectedTesting} onChange={handleTestingSelection}>
+                <option value="Smoke Testing">Smoke Testing</option>
+                <option value="Regression Testing">Regression Testing</option>
+                {/* Add more options as needed */}
+              </select>
+            </div>
+            
+            <div className="col-3">
+                <label className="form-label" htmlFor="category name">Category Name</label>
+                <select id="seviority" value={selectedSeviority} onChange={handleSelectedSeviority} >
+                <option value="Database">DataBase</option>
+                <option value="API">API</option>
+                <option value="UI">UI</option>  
+                </select>
+            </div>
           </div>
 
-          
+          <div className="row">
+              <div className="col-25">
+                <label className="form-label" htmlFor="dateidentified">Identified Date</label>
+                <input className="form-control" type="text" id="dateidentified" name="dateidentified" value={formData.dateidentified} onChange={handleChange} />
+              </div>
+              <div className="col-75">
+                  <label className="form-label" htmlFor="targetdate">Target Resolution Date</label>
+                  <input className="form-control" type="text" id="targetRsolution" name="targetRsolution" value={formData.targetdate} onChange={handleChange} />
+              </div>
+            </div>
 
-          <div>
+          <div className="row">
             <div className="col-25">
-              <label className="form-label" htmlFor="images">Upload Image</label></div>
+              <label className="form-label" htmlFor="iterationNumber">Iteration Number</label>
+              <input type="number" id="iterationNumber" className="form-control" name="iterationNumber" value={formData.iterationNumber} onChange={handleChange} />
+            </div>
             <div className="col-75">
-              <ImageUpload callBackFunc={setAttachedFiles} />
-            </div> 
+              <label className="form-label" htmlFor="linkToPast">Link To Parent:</label>
+              <input className="form-control" type="text" id="linkToPast" name="linkToPast" value={formData.linkToPast} onChange={handleChange} />
+            </div>
           </div>
 
-          <center><img src={formData.images} alt="Uploaded Image" /></center><br />
+          <div className="row">
+            <div className="col">
+            <label className="form-label" htmlFor="stepsToReproduce">Steps To Reproduce</label>
+            <textarea type="text" id="stepsToReproduce" name="stepsToReproduce" value={formData.stepsToReproduce} onChange={handleChange} />
+            </div>
+          </div>
 
-          <button type="submit">Save Changes</button>
-          <button onClick={NavigateBackClick}>Close</button>
+          <div className="row">
+            <div className="col">
+              <label className="form-label" htmlFor="description">Description</label>
+              <textarea id="description" placeholder="Description" name="description" value={formData.description} onChange={handleChange} />
+            </div>
+          </div>
+
+          <div className="row" style={{display:'flex', flexDirection:'row'}}>
+            <label className="form-label" htmlFor="images">Upload Image</label>
+            <ImageUpload callBackFunc={setAttachedFiles} />
+          </div>
+
+            <label className="form-label">Uploaded attachments</label>
+            <ImageCarouselModal images={formData.images} />
+            <br/><br/>
+
+          <center>
+            <button type="submit">Save Changes</button>&nbsp;&nbsp;
+            <button onClick={NavigateBackClick}>Close</button>
+          </center>
         </form>
       </div>
     );

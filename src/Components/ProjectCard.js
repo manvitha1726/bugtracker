@@ -16,7 +16,7 @@ function ProjectCard({ project }) {
   };
 
   return (
-    <div className={`tc dib br3 pa3 ml3 mt5 grow ${project.highPriorityIssues > 0 && project.s1seviourty ? "card-red" : "cardu"}`} onClick={handleClick}>
+    <div className={`br3 mt5 mb5 grow ${project.highPriorityIssues > 0 && project.s1seviourty ? "card-red" : "cardu"}`} onClick={handleClick}>
         <h5>{project.projectname}</h5>
         <p>Issues: {project.totalIssues}</p>
         <div className="priority-container">

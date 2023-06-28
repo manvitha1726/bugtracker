@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProjects } from '../Features/ProjectsSlice';
 // import Pagination from './Pagination/Pagination';
 import Carousel from "react-elastic-carousel";
+import Slider from 'react-slick';
 // import './Home.css'
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
@@ -20,6 +21,62 @@ function ProjectScreen() {
   // const [currentPage, setCurrentPage] = useState(1);
   // const [postsPerPage, setPostsPerPage] = useState(5);
 
+  const CustomPrevArrow = (props) => {
+    const { className, onClick } = props;
+    return (
+      <div
+        className={className}
+        onClick={onClick}
+        style={{
+          ...arrowStyle,
+          left: '10px', // Adjust the position of the left arrow
+        }}
+      />
+    );
+  };
+
+  const CustomNextArrow = (props) => {
+    const { className, onClick } = props;
+    return (
+      <div
+        className={className}
+        onClick={onClick}
+        style={{
+          ...arrowStyle,
+          margin:'auto auto',
+          right: '10px', // Adjust the position of the right arrow
+        }}
+      />
+    );
+  };
+
+  const arrowStyle = {
+    width: 'auto',
+    height: 'auto',
+    background: 'black', // Change the arrow color here
+    borderRadius:'50%'
+  };
+
+const settings = {
+    dots: true,
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    appendDots: (dots) => (
+        <div>
+          <ul style={{ margin: "0px", padding: "0px" }}>{dots}</ul>
+          <style>
+            {`
+              .slick-dots li button:before {
+                color: black; /* Change the arrow color here */
+              }
+            `}
+          </style>
+        </div>
+      ),
+        prevArrow: <CustomPrevArrow />,
+        nextArrow: <CustomNextArrow />,
+};
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProjects());
@@ -71,17 +128,28 @@ function ProjectScreen() {
           onChange={handleChange}
         />
       </div>
-      <div className='mt-4'>
+      <div className='mt-3'>
       {/* <hr className="seperator" /> */}<br/>
-      <div className="carousel-wrapper">
-      <Carousel breakPoints={breakPoints}>
-      {filteredProjects.map((val) => (
-        <ProjectCard
-          key={val.projectId}
-          project={val}
-        />  
-      ))}  
-      </Carousel>
+      <div style={{width:'75%'}} >
+          
+          <Slider {...settings}>
+            {
+              filteredProjects.map((val) => (
+                <ProjectCard
+                    key={val.projectId}
+                    project={val}
+                />
+              ))
+            }
+          </Slider>
+          {/* <Carousel breakPoints={breakPoints}>
+          {filteredProjects.map((val) => (
+            <ProjectCard
+              key={val.projectId}
+              project={val}
+            />  
+          ))}  
+          </Carousel> */}
      </div>
       {/* <Pagination
       totalPosts={filteredProjects.length}

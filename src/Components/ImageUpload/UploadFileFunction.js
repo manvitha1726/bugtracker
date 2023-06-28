@@ -11,13 +11,15 @@ const containerClient = blobService.getContainerClient(containerName);
 
 
 const createBlobInContainer = async (file) => {
-  console.log(file?.name);
+  console.log(file);
   const blobClient = containerClient.getBlockBlobClient(file.name);
 
   const options = {blobHTTPHeaders: {blobContentType: file.type}};
-
-  await blobClient.uploadBrowserData(file, options);
-  await blobClient.setMetadata({UserName: 'karthik'})
+  await blobClient.uploadData(file, {
+    blobHTTPHeaders: { blobContentType: file.type }
+  })
+  // await blobClient.uploadBrowserData(file, options);
+  // await blobClient.setMetadata({UserName: 'karthik'})
 }
 
 export const getBlobsInContainer = async () => {
@@ -33,19 +35,26 @@ export const getBlobsInContainer = async () => {
   return returnedBlobItems;
 }
 
-export const getRecentImageInContainer = async (file) => {
-  return `https://${storageAccountName}.blob.core.windows.net/${containerName}/${file?.name}`
+export const getRecentImageInContainer = async (files) => {
+  const imgList = [];
+  for(let i = 0; i < files.length; i++){
+      imgList.push(`https://${storageAccountName}.blob.core.windows.net/${containerName}/${files[i].name}`)
+  }
+  console.log("imgList : ", imgList);
+  return imgList
 }
 
-const UploadFileToBlob = async (file) => {
-  if(!file) return [];
+const UploadFileToBlob = async (files) => {
+  // console.log("files in uploadfiletoblob : ", files);
+  if(!files) return [];
   //get container - full public read access
-
-  await createBlobInContainer(file);
-
+  for(let i = 0; i < files.length; i++){
+    console.log("files[index] in uploadfiletoblob : ", files[i]);
+    await createBlobInContainer(files[i]);
+  }
   // return `https://${storageAccountName}.blob.core.windows.net/${containerName}/${file?.name}`
 
-  return getRecentImageInContainer(file);
+  return getRecentImageInContainer(files);
 }
 
 export const isStorageConfigured = () => {

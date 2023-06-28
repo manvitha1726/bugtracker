@@ -6,6 +6,7 @@ import Comments from "../comments/Comments";
 import EmployeeDropdown from "./EmployeeDropdown";
 
 import './IssueForm.css';
+import ImageCarouselModal from "./ImageCarouselModal.js";
 
 function DisplayIssue() {
     const dispatch = useDispatch();
@@ -93,7 +94,7 @@ function DisplayIssue() {
           <h3 className="text-center">{`Issue : ${initialFormData.issueName}`}</h3><br />
           <div className="row">
             <div className="col-25">
-              <label className="form-label" htmlFor="name">Issue Name</label>
+              <label className="form-label" htmlFor="name">Short Description</label>
               <input  className="form-control" type="text" id="name" name="issueName" value={initialFormData.issueName} disabled/>
             </div>
 
@@ -125,9 +126,33 @@ function DisplayIssue() {
               </select>
             </div>
           
+            <div className="col-3">
+                  <label className="form-label" htmlFor="assignTo">Assigned To</label>
+                  {/* <input className="form-control" type="text" id="assignTo" name="assignTo" value={initialFormData.assignTo} disabled/> */}
+                  <EmployeeDropdown empid={initialFormData.assignTo} />
+                </div>
+          </div>
 
+          <div className="row">
+            <div class="col-3">
+              <label className="form-label" htmlFor="identifiedemp">Identfied By</label>
+              {/* <input className="fixedwidth" type="text" id="identfiedemp" name="identfiedemp" value={initialFormData.identfiedemp} disabled/> */}
+              <EmployeeDropdown empid={initialFormData.identfiedemp} />
+            </div>
+            <div class="col-3">
+                <label className="form-label" htmlFor="seviority">Seviority</label>
+                <select id="seviority" disabled >
+                  <option value={initialFormData.seviority}>{initialFormData.seviority}</option>
+                </select>
+            </div>
             <div className="col-3">
               <label className="form-label" htmlFor="testingtype">Testing Type</label>
+              <select id="testingtype" disabled>
+                <option value={initialFormData.testingType}>{initialFormData.testingType}</option>
+              </select>
+            </div>
+            <div className="col-3">
+              <label className="form-label" htmlFor="testingtype">Category Name</label>
               <select id="testingtype" disabled>
                 <option value={initialFormData.testingType}>{initialFormData.testingType}</option>
               </select>
@@ -145,29 +170,6 @@ function DisplayIssue() {
               </div>
             </div>
 
-            <div className="row">
-                <div className="col-25">
-                  <label className="form-label" htmlFor="actualdate">Actual Resolution Date</label>
-                  <input className="form-control" type="text" id="actualdate" name="actualdate" value={initialFormData.actualdate} disabled/>
-                </div>
-
-                <div className="col-75">
-                  <label className="form-label" htmlFor="assignTo">Assigned To</label>
-                  {/* <input className="form-control" type="text" id="assignTo" name="assignTo" value={initialFormData.assignTo} disabled/> */}
-                  <EmployeeDropdown empid={initialFormData.assignTo} />
-                </div>
-            </div>
-
-            <div className="row">
-                <div className="col-25">
-                  <label className="form-label" htmlFor="progressreport">Progress Report</label>
-                  <input className="form-control" type="text" id="progressreport" name="progressreport" value={initialFormData.progressreport} disabled />
-                </div>
-                <div className="col-75">
-                  <label className="form-label" htmlFor="stepsToReproduce">Steps To Reproduce</label>
-                  <input className="form-control" type="text" id="stepsToReproduce" name="stepsToReproduce" value={initialFormData.stepsToReproduce} disabled />
-                </div>
-            </div>
 
           <div className="row">
             <div className="col-25">
@@ -175,15 +177,15 @@ function DisplayIssue() {
               <input type="number" id="iterationNumber" className="form-control" name="iterationNumber" value={initialFormData.iterationNumber} disabled />
             </div>
             <div className="col-75">
-              <label className="form-label" htmlFor="linkToPast">Link To Past:</label>
-              <input className="fixedwidth" type="text" id="linkToPast" name="linkToPast" value={initialFormData.linkToPast} disabled/>
+              <label className="form-label" htmlFor="linkToPast">Link To Parent:</label>
+              <input className="form-control" type="text" id="linkToPast" name="linkToPast" value={initialFormData.linkToPast} disabled/>
             </div>
           </div>
 
           <div className="row">
             <div className="col">
-              <label className="form-label" htmlFor="summary">Summary</label>
-              <textarea placeholder="Summary" id="summary" name="summary" value={initialFormData.summary} disabled/>
+            <label className="form-label" htmlFor="stepsToReproduce">Steps To Reproduce</label>
+            <textarea type="text" id="stepsToReproduce" name="stepsToReproduce" value={initialFormData.stepsToReproduce} disabled />
             </div>
           </div>
 
@@ -194,30 +196,11 @@ function DisplayIssue() {
             </div>
           </div>
 
-          <div className="row">
-            <div className="col-25">
-              <label className="form-label" htmlFor="identifiedemp">Identfied By</label>
-              {/* <input className="fixedwidth" type="text" id="identfiedemp" name="identfiedemp" value={initialFormData.identfiedemp} disabled/> */}
-              <EmployeeDropdown empid={initialFormData.identfiedemp} />
-            </div>
-            <div className="col-3">
-                <label className="form-label" htmlFor="seviority">Seviority</label>
-                <select id="seviority" disabled >
-                  <option value={initialFormData.seviority}>{initialFormData.seviority}</option>
-                </select>
-            </div>
-          </div>
 
-          <div className="row">
-            <div className="col">
-              <label className="form-label" htmlFor="ressummary">Ressolution Summary</label>
-              <textarea  id="ressummary" name="ressummary" value={initialFormData.ressummary} disabled/>
-            </div>
-          </div>
-
-          <center><img src={initialFormData.images} alt="Uploaded Image" /></center><br />
-
+          <label className="form-label">Uploaded attachments</label>
+          <ImageCarouselModal images={initialFormData.images} />
         </form>
+        
         <div style={{margin:"10%"}}>
           <Comments selectedIssueId={selectedIssueId}/>
         </div>

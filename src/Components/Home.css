@@ -128,7 +128,6 @@ button
   box-shadow: 3px 3px 2px 3px rgb(240, 235, 235);
   font-weight: 600;
   padding: 20px;
-
 }
 
 .priority-container {
@@ -331,3 +330,11 @@ button
     width: 30px;
   }
  
+.row- {
+  display: flex;
+  flex-direction: row;
+}
+
+tbody {
+  height: 15px;
+}
