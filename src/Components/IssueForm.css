@@ -229,7 +229,7 @@ input:focus,textarea:focus{
   transition:.2s;
   box-sizing:border-box;
   border-color: rgb(139, 200, 209);
-  box-shadow: 0 0 8px 0 rgb(139, 200, 209)
+  /* box-shadow: 0 0 8px 0 rgb(139, 200, 209) */
 }
 label {
   font-size: 18px;

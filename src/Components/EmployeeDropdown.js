@@ -47,7 +47,7 @@ function EmployeeDropdown({val, callBackFunc, empid}) {
       callBackFunc(event.target.value);
     }
 
-    if(isDataLoaded && data.length != 0){
+    if(isDataLoaded){
         if(val==null){
             val = data[0].empId;
         }

@@ -45,7 +45,7 @@ function AddEmployee({func, projectId}) {
         <div className='employee-add-card'>
             <br/>
             <button 
-            style={{width:'125px', height:'55px'}}
+                style={{width:"170px"}}
                 className='add-employee-bt'
                 onClick={handleOpenModal}
             >

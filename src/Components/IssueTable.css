@@ -27,10 +27,10 @@
     border: solid black 1px;
     border-bottom: none;
     padding: 20px;
-   
+    width:100%;
   }
   td, th {
-    text-align: center;
+    /* text-align: center; */
     padding: 10px;
   }
  
@@ -60,5 +60,43 @@
   .table-bordered{
     border: 1px solid black;
     /* margin-top: 0px; */
+  }
+  .icon-height{
+    height:"30px";
+  }
+  .square-icon {
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+  }
+  .Medium {
+    background-color: green; 
+  }
+  .Low {
+  background-color: yellow; 
+  }
+  .High {
+    background-color: red; 
+  }
+  .rectangle-icon {
+    width: 15px;
+    height: 3px;
+    margin-top:5px;
+  }
+  .S1{
+    background-color: red; 
+  }
+  .S2{
+    background-color: orange;
+  }
+  .S3{
+    background-color: green;
+  }
+  .S4{
+    background-color: yellow;
+  }
+  .info{
+    color: grey;
+    font-size: 14px;
   }
   

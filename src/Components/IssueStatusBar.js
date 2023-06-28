@@ -55,7 +55,7 @@ function IssueStatusBar() {
       
     useEffect(() => {
       // console.log("data : -", data);
-      if(!isFromLandingPage){
+      if(!isFromLandingPage){ 
         const filteredData1 = data.filter(issue => {
           
               const lowerCaseIssueName = issue.issueName.toLowerCase();
