@@ -56,7 +56,7 @@ function IssueStatusBar() {
       
     useEffect(() => {
       // console.log("data : -", data);
-      if(!isFromLandingPage){
+      if(!isFromLandingPage){ 
         const filteredData1 = data.filter(issue => {
           
               const lowerCaseIssueName = issue.issueName.toLowerCase();
@@ -267,7 +267,7 @@ function IssueStatusBar() {
                 <h3>{projObj.data[ProjectId-1].projectname} Issues</h3>
               </div>
               <div className='align'>
-                <input className="pa2 bb br3 ma2 shadow" type="text" placeholder="Search Issue" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+                <input className="pa2 bb br3 ma2 shadow" type="text" placeholder="Search Issue" value={searchTerm} onChange={handleSearch} />
               </div>
           </div>
 

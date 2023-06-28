@@ -92,6 +92,13 @@ function EditIssueForm() {
       setSelectedStatus(dataById[0].status)
       setSelectedTesting(dataById[0].testingType)
       // setSelectedIssue(dataById[0].issueType);
+      if(dataById[0].assignTo == null){
+        setSelectedAssignedEmployee(0)
+    }
+    else{
+        setSelectedAssignedEmployee(dataById[0].assignTo);
+    }
+    setIdentifiedEmployee(dataById[0].identfiedemp);
       setDataLoaded(true)
     }
     
@@ -260,7 +267,7 @@ function EditIssueForm() {
                 <div className="col-75">
                   <label className="form-label" htmlFor="assignTo">Assigned To</label>
                   {/* <input className="form-control" type="text" id="assignTo" name="assignTo" value={formData.assignTo} onChange={handleChange} /> */}
-                  <EmployeeDropdown setEmpId={formData.assignTo} callBackFunc={setSelectedAssignedEmployee} />
+                  <EmployeeDropdown empId={formData.assignTo} callBackFunc={setSelectedAssignedEmployee} />
                 </div>
             </div>
 
@@ -311,7 +318,7 @@ function EditIssueForm() {
             <div className="col-25">
               <label className="form-label" htmlFor="identifiedemp">Identfied By</label>
               {/* <input className="fixedwidth" type="text" id="identfiedemp" name="identfiedemp" value={formData.identfiedemp} onChange={handleChange} /> */}
-              <EmployeeDropdown setEmpId={formData.identfiedemp} callBackFunc={setIdentifiedEmployee}/>
+              <EmployeeDropdown empId={formData.identfiedemp} callBackFunc={setIdentifiedEmployee}/>
             </div>
             <div className="col-3">
                 <label className="form-label" htmlFor="seviority">Seviority</label>

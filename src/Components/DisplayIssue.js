@@ -17,7 +17,7 @@ function DisplayIssue() {
       dispatch(GetIssueById(selectedIssueId));
     }, [selectedIssueId]);
     
-    const initialFormData = {
+    const initialFormData = {   
         selectedProjectId:"",
         issueName: "",
         issueType: "",
