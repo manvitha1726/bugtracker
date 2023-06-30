@@ -239,6 +239,9 @@ function IssueForm() {
             <div className="validations">
               {errors.description && <span>{errors.description}</span>}
             </div>
+            <div className="validations">
+              {errors.description && <span>{errors.description}</span>}
+            </div>
           </div>
         </div>
 
