@@ -11,14 +11,13 @@ function ProjectCard({ project }) {
 
   const handleClick = () => {
     dispatch(setSelectedProjectId(project.projectid));
-    // navigate(`/projects/${project.projectid}`);
     navigate(`/projects/${project.projectid}`)
   };
 
   return (
-    <div className={`tc dib br3 pa3 ml3 mt5 grow ${project.highPriorityIssues > 0 && project.s1seviourty ? "card-red" : "cardu"}`} onClick={handleClick}>
+    <div className={`tc dib br3 pa3 ml3 mt5 mb5 grow ${project.highPriorityIssues > 0 && project.s1seviourty ? "card-red" : "cardu"}`} onClick={handleClick}>
         <h5>{project.projectname}</h5>
-        <p>Issues: {project.totalIssues}</p>
+        <p>Issues: {project.totalIssues}</p> 
         <div className="priority-container">
           <div className="priority-ball high-priority" title="High Priority">
             <span className="priority-text">High</span>

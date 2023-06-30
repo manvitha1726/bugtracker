@@ -40,10 +40,8 @@
   }
 
   .View-Button{
-    /* justify-content: flex-end; */
     left:85%;
     position:absolute;
-   
   }
 
   .Main-Container{
@@ -69,14 +67,17 @@
     height: 15px;
     border-radius: 2px;
   }
-  .Medium {
+  .P2{
     background-color: green; 
+    color: black;
   }
-  .Low {
+  .P1 {
   background-color: yellow; 
+  color: black;
   }
-  .High {
+  .P3 {
     background-color: red; 
+    color: black;
   }
   .rectangle-icon {
     width: 15px;
@@ -99,4 +100,31 @@
     color: grey;
     font-size: 14px;
   }
+  .hover-icon {
+    position: absolute;
+    font-size: 12px;
+    opacity: 0;
+  }
   
+  .square-icon:hover .hover-icon {
+    opacity: 1;
+    transform: translateX(-100%);
+  }
+  .rectangle-icon:hover .hover-icon{
+    opacity: 1;
+    transform: translateX(100%);
+  }
+
+  .date-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .date-wrapper label {
+    margin-right: 10px;
+    font-size:15px;
+  }
+  .date-wrapper input {
+   height: 15px;
+  }

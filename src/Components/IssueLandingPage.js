@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GetIssueById, GetIssueByProjectId} from "../Features/IssueSlice";
+import { GetIssueByProjectId} from "../Features/IssueSlice";
 import './IssueForm.css';
 import IssueTable from "./IssueTable";
 
@@ -18,6 +18,10 @@ const IssueLandingPage = ({onItemClick}) => {
       dispatch(GetIssueByProjectId(selectedProjectId));
       setDataDispatched(true)
     }, []);
+
+    // useEffect(() => {
+    //     dispatch(GetIssuesByTimePeriod(selectedProjectId));
+    //   }, []);
 
     useEffect(() => {
         if(dataDispatched){
@@ -53,9 +57,11 @@ const IssueLandingPage = ({onItemClick}) => {
                 <IssueTable issuesList={unassignedIssues.slice(0, 5)} noOfIssues={unassignedIssues.length} tableName={'Unassigned'} onItemClick={onItemClick} />
                 <br /><br/>
                 <IssueTable issuesList={resolvedIssues.slice(0, 5)} noOfIssues={resolvedIssues.length} tableName={'Resolved'} onItemClick={onItemClick}/>
-            </div>
+                <br/><br/>
+                <IssueTable tableName={'TimePeriod'} issuesList={[]} onItemClick={onItemClick}/>
+            </div> 
         )
     }
 }
 
-export default IssueLandingPage
+export default IssueLandingPage 

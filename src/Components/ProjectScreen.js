@@ -4,9 +4,8 @@ import ProjectButton from './ProjectButton';
 import ProjectCard from './ProjectCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProjects } from '../Features/ProjectsSlice';
-// import Pagination from './Pagination/Pagination';
 import Carousel from "react-elastic-carousel";
-// import './Home.css'
+import './Home.css'
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
   { width: 550, itemsToShow: 2, itemsToScroll: 2 },
@@ -17,14 +16,12 @@ const breakPoints = [
 function ProjectScreen() {
   const [searchField, setSearchField] = useState("");
   const { data, loading, error } = useSelector((state) => state.projects);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [postsPerPage, setPostsPerPage] = useState(5);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProjects());
   }, []);
-
+  
   const filteredProjects = data.filter(project => project.projectname.toLowerCase()
   .includes(searchField.toLowerCase()));
   if (loading) {
@@ -45,10 +42,6 @@ function ProjectScreen() {
   const handleChange = (e) => {
     setSearchField(e.target.value);
   };
-
-    // const lastPostIndex = currentPage * postsPerPage;
-    // const firstPostIndex = lastPostIndex - postsPerPage;
-    // const currentPosts = filteredProjects.slice(firstPostIndex, lastPostIndex);
     
   return (
     <div>
@@ -72,7 +65,7 @@ function ProjectScreen() {
         />
       </div>
       <div className='mt-4'>
-      {/* <hr className="seperator" /> */}<br/>
+       <br/>
       <div className="carousel-wrapper">
       <Carousel breakPoints={breakPoints}>
       {filteredProjects.map((val) => (
@@ -83,12 +76,6 @@ function ProjectScreen() {
       ))}  
       </Carousel>
      </div>
-      {/* <Pagination
-      totalPosts={filteredProjects.length}
-      postsPerPage={postsPerPage}
-      setCurrentPage={setCurrentPage}
-      currentPage={currentPage}
-      /> */}
       </div>
     </section>
     </center>

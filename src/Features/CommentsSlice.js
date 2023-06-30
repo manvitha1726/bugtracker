@@ -6,7 +6,7 @@ export const getCommentsByIssueId = createAsyncThunk(
   async (selectedIssueId, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `https://issuetrackingwebapp.azurewebsites.net/api/comments/GetCommentByIssueId?IssueId=${selectedIssueId}`
+        `https://bugtrackerwebapp123.azurewebsites.net/api/comments/GetCommentByIssueId?IssueId=${selectedIssueId}`
       );
       const result = await response.json();
       return result;
@@ -21,7 +21,7 @@ export const getCommentsByIssueId = createAsyncThunk(
 export const AddNewComment = createAsyncThunk("addComment",async (data, { rejectWithValue }) => {
     try{
     const response = await fetch(
-      "https://issuetrackingwebapp.azurewebsites.net/api/comments/addcomment",
+      "https://bugtrackerwebapp123.azurewebsites.net/api/comments/AddComment",
       {
         method: "POST",
         headers: {
@@ -46,7 +46,7 @@ export const deleteComment = createAsyncThunk(
   async (commentId,{ rejectWithValue }) => {
     try {
       const response = await fetch(
-        `https://issuetrackingwebapp.azurewebsites.net/api/comments/deletecomment?commentId=${commentId}`,
+        `https://bugtrackerwebapp123.azurewebsites.net/api/comments/DeleteComment?commentId=${commentId}`,
         {
           method: "DELETE",
         }
@@ -67,7 +67,7 @@ export const updateComment = createAsyncThunk(
 
     try {
       const response = await fetch(
-        `https://issuetrackingwebapp.azurewebsites.net/api/comments/updatecomment`,
+        `https://bugtrackerwebapp123.azurewebsites.net/api/comments/UpdateComment`,
         {
           method: "PUT",
           headers: {

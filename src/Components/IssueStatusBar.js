@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
+import {getProjectById} from '../Features/ProjectsSlice';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 import { FaPlus ,FaEye,FaPencilAlt,FaSort, FaImage} from 'react-icons/fa';
 import { getAllProjects } from "../Features/ProjectsSlice";
@@ -27,6 +28,7 @@ function IssueStatusBar() {
     const [IdentifiedEmployee, setIdentifiedEmployee] = useState();
     const [isFromLandingPage, setIsFromLandingPage] = useState(true);
     const [showImagePopup, setShowImagePopup] = useState(false);
+    const projectname = useSelector((state) => state.projects.ProjectName.projectname);
 
     const [issueFilterVal, setIssueFilterVal] = useState({
       status: 'Any',
@@ -42,6 +44,7 @@ function IssueStatusBar() {
 
     useEffect(() => { 
       dispatch(GetIssueByProjectId(ProjectId)) 
+      dispatch(getProjectById(ProjectId))
     },[])
 
     const projObj= useSelector((state) => state.projects);
@@ -264,7 +267,7 @@ function IssueStatusBar() {
                 
               </div>
               <div className='heading-container'>
-                <h3>{projObj.data[ProjectId-1].projectname} Issues</h3>
+                <h3> {projectname} Issues</h3>
               </div>
               <div className='align'>
                 <input className="pa2 bb br3 ma2 shadow" type="text" placeholder="Search Issue" value={searchTerm} onChange={handleSearch} />
@@ -344,10 +347,12 @@ function IssueStatusBar() {
           <table className="table table-bordered rounded-lg">
             <thead>
               <tr>
-                <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Issue</th>
+                <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Issue Id</th>
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
                 <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Priority &nbsp;<FaSort onClick={handleSort}/></th>
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Severity</th>
+                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Category</th>
+                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Summary</th>
               </tr>
             </thead>
             <tbody>
@@ -356,7 +361,7 @@ function IssueStatusBar() {
                   <td className='p-3 table-1stcol' style={{position:"relative"}}>
                     
                     <a onClick={() => NavigateToSelectedIssue(issue.issueId)} className='clickable-'>
-                        {issue.issueName}
+                        {issue.issueId}
                     </a> &nbsp;&nbsp;&nbsp;
                     {/* {console.log("images url : ", issue.images)} */}
                     {
@@ -391,6 +396,12 @@ function IssueStatusBar() {
                     {issue.seviority}
                   {/* <center>
                   <FaEye className='pointer-icon' onClick={() => handleViewIcon(issue.issueId)} /></center> */}
+                  </td>
+                  <td >
+                    {issue.category}
+                  </td>
+                  <td>
+                    {issue.shortDescription}
                   </td>
                   
                 </tr>

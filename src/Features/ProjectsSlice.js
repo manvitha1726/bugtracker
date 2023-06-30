@@ -3,7 +3,18 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 //Get all projects action
 export const getAllProjects = createAsyncThunk("getProjects", async (args, {rejectWithValue }) => {
   try{
-  const response = await fetch('https://issuetrackingwebapp.azurewebsites.net/api/project/GetAllProjects');
+  const response = await fetch('https://bugtrackerwebapp123.azurewebsites.net/api/project/GetAllProjects');
+  const result= await response.json();
+  return result;
+  }catch(err){
+    return rejectWithValue("Found an error!",err.response.data)
+  }
+})
+
+//Fetch ProjectName by projectId
+export const getProjectById = createAsyncThunk("getProjectById", async (projectId, {rejectWithValue }) => {
+  try{
+  const response = await fetch(`https://bugtrackerwebapp123.azurewebsites.net/api/project/GetProjectById?projectid=${projectId}`);
   const result= await response.json();
   return result;
   }catch(err){
@@ -14,7 +25,7 @@ export const getAllProjects = createAsyncThunk("getProjects", async (args, {reje
 //Add new Project
 export const addNewProject =createAsyncThunk("addProject",async(data,{rejectWithValue})=>{
   try{
-  const response=await fetch('https://issuetrackingwebapp.azurewebsites.net/api/project/addproject',{
+  const response=await fetch('https://bugtrackerwebapp123.azurewebsites.net/api/project/AddProject',{
     method:"POST",
     headers: {
       "Content-Type": "application/json",
@@ -26,8 +37,12 @@ export const addNewProject =createAsyncThunk("addProject",async(data,{rejectWith
   return result;
 }catch(err){
   return rejectWithValue("Found an error!",err.response.data)
-}
+} 
 }); 
+
+
+
+
 
 export const Projects = createSlice({ 
   name:'projects',
@@ -35,6 +50,7 @@ export const Projects = createSlice({
     data: [], 
     loading: false,
     error: null, 
+    ProjectName:[]
   }, 
   reducers: {},  
   extraReducers: {
@@ -46,6 +62,17 @@ export const Projects = createSlice({
       state.data = action.payload;
     },
     [getAllProjects.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [getProjectById.pending]: (state) => {
+      state.loading = true;
+    },
+    [getProjectById.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.ProjectName = action.payload;
+    },
+    [getProjectById.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

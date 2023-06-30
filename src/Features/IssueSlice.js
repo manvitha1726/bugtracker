@@ -21,7 +21,7 @@ export const GetIssueById = createAsyncThunk(
     async (issueId, {rejectWithValue}) => {
         try{
             const response = await fetch(
-                `https://issuetrackingwebapp.azurewebsites.net/api/Issues/FetchIssue?IssueId=${issueId}`
+                `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchIssue?IssueId=${issueId}`
             );
             const result = await response.json();
             return result;
@@ -32,13 +32,32 @@ export const GetIssueById = createAsyncThunk(
     }
 )
 
+// Get Issues By ProjectId,FromDate,ToDate
+export const GetIssuesByTimePeriod= createAsyncThunk(
+  "getIssuesByTimePeriod",
+  async ({selectedProjectId,fromDate,toDate} ,{rejectWithValue}) => {
+      try{
+        console.log("sgsccuvc",selectedProjectId,fromDate,toDate);
+          const response = await fetch(
+              `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchIssuesByTimePeriod?projectid=${selectedProjectId}&FromDate=${fromDate}&ToDate=${toDate}`
+          );
+          const result = await response.json();
+          return result;
+      }
+      catch(err){
+        console.log("sgsccuvc",selectedProjectId,fromDate,toDate);
+          return rejectWithValue("Found an error", err.response.data);
+      }
+  }
+)
+
 //Get Issue By ProjectId
 export const GetIssueByProjectId = createAsyncThunk(
   "getIssueByProjectId",
   async (projectId, {rejectWithValue}) => {
       try{ 
           const response = await fetch(
-              `https://issuetrackingwebapp.azurewebsites.net/api/Issues/FetchIssuesbyProject?ProjectId=${projectId}`
+              `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchIssuesbyProject?ProjectId=${projectId}`
           );
           const result = await response.json();
           return result;
@@ -54,7 +73,7 @@ export const AddNewIssue = createAsyncThunk(
   "addIssue",
   async (data, { rejectWithValue }) => {
     const response = await fetch(
-      "https://issuetrackingwebapp.azurewebsites.net/api/Issues/AddIssue",
+      "https://bugtrackerwebapp123.azurewebsites.net/api/Issues/AddIssue",
       {
         method: "POST",
         headers: {
@@ -121,7 +140,7 @@ export const updateIssue = createAsyncThunk(
     console.log("data in slice",formData);
     try {
       const response = await fetch(
-        `https://issuetrackingwebapp.azurewebsites.net/api/Issues/UpdateentireIssue`,
+        `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/UpdateentireIssue`,
         {
           method: "PUT",
           headers: {
@@ -149,7 +168,8 @@ export const Issues = createSlice({
     data: [],
     loading: false,
     error: null,
-    dataById: []
+    dataById: [],
+    dataByTimePeriod: []
   },
   reducers: {
  
@@ -169,6 +189,17 @@ export const Issues = createSlice({
     [GetIssueById.pending]: (state) => {
         state.loading = true;
       },
+    [GetIssuesByTimePeriod.pending]:(state)=>{
+      state.loading=true;
+    },
+    [GetIssuesByTimePeriod.fulfilled]:(state,action)=>{
+      state.loading=false;
+      state.dataByTimePeriod = action.payload;
+    },
+    [GetIssuesByTimePeriod.rejected]:(state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     [GetIssueById.fulfilled]: (state, action) => {
         state.loading = false;
         state.dataById = action.payload;
