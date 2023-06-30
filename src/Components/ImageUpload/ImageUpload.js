@@ -16,7 +16,7 @@ function ImageUpload({callBackFunc}) {
 
     const onFileChange = (event) => {
         setFileSelected(event.target.files);
-        console.log(event.target.files);
+        console.log(event.target.files)
     }
     
 
