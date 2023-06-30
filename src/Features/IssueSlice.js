@@ -6,7 +6,7 @@ export const getAllIssues = createAsyncThunk(
   async (args, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        "https://issuetrackingapp.azurewebsites.net/api/Issues/FetchAllIsues"
+        "https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchAllIsues"
       );
       const result = await response.json();
       return result;
@@ -137,7 +137,6 @@ export const updateIssueStatus = createAsyncThunk(
 export const updateIssue = createAsyncThunk(
   "issues/updateIssue",
   async (formData, { rejectWithValue }) => {  
-    console.log("data in slice",formData);
     try {
       const response = await fetch(
         `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/UpdateentireIssue`,
@@ -146,7 +145,7 @@ export const updateIssue = createAsyncThunk(
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify( formData ),
+          body: JSON.stringify(formData),
         }
       );
       

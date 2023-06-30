@@ -2,6 +2,7 @@ import Joi from 'joi-browser';
 
 // Define your validation schema using Joi
 const schema = Joi.object({
+    projectid: Joi.string().required().label('Project Id'),
     projectname: Joi.string().required().label('Project Name')
   });
 

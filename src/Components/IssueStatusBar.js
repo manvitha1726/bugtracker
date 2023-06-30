@@ -4,12 +4,13 @@ import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
 import {getProjectById} from '../Features/ProjectsSlice';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 import { FaPlus ,FaEye,FaPencilAlt,FaSort, FaImage} from 'react-icons/fa';
-import { getAllProjects } from "../Features/ProjectsSlice";
+import { getAllProjects, getProjectNameProjectId } from "../Features/ProjectsSlice";
 import {useNavigate} from 'react-router-dom'; 
 import Pagination from './Pagination/Pagination';
 import './Home.css';
 import EmployeeDropdown from './EmployeeDropdown';
-import ImagePopup from './ImagePopup';
+import ImageCarouselModal from './ImageCarouselModal.js';
+import { Table } from 'react-bootstrap';
 
 function IssueStatusBar() {     
     const dispatch = useDispatch();  
@@ -49,10 +50,8 @@ function IssueStatusBar() {
 
     const projObj= useSelector((state) => state.projects);
     useEffect(() => {
-      dispatch(getAllProjects());
-      console.log("selected filters in ISB--", selectedFilters);
+      dispatch(getProjectNameProjectId(ProjectId));
       handleFiltersFromLandingPage();
-      // console.log("selected filters in ISB---", issueFilterVal);
       handleFilterApply();
       // console.log("projects data",projObj.data);
     }, []);
@@ -72,7 +71,6 @@ function IssueStatusBar() {
                 lowerCaseStatus.includes(lowerCaseSearchTerm) ||
                 lowerCasePriority.includes(lowerCaseSearchTerm)
               );
-          
         }); 
 
       setFilteredData(filteredData1)
@@ -81,6 +79,7 @@ function IssueStatusBar() {
       const lastPostIndex = currentPage * postsPerPage;
       const firstPostIndex = lastPostIndex - postsPerPage;
       setCurrentPosts(filteredData1.slice(firstPostIndex, lastPostIndex));
+      // handleSettingCarouselImages(filteredData1.slice(firstPostIndex, lastPostIndex));
     }
     // handleFilterApply();
     }, [data, searchTerm])  
@@ -91,6 +90,7 @@ function IssueStatusBar() {
       const firstPostIndex = lastPostIndex - postsPerPage;
       setCurrentPosts(filteredData.slice(firstPostIndex, lastPostIndex));
       setDataSorted(false)
+      // handleSettingCarouselImages(filteredData.slice(firstPostIndex, lastPostIndex));
       }
     }, [dataSorted, currentPage])
 
@@ -100,6 +100,7 @@ function IssueStatusBar() {
       const firstPostIndex = lastPostIndex - postsPerPage;
       setCurrentPosts(filteredData.slice(firstPostIndex, lastPostIndex));
       setIsDataFiltered(false);
+      // handleSettingCarouselImages(filteredData.slice(firstPostIndex, lastPostIndex));
       }
     }, [isDataFiltered, currentPage])
 
@@ -181,9 +182,9 @@ function IssueStatusBar() {
       setIssueFilterVal((prevFilters) => ({ ...prevFilters, [name]: value }));
      }
      const handleFilterApply = () => {
-      console.log("filters : ", selectedFilters);
+      // console.log("filters : ", selectedFilters);
       {console.log("selectedAssignedEmployee,", selectedAssignedEmployee);}
-      {console.log("IdentifiedEmployee : ", selectedAssignedEmployee);}
+      // {console.log("IdentifiedEmployee : ", selectedAssignedEmployee);}
       const filtered = data.filter(issue => {
         // Check if each field in issueFilterVal matches the corresponding issue property
         var status = 'Any', identfiedemp = -1, assignTo = -1, priority = 'Any', seviority = 'Any';
@@ -202,14 +203,14 @@ function IssueStatusBar() {
           priority = issueFilterVal.priority;
           seviority = issueFilterVal.seviority;
         }
-        // console.log(status.toString(), identfiedemp.toString(), assignTo.toString(), priority.toString(), seviority.toString());
-        // {console.log("iss11", issue);}
+        console.log(status.toString(), identfiedemp.toString(), assignTo.toString(), priority.toString(), seviority.toString());
+        {console.log("iss11", issue);}
         // {console.log(`${issue.assignTo}`, assignTo, `${issue.identfiedemp}` == identfiedemp);}
         // {console.log("as1 : ", assignTo === '1' , assignTo == -1  , issue.assignTo == assignTo, `${issue.assignTo}`, assignTo, assignTo, 'null' === null)}
         if (
           (status === 'Any' || issue.status === status) &&
           (identfiedemp === "undefined" ||  identfiedemp == -1 || issue.identfiedemp == identfiedemp) &&
-          (assignTo === 'undefined' || assignTo == -1  || ((issue.assignTo == null) && assignTo == 0)) &&
+          (assignTo === 'undefined' || assignTo == -1  || ((issue.assignTo == null) && assignTo == 0) || issue.assignTo == assignTo) &&
           (priority === 'Any' || issue.priority === priority) &&
           (seviority === 'Any' || issue.seviority === seviority)
         ) {
@@ -237,6 +238,13 @@ function IssueStatusBar() {
 
      const handleFilterReset = () => {
         setFilteredData(data);
+        setIssueFilterVal({
+          status: 'Any',
+          identfiedemp:-1,
+          assignTo: -1,
+          priority: 'Any',
+          seviority: 'Any'
+        })
         setIsDataFiltered(true);
      }
 
@@ -259,12 +267,10 @@ function IssueStatusBar() {
   if(dataLoaded){
       return (
         <div className='Mains-Container'>
-         <div className="row-container">
+         <div className="row-container IssueStatusBar-background-color">
               
-                <div className="icon-container">
-                  <FaPlus className="icon rounded p-1" style={{ backgroundColor: "black",height:'25px',width:'25px',color:'white',marginLeft:'80px',}} onClick={handlePlusIconClick} />
-                  <p style={{color:'black ',marginLeft:'80px'}}>Add Issue</p>
-                
+              <div className="icon-container">
+                  <button className="button-background-color" onClick={handlePlusIconClick}>Add Issue</button>
               </div>
               <div className='heading-container'>
                 <h3> {projectname} Issues</h3>
@@ -282,7 +288,7 @@ function IssueStatusBar() {
               <div className='filter-row' style={{display:'flex', flexDirection:'row'}}>
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Status</label>
-                    <select 
+                    <select className='IssueStatusBar-background-color'
                       name='status'
                       value={issueFilterVal.status}
                       onChange={handleFilterChange}
@@ -297,7 +303,7 @@ function IssueStatusBar() {
                 &nbsp;&nbsp;&nbsp;
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Priority</label>
-                    <select 
+                    <select className='IssueStatusBar-background-color'
                       name='priority'
                       value={issueFilterVal.priority|| 'Any'}
                       onChange={handleFilterChange}
@@ -311,7 +317,7 @@ function IssueStatusBar() {
                 &nbsp;&nbsp;&nbsp;
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Severity</label>
-                    <select 
+                    <select className='IssueStatusBar-background-color'
                       name='seviority'
                       value={issueFilterVal.seviority|| 'Any'}
                       onChange={handleFilterChange}
@@ -336,15 +342,15 @@ function IssueStatusBar() {
               </div>
               <br />
               <div>
-              <button onClick={handleFilterApply}>Apply Filters</button>
+              <button className='button-class button-background-color' onClick={handleFilterApply}>Apply Filters</button>
               &nbsp;&nbsp;&nbsp;
-              <button onClick={handleFilterReset}>Reset</button>
+              <button className='button-class button-background-color' onClick={handleFilterReset}>Reset</button>
               </div>
           
           </div>
 
-          <div className='Issue-table'>
-          <table className="table table-bordered rounded-lg">
+          <div>
+          <table className="table table-bordered">
             <thead>
               <tr>
                 <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Issue Id</th>
@@ -356,37 +362,22 @@ function IssueStatusBar() {
               </tr>
             </thead>
             <tbody>
-              {currentPosts.map(issue => ( 
+              {currentPosts.map((issue, index) => ( 
                 <tr key={issue.issueId}>
                   <td className='p-3 table-1stcol' style={{position:"relative"}}>
-                    
-                    <a onClick={() => NavigateToSelectedIssue(issue.issueId)} className='clickable-'>
-                        {issue.issueId}
-                    </a> &nbsp;&nbsp;&nbsp;
-                    {/* {console.log("images url : ", issue.images)} */}
-                    {
-                    !(issue.images == '' || issue.images == 'string') ?
-                    <FaImage className='pointer-icon1' onClick={() => setShowImagePopup(true)} />
-                    :
-                    <p className='pointer-icon1'></p>
-                    }
-                    
-                    <ImagePopup  imageUrl={issue.images} show={showImagePopup} onHide ={() => setShowImagePopup(false)}/>
-                    <FaPencilAlt className='pointer-icon2'  onClick={() => handleEditIcon(issue.issueId)}/>
+                    <div className='row-'>
+
+                        <a onClick={() => NavigateToSelectedIssue(issue.issueId)} className='clickable-'>
+                            {issue.issueId}
+                        </a> &nbsp;&nbsp;&nbsp;
+                        <div className='pointer-icon1'>
+                            <ImageCarouselModal images={issue.images} />
+                        </div>
+                        <FaPencilAlt className='pointer-icon2' onClick={() => handleEditIcon(issue.issueId)}/>
+                    </div>
                   </td>
                   <td className='p-3'> 
                     {issue.status}
-                    {/* <center>
-                    <select 
-                      value={issue.status|| 'Open'}
-                      onChange={e => handleStatusChange(issue.issueId, e.target.value)}
-                    >
-                      <option value="Open">Open</option>
-                      <option value="Close">Closed</option>
-                      <option value="In Progress">In Progress</option>
-                      <option value="Hold">Hold</option>
-                    </select>
-                    </center>  */}
                   </td>
                   <td className='p-3'>
                     {issue.priority}
@@ -394,8 +385,12 @@ function IssueStatusBar() {
                   
                   <td >
                     {issue.seviority}
-                  {/* <center>
-                  <FaEye className='pointer-icon' onClick={() => handleViewIcon(issue.issueId)} /></center> */}
+                  </td>
+                  <td >
+                    {issue.category}
+                  </td>
+                  <td>
+                    {issue.shortDescription}
                   </td>
                   <td >
                     {issue.category}
@@ -409,12 +404,12 @@ function IssueStatusBar() {
               
               </tbody>
             </table>
-            <Pagination
-                  totalPosts={filteredData.length}
-                  postsPerPage={postsPerPage}
-                  setCurrentPage={setCurrentPage}
-                  currentPage={currentPage}
-                />
+                <Pagination
+                      totalPosts={filteredData.length}
+                      postsPerPage={postsPerPage}
+                      setCurrentPage={setCurrentPage}
+                      currentPage={currentPage}
+                    />
           </div>
         </div>
       );

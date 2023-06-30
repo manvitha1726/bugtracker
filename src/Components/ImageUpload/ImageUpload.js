@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import UploadFileToBlob, {isStorageConfigured} from './UploadFileFunction'
+import ImageCarouselModal from '../ImageCarouselModal.js';
+import '../Home.css';
 
 const storageConfigured = isStorageConfigured();
 
@@ -14,8 +16,8 @@ function ImageUpload({callBackFunc}) {
     const [inputKey, setInputKey] = useState(Math.random().toString(36));
 
     const onFileChange = (event) => {
-        setFileSelected(event.target.files[0]);
-        console.log(fileSelected);
+        setFileSelected(event.target.files);
+        console.log(event.target.files)
     }
     
 
@@ -26,9 +28,10 @@ function ImageUpload({callBackFunc}) {
               <input
                type="file"
                key= {inputKey || ''}
+               multiple
                onChange={onFileChange}
               />
-              <button onClick={onFileUpload}>
+              <button className='button-background-color' onClick={onFileUpload}>
                    Upload file
               </button>
           </div>
@@ -37,15 +40,17 @@ function ImageUpload({callBackFunc}) {
 
     const onFileUpload = async () => {
 
-        if(fileSelected && fileSelected?.name){
-            console.log(fileSelected?.name);
+        if(fileSelected){
+            // console.log(fileSelected?.name);
             setUploading(true);
-            console.log(uploading);
+            // console.log(uploading);
+            console.log("fileselected : ", fileSelected);
             const blobsInContainer = await UploadFileToBlob(fileSelected);
             // setBlobList(blobsInContainer);
-            setImageURL(blobsInContainer);
-            console.log(blobsInContainer);
-            callBackFunc(blobsInContainer);
+
+            setImageURL(blobsInContainer.join());
+            console.log(blobsInContainer.join());
+            callBackFunc(blobsInContainer.join());
             // reset state/form
             setFileSelected(null);
             //setFileUploaded(fileSelected.name);
@@ -57,11 +62,16 @@ function ImageUpload({callBackFunc}) {
 
   return (
     <>
+        {storageConfigured && !uploading && DisplayUploadImage()}
       {
-        !isUploaded ?
-        storageConfigured && !uploading && DisplayUploadImage()
+        isUploaded?
+        <>
+            <h5>Uploaded Images : </h5>
+            <ImageCarouselModal images={imageURL} />
+        </>
         :
-        <img src={imageURL} alt='uploaded image' />
+        <span></span>
+        // <img src={imageURL} alt='uploaded image' />
       }
       {storageConfigured && uploading && <>
           <div class="text-center my-auto">
@@ -71,7 +81,6 @@ function ImageUpload({callBackFunc}) {
             <span>Uploading....</span>
           </div>
         </>}
-      <hr />
       {/* {console.log("image url : ", imageURL)} */}
       {/* {console.log(getBlobsInContainer())} */}
       {/* {console.log(blobList[blobList.length - 1])} */}
