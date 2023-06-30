@@ -232,7 +232,7 @@ function EditIssueForm() {
           <div className="row">
             <div className="col-3">
               <label className="form-label" htmlFor="IssueType">Issue Type</label>
-              <select id="IssueType" value={selectedIssue} onChange={handleIssueSelection}>
+              <select id="IssueType" className="IssueStatusBar-background-color" value={selectedIssue} onChange={handleIssueSelection}>
                 <option value="Bug">Bug</option>
                 <option value="Defect">Defect</option>
               </select>
@@ -240,7 +240,7 @@ function EditIssueForm() {
 
             <div className="col-3">
               <label className="form-label" htmlFor="status">Status</label>
-              <select id="status" value={selectedStatus} onChange={handleStatusSelection}>
+              <select id="status" className="IssueStatusBar-background-color" value={selectedStatus} onChange={handleStatusSelection}>
                 <option value="Open">Open</option>
                 <option value="In Progress">Inprogress</option>
                 <option value="Hold">Hold</option>
@@ -251,7 +251,7 @@ function EditIssueForm() {
 
             <div className="col-3">
               <label className="form-label" htmlFor="priority">Priority</label>
-              <select id="IssueType" value={selectedPriority} onChange={handleSelectedPriority}>
+              <select id="IssueType" className="IssueStatusBar-background-color" value={selectedPriority} onChange={handleSelectedPriority}>
                 <option value="P1">P1</option>
                 <option value="P2">P2</option>
                 <option value="P3">P3</option>
@@ -274,7 +274,7 @@ function EditIssueForm() {
             </div>
             <div className="col-3">
                 <label className="form-label" htmlFor="seviority">Seviority</label>
-                <select id="seviority" value={selectedSeviority} onChange={handleSelectedSeviority} >
+                <select id="seviority" className="IssueStatusBar-background-color" value={selectedSeviority} onChange={handleSelectedSeviority} >
                   <option value="S1">S1</option>
                   <option value="S2">S2</option>
                   <option value="S3">S3</option>
@@ -284,7 +284,7 @@ function EditIssueForm() {
 
             <div className="col-3">
               <label className="form-label" htmlFor="testingtype">Testing Type</label>
-              <select id="testingtype" value={selectedTesting} onChange={handleTestingSelection}>
+              <select id="testingtype" className="IssueStatusBar-background-color" value={selectedTesting} onChange={handleTestingSelection}>
                 <option value="Smoke Testing">Smoke Testing</option>
                 <option value="Regression Testing">Regression Testing</option>
                 {/* Add more options as needed */}
@@ -293,7 +293,7 @@ function EditIssueForm() {
             
             <div className="col-3">
                 <label className="form-label" htmlFor="category">Category Name</label>
-                <select id="category" value={selectedCategory} onChange={handleCategorySelection} >
+                <select id="category" className="IssueStatusBar-background-color" value={selectedCategory} onChange={handleCategorySelection} >
                 <option value="Data Base">DataBase</option>
                 <option value="API">API</option>
                 <option value="UI">UI</option>  

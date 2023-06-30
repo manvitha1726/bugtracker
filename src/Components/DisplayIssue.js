@@ -110,21 +110,21 @@ function DisplayIssue() {
           <div className="row">
             <div className="col-3">
               <label className="form-label" htmlFor="IssueType">Issue Type</label>
-              <select id="IssueType" disabled>
+              <select id="IssueType" className="IssueStatusBar-background-color" disabled>
                 <option value={initialFormData.issueType}>{initialFormData.issueType}</option>
               </select>
             </div>
 
             <div className="col-3">
               <label className="form-label" htmlFor="status">Status</label>
-              <select id="status" disabled>
+              <select id="status" className="IssueStatusBar-background-color" disabled>
                 <option value={initialFormData.status}>{initialFormData.status}</option>
               </select>
             </div>
 
             <div className="col-3">
               <label className="form-label" htmlFor="priority">Priority</label>
-              <select id="priority" disabled>
+              <select id="priority" className="IssueStatusBar-background-color" disabled>
                 <option value={initialFormData.priority}>{initialFormData.priority}</option>
               </select>
             </div>
@@ -144,19 +144,19 @@ function DisplayIssue() {
             </div>
             <div class="col-3">
                 <label className="form-label" htmlFor="seviority">Seviority</label>
-                <select id="seviority" disabled >
+                <select id="seviority" className="IssueStatusBar-background-color" disabled >
                   <option value={initialFormData.seviority}>{initialFormData.seviority}</option>
                 </select>
             </div>
             <div className="col-3">
               <label className="form-label" htmlFor="testingtype">Testing Type</label>
-              <select id="testingtype" disabled>
+              <select id="testingtype" className="IssueStatusBar-background-color" disabled>
                 <option value={initialFormData.testingType}>{initialFormData.testingType}</option>
               </select>
             </div>
             <div className="col-3">
               <label className="form-label" htmlFor="testingtype">Category Name</label>
-              <select id="testingtype" disabled>
+              <select id="testingtype" className="IssueStatusBar-background-color" disabled>
                 <option value={initialFormData.category}>{initialFormData.category}</option>
               </select>
             </div>
@@ -207,7 +207,7 @@ function DisplayIssue() {
         <div style={{margin:"10%"}}>
           <Comments selectedIssueId={selectedIssueId}/>
         </div>
-        <center><button onClick={NavigateBackClick}>Close</button></center>
+        <center><button className="button-background-color" onClick={NavigateBackClick}>Close</button></center>
       </div>
     );
 }

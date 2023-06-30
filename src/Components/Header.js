@@ -16,6 +16,8 @@ const Header = () => {
     <div className='header-container header-background-color clickable-element' style={{height:"85px"}} onClick={handleClick}>
       <img src={icon} style={{width:"85px",height:"85px",marginLeft:"35px"}}/>
       <h1 className='heading'>Issue Tracking Tool</h1>
+      <button className='button-background-color' style={{height:'40px', width:'150px', position:'absolute', right:'50px', top:'30px'}}  onClick={goToNavigate} >Go to projects</button>
+
     </div>
      </div>
   );

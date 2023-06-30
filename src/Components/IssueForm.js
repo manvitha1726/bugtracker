@@ -166,7 +166,7 @@ function IssueForm() {
         <div class="row">
           <div class="col-4">
               <label className="form-label">Issue Type</label> 
-                <select className="drop" id="IssueType" value={selectedIssue} onChange={handleIssueSelection} required>
+                <select className="IssueStatusBar-background-color" id="IssueType" value={selectedIssue} onChange={handleIssueSelection} required>
                     <option value="Bug">Bug</option>
                     <option value="Defect">Defect</option>
                 </select>
@@ -180,7 +180,7 @@ function IssueForm() {
           </div>
           <div class="col-4">
           <label className="form-label" htmlFor="priority">Priority</label>
-                  <select id="IssueType" value={selectedPriority} onChange={handleSelectedPriority} required>
+                  <select id="IssueType" className="IssueStatusBar-background-color" value={selectedPriority} onChange={handleSelectedPriority} required>
                   <option value="P1">P1</option>
                   <option value="P2">P2</option>
                   <option value="P3">P3</option>
@@ -191,7 +191,7 @@ function IssueForm() {
         <div class="row">
           <div class="col-4">
           <label className="form-label" htmlFor="testingType">Testing Type</label>
-                <select id="testingType"  value={selectedTesting} onChange={handleTestingSelection}>
+                <select id="testingType" className="IssueStatusBar-background-color" value={selectedTesting} onChange={handleTestingSelection}>
                   <option value="Smoke Testing">Smoke Testing</option>
                   <option value="Regression Testing">Regression Testing</option>
                 </select>
@@ -217,7 +217,7 @@ function IssueForm() {
         <div class="row">
             <div class="col-4">
             <label className="form-label">Category Name</label><br></br> 
-                    <select className="drop" id="IssueType"  value={selectedCategory} onChange={handleCategorySelection} required>
+                    <select className="IssueStatusBar-background-color" id="IssueType"  value={selectedCategory} onChange={handleCategorySelection} required>
                         <option value="Data Base">Data Base</option>
                         <option value="API">API</option>
                         <option value="UI">UI</option>  
@@ -250,12 +250,12 @@ function IssueForm() {
 
         <center>
             <button className='button-background-color' type="submit" onClick={handleSubmit}>Add Issue</button> 
-            &nbsp;&nbsp;
-            <button className='button-background-color' onClick={NavigateBackClick1}>Cancel</button>
         </center>
         
         </form>
-        <button onClick={NavigateBackClick1}>Cancel</button>
+        <center>
+            <button className="button-background-color" onClick={NavigateBackClick1}>Cancel</button>
+        </center>
         </>
         );
 

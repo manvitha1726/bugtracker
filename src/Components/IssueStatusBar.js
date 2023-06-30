@@ -177,9 +177,9 @@ function IssueStatusBar() {
       setIssueFilterVal((prevFilters) => ({ ...prevFilters, [name]: value }));
      }
      const handleFilterApply = () => {
-      console.log("filters : ", selectedFilters);
+      // console.log("filters : ", selectedFilters);
       {console.log("selectedAssignedEmployee,", selectedAssignedEmployee);}
-      {console.log("IdentifiedEmployee : ", selectedAssignedEmployee);}
+      // {console.log("IdentifiedEmployee : ", selectedAssignedEmployee);}
       const filtered = data.filter(issue => {
         // Check if each field in issueFilterVal matches the corresponding issue property
         var status = 'Any', identfiedemp = -1, assignTo = -1, priority = 'Any', seviority = 'Any';
@@ -198,14 +198,14 @@ function IssueStatusBar() {
           priority = issueFilterVal.priority;
           seviority = issueFilterVal.seviority;
         }
-        // console.log(status.toString(), identfiedemp.toString(), assignTo.toString(), priority.toString(), seviority.toString());
-        // {console.log("iss11", issue);}
+        console.log(status.toString(), identfiedemp.toString(), assignTo.toString(), priority.toString(), seviority.toString());
+        {console.log("iss11", issue);}
         // {console.log(`${issue.assignTo}`, assignTo, `${issue.identfiedemp}` == identfiedemp);}
         // {console.log("as1 : ", assignTo === '1' , assignTo == -1  , issue.assignTo == assignTo, `${issue.assignTo}`, assignTo, assignTo, 'null' === null)}
         if (
           (status === 'Any' || issue.status === status) &&
           (identfiedemp === "undefined" ||  identfiedemp == -1 || issue.identfiedemp == identfiedemp) &&
-          (assignTo === 'undefined' || assignTo == -1  || ((issue.assignTo == null) && assignTo == 0)) &&
+          (assignTo === 'undefined' || assignTo == -1  || ((issue.assignTo == null) && assignTo == 0) || issue.assignTo == assignTo) &&
           (priority === 'Any' || issue.priority === priority) &&
           (seviority === 'Any' || issue.seviority === seviority)
         ) {
@@ -233,6 +233,13 @@ function IssueStatusBar() {
 
      const handleFilterReset = () => {
         setFilteredData(data);
+        setIssueFilterVal({
+          status: 'Any',
+          identfiedemp:-1,
+          assignTo: -1,
+          priority: 'Any',
+          seviority: 'Any'
+        })
         setIsDataFiltered(true);
      }
 
@@ -359,7 +366,7 @@ function IssueStatusBar() {
                         <div className='pointer-icon1'>
                             <ImageCarouselModal images={issue.images} />
                         </div>
-                        <FaPencilAlt className='pointer-icon2'   onClick={() => handleEditIcon(issue.issueId)}/>
+                        <FaPencilAlt className='pointer-icon2' onClick={() => handleEditIcon(issue.issueId)}/>
                     </div>
                   </td>
                   <td className='p-3'> 

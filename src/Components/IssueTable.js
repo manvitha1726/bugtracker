@@ -178,7 +178,7 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, onItemClick }) => {
               <tr key={issue.issueId}>
                 <td>
                   <a onClick={() => handleNavigateToIssue(issue.issueId)}>
-                    {issue.issueName}
+                    {issue.shortDescription}
                   </a>
                 </td>
                 <td>{issue.status}</td>
