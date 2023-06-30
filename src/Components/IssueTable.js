@@ -95,7 +95,7 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, onItemClick }) => {
   return (
     <div className='Main-Container'>
       <Accordion defaultActiveKey='0'>
-        {/* <Accordion.Item eventKey='0'> */}
+        <Accordion.Item eventKey='0'>
         <Accordion.Header style={{ outline: 'none', border: '1px solid rgb(199, 206, 207)', margin: "0px 10px 0px 10px", backgroundColor: 'rgb(199, 206, 207)', height: '40px', width: '100%', transition: 'background-color 0.3s ease' }} onFocus={(e) => { e.target.style.backgroundColor = 'rgb(199, 206, 207)'; e.target.style.boxShadow = 'none'; }}>
             {/* <div className='table-head'> */}
             {tableName != 'TimePeriod' ? (
@@ -124,31 +124,8 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, onItemClick }) => {
                     onChange={(e) => handleToDateChange(e.target.value)}
                   />
                 </div>
-              </>
+                </>
               )}
-              {/* <Modal isOpen={isOpen} toggle={handleCloseModal}>
-              <ModalBody>
-                <div>
-                  <label htmlFor="fromDate">From Date:</label>
-                  <input
-                    type="date"
-                    id="fromDate"
-                    value={fromDate}
-                    onChange={(e) => handleFromDateChange(e.target.value)}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="toDate">To Date:</label>
-                  <input
-                    type="date"
-                    id="toDate"
-                    value={toDate}
-                    onChange={(e) => handleToDateChange(e.target.value)}
-                  />
-                </div>
-                </ModalBody>
-              </Modal> */}
               <div className='table-info-wrapper'>
               {tableName !== 'TimePeriod' && (
                 <>
@@ -217,7 +194,7 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, onItemClick }) => {
               </table>
             </div>
           </Accordion.Body>
-        {/* </Accordion.Item> */}
+        </Accordion.Item>
       </Accordion>
     </div>
   );

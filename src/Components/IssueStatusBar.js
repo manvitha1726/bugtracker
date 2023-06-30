@@ -11,6 +11,7 @@ import './Home.css';
 import EmployeeDropdown from './EmployeeDropdown';
 import ImagePopup from './ImagePopup';
 import ImageCarouselModal from './ImageCarouselModal.js';
+import ImageCarouselModal from './ImageCarouselModal.js';
 
 function IssueStatusBar() {     
     const dispatch = useDispatch();  
@@ -45,6 +46,7 @@ function IssueStatusBar() {
 
     useEffect(() => { 
       dispatch(GetIssueByProjectId(ProjectId)) 
+      dispatch(getProjectNameProjectId(ProjectId))
       dispatch(getProjectNameProjectId(ProjectId))
     },[])
 
@@ -284,6 +286,7 @@ function IssueStatusBar() {
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Status</label>
                     <select 
+                    className='IssueStatusBar-background-color'
                       name='status'
                       value={issueFilterVal.status}
                       onChange={handleFilterChange}
@@ -299,6 +302,7 @@ function IssueStatusBar() {
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Priority</label>
                     <select 
+                    className='IssueStatusBar-background-color'
                       name='priority'
                       value={issueFilterVal.priority|| 'Any'}
                       onChange={handleFilterChange}
@@ -313,6 +317,7 @@ function IssueStatusBar() {
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Severity</label>
                     <select 
+                      className='IssueStatusBar-background-color'
                       name='seviority'
                       value={issueFilterVal.seviority|| 'Any'}
                       onChange={handleFilterChange}
@@ -337,9 +342,9 @@ function IssueStatusBar() {
               </div>
               <br />
               <div>
-              <button onClick={handleFilterApply}>Apply Filters</button>
+              <button className='button-background-color' onClick={handleFilterApply}>Apply Filters</button>
               &nbsp;&nbsp;&nbsp;
-              <button onClick={handleFilterReset}>Reset</button>
+              <button className='button-background-color' onClick={handleFilterReset}>Reset</button>
               </div>
           
           </div>
@@ -348,12 +353,12 @@ function IssueStatusBar() {
           <table className="table table-bordered rounded-lg">
             <thead>
               <tr>
-                <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Issue Id</th>
+                <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)", width:'20%'}}>Issue Id</th>
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
                 <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Priority &nbsp;<FaSort onClick={handleSort}/></th>
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Severity</th>
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Category</th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Summary</th>
+                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)", width:'25%'}}>Summary</th>
               </tr>
             </thead>
             <tbody>
