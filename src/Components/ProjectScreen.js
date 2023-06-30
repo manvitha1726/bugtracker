@@ -17,62 +17,6 @@ function ProjectScreen() {
   const [searchField, setSearchField] = useState("");
   const { data, loading, error } = useSelector((state) => state.projects);
 
-  const CustomPrevArrow = (props) => {
-    const { className, onClick } = props;
-    return (
-      <div
-        className={className}
-        onClick={onClick}
-        style={{
-          ...arrowStyle,
-          left: '10px', // Adjust the position of the left arrow
-        }}
-      />
-    );
-  };
-
-  const CustomNextArrow = (props) => {
-    const { className, onClick } = props;
-    return (
-      <div
-        className={className}
-        onClick={onClick}
-        style={{
-          ...arrowStyle,
-          margin:'auto auto',
-          right: '10px', // Adjust the position of the right arrow
-        }}
-      />
-    );
-  };
-
-  const arrowStyle = {
-    width: '25px',
-    height: '25px',
-    background: 'black', // Change the arrow color here
-    borderRadius:'50%'
-  };
-
-const settings = {
-    dots: true,
-    infinite: true,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    appendDots: (dots) => (
-        <div>
-          <ul style={{ margin: "0px", padding: "0px" }}>{dots}</ul>
-          <style>
-            {`
-              .slick-dots li button:before {
-                color: black; /* Change the arrow color here */
-              }
-            `}
-          </style>
-        </div>
-      ),
-        prevArrow: <CustomPrevArrow />,
-        nextArrow: <CustomNextArrow />,
-};
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProjects());
@@ -141,4 +85,3 @@ const settings = {
 
 
 export default ProjectScreen;  
-
