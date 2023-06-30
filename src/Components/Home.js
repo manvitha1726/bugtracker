@@ -17,7 +17,7 @@ const Home = () => {
                     <br/><br/><br/>
                     <center>
                         <a href="/projects">
-                    <button>
+                    <button className='button-background-color'>
                         Explore Projects
                     </button></a></center>
                 </div>

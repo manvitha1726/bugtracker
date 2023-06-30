@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaCalendarAlt } from 'react-icons/fa'; // Import the calendar icon
 import './IssueTable.css';
+import './Home.css';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 
 const IssueTable = ({issuesList, tableName, noOfIssues,onItemClick}) => {
@@ -43,9 +44,9 @@ const IssueTable = ({issuesList, tableName, noOfIssues,onItemClick}) => {
     }
   return (
     <div className='Main-Container'>
-      <div className='table-head'>
+      <div className='table-head IssueStatusBar-background-color'>
      <div className="table-info-wrapper">
-        <a onClick={()=>handleButtonClick('ViewIssues')}>{tableName}</a>
+        <a className='link-element clickable-element' onClick={()=>handleButtonClick('ViewIssues')}>{tableName}</a>
         {
           issuesList.length > 0 ? (
             <span className='table-info'>
@@ -55,8 +56,8 @@ const IssueTable = ({issuesList, tableName, noOfIssues,onItemClick}) => {
             <span className='table-info'> 0 - {issuesList.length} / {noOfIssues}</span>
           )
         }
-       
-          <button className='View-Button' onClick={()=>handleButtonClick('ViewIssues')} >View Issues</button>
+        
+          <button className='View-Button button-background-color' onClick={()=>handleButtonClick('ViewIssues')} >View Issues</button>
       </div>
       </div>
       <table className='table-'>
@@ -65,7 +66,7 @@ const IssueTable = ({issuesList, tableName, noOfIssues,onItemClick}) => {
             issuesList.map((issue) => (
               <tr key={issue.issueId}>
                 <td>
-                  <a onClick={() => handleNavigateToIssue(issue.issueId)}>
+                  <a className='clickable-element link-element' onClick={() => handleNavigateToIssue(issue.issueId)}>
                     {issue.issueName}
                   </a>
                 </td>

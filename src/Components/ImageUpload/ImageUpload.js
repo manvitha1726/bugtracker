@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import UploadFileToBlob, {isStorageConfigured} from './UploadFileFunction'
+import '../Home.css';
 
 const storageConfigured = isStorageConfigured();
 
@@ -26,9 +27,10 @@ function ImageUpload({callBackFunc}) {
               <input
                type="file"
                key= {inputKey || ''}
+
                onChange={onFileChange}
               />
-              <button onClick={onFileUpload}>
+              <button className='button-background-color' onClick={onFileUpload}>
                    Upload file
               </button>
           </div>

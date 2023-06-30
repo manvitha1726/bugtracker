@@ -5,6 +5,8 @@ import './IssueForm.css';
 import { useNavigate } from "react-router-dom";
 import EmployeeDropdown from "./EmployeeDropdown";
 import ImageUpload from "./ImageUpload/ImageUpload";
+import './Home.css';
+
 function EditIssueForm() {
   const dispatch = useDispatch();
   const { dataById, loading, error } = useSelector((state) => state.issues);
@@ -336,8 +338,8 @@ function EditIssueForm() {
 
           <center><img src={formData.images} alt="Uploaded Image" /></center><br />
 
-          <button type="submit">Save Changes</button>
-          <button onClick={NavigateBackClick}>Close</button>
+          <button className='button-background-color' type="submit">Save Changes</button>
+          <button className='button-background-color' onClick={NavigateBackClick}>Close</button>
         </form>
       </div>
     );
