@@ -253,7 +253,9 @@ function IssueForm() {
             &nbsp;&nbsp;
             <button className='button-background-color' onClick={NavigateBackClick1}>Cancel</button>
         </center>
+        
         </form>
+        <button onClick={NavigateBackClick1}>Cancel</button>
         </>
         );
 
