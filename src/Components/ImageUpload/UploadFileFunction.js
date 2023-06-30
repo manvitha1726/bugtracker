@@ -1,7 +1,7 @@
 import { BlobServiceClient } from "@azure/storage-blob";
 
 const storageAccountName = "issuetracking";
-const sastoken =  "sp=racwdl&st=2023-06-14T04:31:41Z&se=2023-06-30T12:31:41Z&sv=2022-11-02&sr=c&sig=S4gBhwimJ0cx%2F7XSr99iJSAGs5QbcGSq5F968YA7VBk%3D"
+const sastoken =  "sp=racwdl&st=2023-06-30T12:53:14Z&se=2023-07-30T20:53:14Z&spr=https&sv=2022-11-02&sr=c&sig=ttu7AfViX%2Bz1Erbna3Jh5Yg6kY6rzGCY871hbAOfAPI%3D"
 const containerName = "issue-images";
 const uploadUrl = `https://${storageAccountName}.blob.core.windows.net/?${sastoken}`
 // console.log(uploadUrl);
