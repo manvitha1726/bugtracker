@@ -255,12 +255,10 @@ function IssueStatusBar() {
   if(dataLoaded){
       return (
         <div className='Mains-Container'>
-         <div className="row-container">
+         <div className="row-container IssueStatusBar-background-color">
               
-                <div className="icon-container">
-                  <FaPlus className="icon rounded p-1" style={{ backgroundColor: "black",height:'25px',width:'25px',color:'white',marginLeft:'80px',}} onClick={handlePlusIconClick} />
-                  <p style={{color:'black ',marginLeft:'80px'}}>Add Issue</p>
-                
+              <div className="icon-container">
+                  <button className="button-background-color" onClick={handlePlusIconClick}>Add Issue</button>
               </div>
               <div className='heading-container'>
                 <h3>{projObj.projectname} Issues</h3>
@@ -278,7 +276,7 @@ function IssueStatusBar() {
               <div className='filter-row' style={{display:'flex', flexDirection:'row'}}>
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Status</label>
-                    <select 
+                    <select className='IssueStatusBar-background-color'
                       name='status'
                       value={issueFilterVal.status}
                       onChange={handleFilterChange}
@@ -293,7 +291,7 @@ function IssueStatusBar() {
                 &nbsp;&nbsp;&nbsp;
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Priority</label>
-                    <select 
+                    <select className='IssueStatusBar-background-color'
                       name='priority'
                       value={issueFilterVal.priority|| 'Any'}
                       onChange={handleFilterChange}
@@ -307,7 +305,7 @@ function IssueStatusBar() {
                 &nbsp;&nbsp;&nbsp;
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Severity</label>
-                    <select 
+                    <select className='IssueStatusBar-background-color'
                       name='seviority'
                       value={issueFilterVal.seviority|| 'Any'}
                       onChange={handleFilterChange}
@@ -332,21 +330,21 @@ function IssueStatusBar() {
               </div>
               <br />
               <div>
-              <button onClick={handleFilterApply}>Apply Filters</button>
+              <button className='button-class button-background-color' onClick={handleFilterApply}>Apply Filters</button>
               &nbsp;&nbsp;&nbsp;
-              <button onClick={handleFilterReset}>Reset</button>
+              <button className='button-class button-background-color' onClick={handleFilterReset}>Reset</button>
               </div>
           
           </div>
 
-          <div className='Issue-table'>
-          <Table responsive="xl">
+          <div>
+          <table className="table table-bordered">
             <thead>
-              <tr>
-                <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)", width:'30%'}}>Issue</th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
-                <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Priority &nbsp;<FaSort onClick={handleSort}/></th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Severity</th>
+              <tr className='IssueStatusBar-background-color'>
+                <th className='p-3 text-center' >Issue</th>
+                <th className='p-3 text-center'>Status &nbsp; <FaSort className='clickable-element' onClick={handleStatusSort}/></th>
+                <th className='p-3 text-center '>Priority &nbsp;<FaSort className='clickable-element' onClick={handleSort}/></th>
+                <th className='p-3 text-center'>Severity</th>
               </tr>
             </thead>
             <tbody>
@@ -379,7 +377,7 @@ function IssueStatusBar() {
               ))}
               
               </tbody>
-            </Table>
+            </table>
                 <Pagination
                       totalPosts={filteredData.length}
                       postsPerPage={postsPerPage}

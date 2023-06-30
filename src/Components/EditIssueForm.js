@@ -347,8 +347,8 @@ function EditIssueForm() {
             <br/><br/>
 
           <center>
-            <button type="submit">Save Changes</button>&nbsp;&nbsp;
-            <button onClick={NavigateBackClick}>Close</button>
+            <button className='button-background-color' type="submit">Save Changes</button>&nbsp;&nbsp;
+            <button className='button-background-color' onClick={NavigateBackClick}>Close</button>
           </center>
         </form>
       </div>
