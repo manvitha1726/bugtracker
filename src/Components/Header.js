@@ -12,14 +12,10 @@ const Header = () => {
   }
 
   return (
-    <div>
-    <div className='header-container' >
-      <img  onClick={handleClick} src={icon} style={{width:"80px",height:"80px",marginLeft:"35px"}}/>
-      <h1  onClick={handleClick} className='heading'>Issue Tracker</h1>
-      
-      <button onClick={goToNavigate} style={{marginRight:"50px", marginTop:"30px"}}>
-          GoTo Projects
-      </button>
+    <div data-testid="header-element">
+    <div className='header-container header-background-color clickable-element' style={{height:"85px"}} onClick={handleClick}>
+      <img src={icon} style={{width:"85px",height:"85px",marginLeft:"35px"}}/>
+      <h1 className='heading'>Issue Tracking Tool</h1>
     </div>
      </div>
   );

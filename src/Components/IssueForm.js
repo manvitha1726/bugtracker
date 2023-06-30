@@ -8,6 +8,7 @@ import ImageUpload from "./ImageUpload/ImageUpload";
 import validateForm from './formValidation';
 import { getAllProjects, getProjectNameProjectId } from "../Features/ProjectsSlice";
 import './IssueForm.css';
+import './Home.css';
 
 function IssueForm() {
   const navigate = useNavigate();
@@ -205,7 +206,7 @@ function IssueForm() {
           </div>
           <div className="col-4">
               <label className="form-label" htmlFor="priority">Seviority</label>
-              <select id="seviority" value={selectedSeviority} onChange={handleSelectedSeviority} required>
+              <select id="seviority" className="IssueStatusBar-background-color" value={selectedSeviority} onChange={handleSelectedSeviority} required>
                 <option value="S1">S1</option>
                 <option value="S2">S2</option>
                 <option value="S3">S3</option>
@@ -248,9 +249,9 @@ function IssueForm() {
         </div>
 
         <center>
-            <button type="submit" onClick={handleSubmit}>Add Issue</button> 
+            <button className='button-background-color' type="submit" onClick={handleSubmit}>Add Issue</button> 
             &nbsp;&nbsp;
-            <button onClick={NavigateBackClick1}>Cancel</button>
+            <button className='button-background-color' onClick={NavigateBackClick1}>Cancel</button>
         </center>
         </form>
         </>

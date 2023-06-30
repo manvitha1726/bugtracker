@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import UploadFileToBlob, {isStorageConfigured} from './UploadFileFunction'
 import ImageCarouselModal from '../ImageCarouselModal.js';
+import '../Home.css';
 
 const storageConfigured = isStorageConfigured();
 
@@ -30,7 +31,7 @@ function ImageUpload({callBackFunc}) {
                multiple
                onChange={onFileChange}
               />
-              <button onClick={onFileUpload}>
+              <button className='button-background-color' onClick={onFileUpload}>
                    Upload file
               </button>
           </div>

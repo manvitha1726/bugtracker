@@ -17,7 +17,6 @@
   display: flex;
   align-items: center;
   border: solid black 1px;
-  background-color:rgb(199, 206, 207);
 }
 
 
@@ -35,20 +34,8 @@
     cursor: pointer;
   }
 
-
-
-
 .icon-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-left: 20px;
-  padding-top:20px;
-   
-}
-
-.icon-container p {
-  margin-top: 0;
+  padding-left: 50px;  
 }
 
 .heading-container {
@@ -57,23 +44,15 @@
   display: flex;
 }
 
-button
+.button-class
 {
     border-radius: 10px;
     cursor: pointer;
-    background-color:black;
     color:white;
     height: 35px;
     padding:5px;
 }
-.pointer-icon{
-  position: absolute;
-  right: 10%
-}
 
-.pointer-icon:hover{
-  cursor: pointer;
-}
 
 .FaPlusIcon {
 
@@ -84,7 +63,6 @@ button
   position: sticky;
   top: 0;
   width: 100%;
-  background-color: #ffffff;
   z-index: 999;
   height: 80px;
   display: flex;
@@ -101,8 +79,8 @@ button
 
 .alignright {
   left:5%;
-    top:5%;
-    position:absolute;
+  top:5%;
+  position:absolute;
  
 }
 .align{
@@ -137,6 +115,7 @@ button
   gap:4px;
   
 }
+
 .priority-ball {
   position: relative;
   display: flex;
@@ -197,15 +176,13 @@ button
 .projectmain{
     background-image:url('https://th.bing.com/th/id/OIP.54aDRJHlX7jC15ANjLWg-QHaEo?pid=ImgDet&rs=1') ;
 }
+
 .addprojectbt{
     border-width:0px;
     /* padding:10px; */
-    background: black;
-    color: #eee;
     border-color:white;
-    transition: all 0.3s ease;
-    margin-top: 80px;
-
+    margin-top: 90px;
+    margin-left: 100px;
 }
 .copyrights{
     color:black;
@@ -266,6 +243,7 @@ button
   .carousel-wrapper .rec-pagination .rec-dot:hover {
     background-color: #888; 
   }
+  
   .carousel-wrapper .rec-pagination {
     position: absolute; 
     bottom: 50px; 
@@ -318,7 +296,6 @@ button
   }
   .pointer-icon2:hover{
     cursor: pointer;
-
   }
 
   .FaPlusIcon {
@@ -329,7 +306,7 @@ button
     height: 30px;
     width: 30px;
   }
- 
+
 .row- {
   display: flex;
   flex-direction: row;
@@ -338,3 +315,38 @@ button
 tbody {
   height: 15px;
 }
+  .header-background-color{
+    background-color: #ffffff;
+  }
+
+  .button-background-color{
+    background-color: #183841;
+    color: #eee;
+    border-radius: 5px;
+    padding: 6px 6px;
+    font-size: 15px;
+    padding: 5px;
+  }
+
+  .IssueStatusBar-background-color{
+    background-color:rgb(199, 206, 207);
+  }
+
+  .clickable-element {
+    cursor: pointer;
+  }
+
+  .link-element{
+    color: inherit;
+    text-decoration: none;
+  }
+
+
+
+
+
+
+
+
+
+ 
