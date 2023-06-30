@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
-import {getProjectById} from '../Features/ProjectsSlice';
+import {getProjectNameProjectId} from '../Features/ProjectsSlice';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 import { FaPlus ,FaEye,FaPencilAlt,FaSort, FaImage} from 'react-icons/fa';
 import { getAllProjects } from "../Features/ProjectsSlice";
@@ -10,6 +10,7 @@ import Pagination from './Pagination/Pagination';
 import './Home.css';
 import EmployeeDropdown from './EmployeeDropdown';
 import ImagePopup from './ImagePopup';
+import ImageCarouselModal from './ImageCarouselModal.js';
 
 function IssueStatusBar() {     
     const dispatch = useDispatch();  
@@ -44,7 +45,7 @@ function IssueStatusBar() {
 
     useEffect(() => { 
       dispatch(GetIssueByProjectId(ProjectId)) 
-      dispatch(getProjectById(ProjectId))
+      dispatch(getProjectNameProjectId(ProjectId))
     },[])
 
     const projObj= useSelector((state) => state.projects);

@@ -1,136 +1,130 @@
 .table-icon {
-    color: #2d326b;
-    font-size: 18px;
-    margin-right: 8px;
-  }
+  color: #2d326b;
+  font-size: 18px;
+  margin-right: 8px;
+}
 
-  .table-, td, th{
-    border: 1px solid black;
-  }
-  
-  .table-info {
-    background-color: #ebe7e7;
-    color: black;
-    border-radius: 4px;
-    padding: 4px 8px;
-    opacity: 100%;
-  }
+.table-, td, th{
+  border: 1px solid black;
+}
 
-  .table-head {
-    color: black;
-    display: flex;
-    align-items: center; 
-    text-align: center;
-    /* margin: 2%; */
-    height: 60px;
-    border: solid black 1px;
-    border-bottom: none;
-    padding: 20px;
-    width:100%;
-  }
-  td, th {
-    /* text-align: center; */
-    padding: 10px;
-  }
- 
-  .table-info-wrapper {
-    display: flex;
-    gap: 20px;
-  }
-
-  .View-Button{
-    left:85%;
-    position:absolute;
-  }
-
-  .Main-Container{
-    display: grid;
-    margin-right: 18px;
-    margin-top: 10px;
-  }
-
-  .No-Issues{
-    text-align: center;
-    padding-top: 10px;
-  }
-
-  .table-bordered{
-    border: 1px solid black;
-    /* margin-top: 0px; */
-  }
-  .icon-height{
-    height:"30px";
-  }
-  .square-icon {
-    width: 15px;
-    height: 15px;
-    border-radius: 2px;
-  }
-  .P2{
-    background-color: green; 
-    color: black;
-  }
-  .P1 {
-  background-color: yellow; 
+.table-info {
+  background-color: #ebe7e7;
   color: black;
-  }
-  .P3 {
-    background-color: red; 
-    color: black;
-  }
-  .rectangle-icon {
-    width: 15px;
-    height: 3px;
-    margin-top:5px;
-  }
-  .S1{
-    background-color: red; 
-  }
-  .S2{
-    background-color: orange;
-  }
-  .S3{
-    background-color: green;
-  }
-  .S4{
-    background-color: yellow;
-  }
-  .info{
-    color: grey;
-    font-size: 14px;
-  }
-  .hover-icon {
-    position: absolute;
-    font-size: 12px;
-    opacity: 0;
-  }
-  
-  .square-icon:hover .hover-icon {
-    opacity: 1;
-    transform: translateX(-100%);
-  }
-  .rectangle-icon:hover .hover-icon{
-    opacity: 1;
-    transform: translateX(100%);
-  }
+  border-radius: 4px;
+  padding: 4px 8px;
+  opacity: 100%;
+}
 
-  .date-wrapper {
-    display: flex;
-    align-items: center;
-    margin: 10px;
-  }
-  
-  .date-wrapper label {
-    margin-right: 10px;
-    font-size:15px;
-  }
-  .date-wrapper input {
-   height: 15px;
-  }
+.table-head {
+  background-color: rgb(199, 206, 207);
+  color: black;
+  display: flex;
+  align-items: center; 
+  text-align: center;
+  /* margin: 2%; */
+  height: 60px;
+  border: solid black 1px;
+  border-bottom: none;
+  padding: 20px;
+  width:100%;
+}
+td, th {
+  /* text-align: center; */
+  padding: 10px;
+}
 
-  .custom-header{
-    background-color:black;
-  }
-  .custom-header:focus{
-    background-color:white;
-  }
+.table-info-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.View-Button{
+  left:85%;
+  position:absolute;
+}
+
+.Main-Container{
+  display: grid;
+  margin-right: 18px;
+  margin-top: 10px;
+}
+
+.No-Issues{
+  text-align: center;
+  padding-top: 10px;
+}
+
+.table-bordered{
+  border: 1px solid black;
+  /* margin-top: 0px; */
+}
+.icon-height{
+  height:"30px";
+}
+.square-icon {
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+}
+.P2{
+  background-color: green; 
+  color: black;
+}
+.P1 {
+background-color: yellow; 
+color: black;
+}
+.P3 {
+  background-color: red; 
+  color: black;
+}
+.rectangle-icon {
+  width: 15px;
+  height: 3px;
+  margin-top:5px;
+}
+.S1{
+  background-color: red; 
+}
+.S2{
+  background-color: orange;
+}
+.S3{
+  background-color: green;
+}
+.S4{
+  background-color: yellow;
+}
+.info{
+  color: grey;
+  font-size: 14px;
+}
+.hover-icon {
+  position: absolute;
+  font-size: 12px;
+  opacity: 0;
+}
+
+.square-icon:hover .hover-icon {
+  opacity: 1;
+  transform: translateX(-100%);
+}
+.rectangle-icon:hover .hover-icon{
+  opacity: 1;
+  transform: translateX(100%);
+}
+
+.date-wrapper {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+.date-wrapper label {
+  margin-right: 10px;
+  font-size:15px;
+}
+.date-wrapper input {
+ height: 15px;
+}

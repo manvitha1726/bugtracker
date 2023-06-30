@@ -1,351 +1,331 @@
 .banner-container {
-    background-color: rgba(0, 0, 0, 0.6);
-    background-image: url('https:/images.unsplash.com/photo-1484417894907-623942c8ee29?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    min-height: 60vh;
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    background-blend-mode: overlay;
-    align-items: center;
-    color:rgb(247, 238, 238);
-   
+  background-color: rgba(0, 0, 0, 0.6);
+  background-image: url('https:/images.unsplash.com/photo-1484417894907-623942c8ee29?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 60vh;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  background-blend-mode: overlay;
+  align-items: center;
+  color:rgb(247, 238, 238);
+ 
 }
 .row-container {
-  display: flex;
-  align-items: center;
-  border: solid black 1px;
+display: flex;
+align-items: center;
+border: solid black 1px;
+background-color:rgb(199, 206, 207);
 }
 
 
 .pointer-icon{
-    position: absolute;
-    right: 10%;
+  position: absolute;
+  right: 10%;
 
-  }
+}
 
-  .pointer-icon:hover{
-    cursor: pointer;
-  }
+.pointer-icon:hover{
+  cursor: pointer;
+}
 
-  .FaPlusIcon {
-    cursor: pointer;
-  }
+.FaPlusIcon {
+  cursor: pointer;
+}
+
+
+
 
 .icon-container {
-  padding-left: 50px;  
+display: flex;
+flex-direction: column;
+align-items: center;
+padding-left: 20px;
+padding-top:20px;
+ 
+}
+
+.icon-container p {
+margin-top: 0;
 }
 
 .heading-container {
-  margin-left: 22%;
-  flex-grow: 1;
-  display: flex;
+margin-left: 22%;
+flex-grow: 1;
+display: flex;
 }
 
-.button-class
+button
 {
-    border-radius: 10px;
-    cursor: pointer;
-    color:white;
-    height: 35px;
-    padding:5px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color:black;
+  color:white;
+  height: 35px;
+  padding:5px;
+}
+.pointer-icon{
+position: absolute;
+right: 10%
 }
 
+.pointer-icon:hover{
+cursor: pointer;
+}
 
 .FaPlusIcon {
 
-  cursor: pointer;
+cursor: pointer;
 
 }
 .header-container {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 999;
-  height: 80px;
-  display: flex;
-  flex-direction: row;
+position: sticky;
+top: 0;
+width: 100%;
+background-color: #ffffff;
+z-index: 999;
+height: 80px;
+display: flex;
+flex-direction: row;
 }
 
 .heading {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  color: black;
-  padding: 10px;
-  flex-grow: 1;
-  margin-left:30%;
+font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+color: black;
+padding: 10px;
+flex-grow: 1;
+margin-left:30%;
 }
 
 .alignright {
-  left:5%;
+left:5%;
   top:5%;
   position:absolute;
- 
+
 }
 .align{
-    /* margin-top:1%; */
-    left:79%;
-    top:18%;
-    position:absolute;
+  /* margin-top:1%; */
+  left:79%;
+  top:18%;
+  position:absolute;
 }
 
 .card-red {
-  width: 200px;
-  height: 150px;
-  background: rgb(226, 127, 127);
-  box-shadow: 3px 3px 2px 3px rgb(240, 235, 235);
-  font-weight: 600;
-  padding: 20px;
-  color:white;
+width: 200px;
+height: 150px;
+background: rgb(226, 127, 127);
+box-shadow: 3px 3px 2px 3px rgb(240, 235, 235);
+font-weight: 600;
+padding: 20px;
+color:white;
 }
 .cardu {
-  width: 200px;
-  height: 150px;
-  background: rgb(139, 200, 209);
-  box-shadow: 3px 3px 2px 3px rgb(240, 235, 235);
-  font-weight: 600;
-  padding: 20px;
+width: 200px;
+height: 150px;
+background: rgb(139, 200, 209);
+box-shadow: 3px 3px 2px 3px rgb(240, 235, 235);
+font-weight: 600;
+padding: 20px;
+
 }
 
 .priority-container {
-  display: flex;
-  justify-content: center;
-  margin: 30px;
-  gap:4px;
-  
-}
+display: flex;
+justify-content: center;
+margin: 30px;
+gap:4px;
 
+}
 .priority-ball {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 10px;
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+width: 25px;
+height: 25px;
+border-radius: 50%;
+font-weight: bold;
+cursor: pointer;
+font-size: 10px;
 }
 
 .priority-text {
-  position: absolute;
-  top: -20px;
-  left: 70%;
-  transform: translateX(-80%);
-  font-size: 10px;
-  opacity: 0;
-  transition: opacity 0.3s;
+position: absolute;
+top: -20px;
+left: 70%;
+transform: translateX(-80%);
+font-size: 10px;
+opacity: 0;
+transition: opacity 0.3s;
 }
 
 .priority-ball:hover .priority-text {
-  opacity: 1;
+opacity: 1;
 }
 
 .high-priority {
-  background-color: rgb(245, 67, 67);
-  color: white;
+background-color: rgb(245, 67, 67);
+color: white;
 }
 
 .medium-priority {
-  background-color: rgb(237, 237, 99);
-  color: black;
+background-color: rgb(237, 237, 99);
+color: black;
 }
 
 .low-priority {
-  background-color: rgb(145, 230, 145);
-  color: white;
+background-color: rgb(145, 230, 145);
+color: white;
 }
 
 .addbox{
-    width:150px;
+  width:150px;
 }
 .space{
-    
-    width:60px;
-    border-width:0px;
-    height:30px;
+  
+  width:60px;
+  border-width:0px;
+  height:30px;
 }
 .footerposition{
-    top:95%;
-    position:fixed;
-    left:40%;
-    
+  top:95%;
+  position:fixed;
+  left:40%;
+  
 }
 .projectmain{
-    background-image:url('https://th.bing.com/th/id/OIP.54aDRJHlX7jC15ANjLWg-QHaEo?pid=ImgDet&rs=1') ;
+  background-image:url('https://th.bing.com/th/id/OIP.54aDRJHlX7jC15ANjLWg-QHaEo?pid=ImgDet&rs=1') ;
 }
-
 .addprojectbt{
-    border-width:0px;
-    /* padding:10px; */
-    border-color:white;
-    margin-top: 90px;
-    margin-left: 100px;
+  border-width:0px;
+  /* padding:10px; */
+  background: black;
+  color: #eee;
+  border-color:white;
+  transition: all 0.3s ease;
+  margin-top: 80px;
+
 }
 .copyrights{
-    color:black;
+  color:black;
 }
 
 .validations{
-    color: red;
+  color: red;
 }
 
 .App {
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
-  
-  .seperator {
-    width: 90%;
-  }
-  
-  .controls-wrapper {
-    width: 100%;
-  }
-  
-  .carousel-wrapper {
-    width: 80%;
-  }
-  
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
 
-  .carousel-wrapper .rec.rec-arrow {
-    background-color: #f0f0f0; 
-    color: #333; 
-    border-radius: 50%; 
-    width: 50px; 
-    height: 45px; 
-    font-size: 24px; 
-    position: relative; 
-  }
-  
-  .carousel-wrapper .rec.rec-arrow:hover {
-    background-color: #ccc;
-    color: #000; 
-  }
+.seperator {
+  width: 90%;
+}
+
+.controls-wrapper {
+  width: 100%;
+}
+
+.carousel-wrapper {
+  width: 80%;
+}
+
+
+.carousel-wrapper .rec.rec-arrow {
+  background-color: #f0f0f0; 
+  color: #333; 
+  border-radius: 50%; 
+  width: 50px; 
+  height: 45px; 
+  font-size: 24px; 
+  position: relative; 
+}
+
+.carousel-wrapper .rec.rec-arrow:hover {
+  background-color: #ccc;
+  color: #000; 
+}
 
 .carousel-wrapper .rec-pagination .rec-dot {
-    background-color:white; 
-    width: 10px; 
-    height: 10px; 
-    border-radius: 50%; 
-    margin: 5px; 
-    transition: background-color 0.3s ease; 
-    
-  }
+  background-color:white; 
+  width: 10px; 
+  height: 10px; 
+  border-radius: 50%; 
+  margin: 5px; 
+  transition: background-color 0.3s ease; 
   
-  .carousel-wrapper .rec-pagination .rec-dot:hover {
-    background-color: #888; 
-  }
-  
-  .carousel-wrapper .rec-pagination {
-    position: absolute; 
-    bottom: 50px; 
-    left: 50%; 
-    transform: translateX(-50%);
-  }
+}
 
-  .filters{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px black solid;
-    padding: 10px;
+.carousel-wrapper .rec-pagination .rec-dot:hover {
+  background-color: #888; 
+}
+.carousel-wrapper .rec-pagination {
+  position: absolute; 
+  bottom: 50px; 
+  left: 50%; 
+  transform: translateX(-50%);
+}
 
-  }
-
-  .Mains-Container{
-    display: grid;
-    grid-template-rows: 100px 180px 1fr;
-    grid-gap: 5px;
-    padding-right:1%;
-    padding-left: 0.5%;
-    padding-top:10px;
-    padding-bottom:10px;
-  }
-
-  
-  .clickable- {
-    cursor: pointer;
-  }
-
-  .clickable-:hover{
-    color: green;
-  }
-  .table-1stcol{
-    position: relative;
-  }
-
-  .pointer-icon1{
-    position: absolute;
-    right: 20%;
-  }
-  .pointer-icon1:hover{
-    cursor: pointer;
-
-  }
-  .pointer-icon2{
-    position: absolute;
-    right: 10%;
-  }
-  .pointer-icon2:hover{
-    cursor: pointer;
-  }
-
-  .FaPlusIcon {
-    cursor: pointer;
-  }
-
-  .FaPlusIcon > FaPlus{
-    height: 30px;
-    width: 30px;
-  }
-
-.row- {
+.filters{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  border: 1px black solid;
+  padding: 10px;
+
 }
 
-tbody {
-  height: 15px;
+.Mains-Container{
+  display: grid;
+  grid-template-rows: 100px 180px 1fr;
+  grid-gap: 5px;
+  padding-right:1%;
+  padding-left: 0.5%;
+  padding-top:10px;
+  padding-bottom:10px;
 }
-  .header-background-color{
-    background-color: #ffffff;
-  }
-
-  .button-background-color{
-    background-color: #183841;
-    color: #eee;
-    border-radius: 5px;
-    padding: 6px 6px;
-    font-size: 15px;
-    padding: 5px;
-  }
-
-  .IssueStatusBar-background-color{
-    background-color:rgb(199, 206, 207);
-  }
-
-  .clickable-element {
-    cursor: pointer;
-  }
-
-  .link-element{
-    color: inherit;
-    text-decoration: none;
-  }
 
 
+.clickable- {
+  cursor: pointer;
+}
 
+.clickable-:hover{
+  color: green;
+}
+.table-1stcol{
+  position: relative;
+}
 
+.pointer-icon1{
+  position: absolute;
+  right: 20%;
+}
+.pointer-icon1:hover{
+  cursor: pointer;
 
+}
+.pointer-icon2{
+  position: absolute;
+  right: 10%;
+}
+.pointer-icon2:hover{
+  cursor: pointer;
 
+}
 
+.FaPlusIcon {
+  cursor: pointer;
+}
 
-
- 
+.FaPlusIcon > FaPlus{
+  height: 30px;
+  width: 30px;
+}
