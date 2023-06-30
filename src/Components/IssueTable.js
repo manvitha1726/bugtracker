@@ -114,7 +114,6 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaCalendarAlt } from 'react-icons/fa';
 import './IssueTable.css';
-import Accordion from 'react-bootstrap/Accordion';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 
 const IssueTable = ({ issuesList, tableName, noOfIssues, onItemClick }) => {
@@ -156,79 +155,44 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, onItemClick }) => {
 
   return (
     <div className='Main-Container'>
-      <Accordion defaultActiveKey='0'>
-        <Accordion.Item eventKey='0'>
-        <Accordion.Header style={{ backgroundColor: 'rgb(199, 206, 207)',  padding:'10px', color:'black'  }} onFocus={(e) =>{ e.target.style.backgroundColor = 'rgb(199, 206, 207)'; e.target.style.color = 'black' ;e.target.style.outline= 'none';e.target.style.boxShadow='none'}}>              
-        <FaCalendarAlt className='icon-height' /> &nbsp;&nbsp;
-              <div className='table-info-wrapper'>
-                <a style={{color:'black'}} onClick={() => handleButtonClick('ViewIssues')}>{tableName}</a>
-                {issuesList.length > 0 ? (
-                  <span className='table-info'>
-                    1 - {issuesList.length} / {noOfIssues}
-                  </span>
-                ) : (
-                  <span className='table-info'> 0 - {issuesList.length} / {noOfIssues}</span>
-                )}
-                <button className='View-Button' onClick={() => handleButtonClick('ViewIssues')}>
-                  View Issues
-                </button>
-              </div>
-          </Accordion.Header>
-          <Accordion.Body style={{padding:'5px 0px 0px 0px'}}>
-              <table className='table'>
-                <tbody>
-                  {issuesList.length > 0 ? (
-                    issuesList.map((issue) => (
-                      <tr key={issue.issueId}>
-                        <td style={{padding:" 0px 0px 0px  34px"}}>
-                          <div style={{ display: 'flex', gap: '40px' }}>
-                            <div>
-                              <p style={{margin:"0px"}}>{issue.issueId}</p>
-                              <div style={{ display: 'flex', gap: '10px',margin:"0px" }}>
-                                <div className={`square-icon ${issue.priority}`} />
-                                <div className={`rectangle-icon ${issue.seviority}`} />
-                              </div>
-                            </div>
-                            <div>
-                              <a  className='clickable-' onClick={() => handleNavigateToIssue(issue.issueId)}>
-                                {issue.issueName}
-                              </a>
-                              <p style={{margin:"0px", padding:'0px'}} className='info'>
-                                {issue.moduleName} -{' '}
-                                {new Date(issue.dateidentified).toLocaleString('en-GB', {
-                                  day: '2-digit',
-                                  month: '2-digit',
-                                  year: 'numeric',
-                                  hour: '2-digit',
-                                  minute: '2-digit'
-                                })}
-                              </p>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <div className='No-Issues'>
-                      <p>No {tableName} issues</p>
-                    </div>
-                  )}
-                </tbody>
-              </table>
-              <style>
-                {`
-                    .custom-header{
-                      background-color:black;
-                    }
-                    .custom-header: focus{
-                      background-color:white;
-                    }
-
-                `}
-              </style>
-          </Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
+      <div className='table-head'>
+     <div className="table-info-wrapper">
+        <a onClick={()=>handleButtonClick('ViewIssues')}>{tableName}</a>
+        {
+          issuesList.length > 0 ? (
+            <span className='table-info'>
+              1 - {issuesList.length} / {noOfIssues}
+            </span>
+          ) : (
+            <span className='table-info'> 0 - {issuesList.length} / {noOfIssues}</span>
+          )
+        }
+       
+          <button className='View-Button' onClick={()=>handleButtonClick('ViewIssues')} >View Issues</button>
+      </div>
+      </div>
+      <table className='table-  IssueStatusBar-background-color'>
+        <tbody>
+          {issuesList.length > 0 ? (
+            issuesList.map((issue) => (
+              <tr key={issue.issueId}>
+                <td>
+                  <a onClick={() => handleNavigateToIssue(issue.issueId)}>
+                    {issue.issueName}
+                  </a>
+                </td>
+                <td>{issue.status}</td>
+                <td>{issue.priority}</td>
+                <td>{new Date(issue.dateidentified).toLocaleString(undefined, {dateStyle: "medium",timeStyle: "short"})}</td>
+              </tr>
+            ))
+          ) : (
+            <div className='No-Issues'>
+              <p>No {tableName} issues</p>
+            </div>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };

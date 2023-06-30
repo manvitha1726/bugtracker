@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { addEmployees } from '../Features/EmployeeSlice';
 import {useNavigate} from 'react-router-dom';
 import './Home.css';
@@ -45,11 +45,10 @@ function AddEmployee({func, projectId}) {
         <div className='employee-add-card'>
             <br/>
             <button 
-                style={{width:"170px"}}
-                className='add-employee-bt'
+                className='button-background-color'
                 onClick={handleOpenModal}
             >
-                Add New Employee
+                Add Employee
             </button>
             <Modal
                 isOpen={isOpen}
@@ -74,7 +73,7 @@ function AddEmployee({func, projectId}) {
                     </form>
                 </ModalBody>
                 <ModalFooter>
-                    <button className='add-employee-bt' onClick={handleSubmit}>Submit</button>{' '}
+                    <button className='button-background-color' onClick={handleSubmit}>Submit</button>{' '}
                 </ModalFooter>
             </Modal>
         </div>

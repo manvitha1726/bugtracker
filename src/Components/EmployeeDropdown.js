@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {GetEmployeeByProjectId, fetchEmployees} from '../Features/EmployeeSlice';
+import './Home.css';
 
 function EmployeeDropdown({val, callBackFunc, empid}) {
     const [value, setValue] = React.useState(empid);
@@ -56,7 +57,7 @@ function EmployeeDropdown({val, callBackFunc, empid}) {
     if(isDataLoaded){
         return (
             <>
-            <select
+            <select className="IssueStatusBar-background-color"
               disabled={isLoading}
               value={value}
                 onChange={setFunc}

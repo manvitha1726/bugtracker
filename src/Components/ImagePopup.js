@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import './Home.css';
 
 
 function ImagePopup({imageUrl, show, onHide}) {
@@ -20,7 +21,7 @@ function ImagePopup({imageUrl, show, onHide}) {
                 <img  src={imageUrl} alt="imageUrl" width="1080" />
             </ModalBody>
             <ModalFooter>
-                <Button onClick={onHide}>Close</Button>
+                <Button className='button-background-color' onClick={onHide}>Close</Button>
             </ModalFooter>
         </Modal>
     );
