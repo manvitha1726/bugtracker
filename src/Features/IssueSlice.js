@@ -6,7 +6,7 @@ export const getAllIssues = createAsyncThunk(
   async (args, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        "https://issuetrackingapp.azurewebsites.net/api/Issues/FetchAllIsues"
+        "https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchAllIsues"
       );
       const result = await response.json();
       return result;
@@ -21,7 +21,7 @@ export const GetIssueById = createAsyncThunk(
     async (issueId, {rejectWithValue}) => {
         try{
             const response = await fetch(
-                `https://issuetrackingwebapp.azurewebsites.net/api/Issues/FetchIssue?IssueId=${issueId}`
+                `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchIssue?IssueId=${issueId}`
             );
             const result = await response.json();
             return result;
@@ -38,7 +38,7 @@ export const GetIssueByProjectId = createAsyncThunk(
   async (projectId, {rejectWithValue}) => {
       try{ 
           const response = await fetch(
-              `https://issuetrackingwebapp.azurewebsites.net/api/Issues/FetchIssuesbyProject?ProjectId=${projectId}`
+              `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchIssuesbyProject?ProjectId=${projectId}`
           );
           const result = await response.json();
           return result;
@@ -54,7 +54,7 @@ export const AddNewIssue = createAsyncThunk(
   "addIssue",
   async (data, { rejectWithValue }) => {
     const response = await fetch(
-      "https://issuetrackingwebapp.azurewebsites.net/api/Issues/AddIssue",
+      "https://bugtrackerwebapp123.azurewebsites.net/api/Issues/AddIssue",
       {
         method: "POST",
         headers: {
@@ -118,16 +118,15 @@ export const updateIssueStatus = createAsyncThunk(
 export const updateIssue = createAsyncThunk(
   "issues/updateIssue",
   async (formData, { rejectWithValue }) => {  
-    console.log("data in slice",formData);
     try {
       const response = await fetch(
-        `https://issuetrackingwebapp.azurewebsites.net/api/Issues/UpdateentireIssue`,
+        `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/UpdateentireIssue`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify( formData ),
+          body: JSON.stringify(formData),
         }
       );
       

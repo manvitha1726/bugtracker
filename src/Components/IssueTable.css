@@ -100,3 +100,9 @@
     font-size: 14px;
   }
   
+  .custom-header{
+    background-color:black;
+  }
+  .custom-header:focus{
+    background-color:white;
+  }

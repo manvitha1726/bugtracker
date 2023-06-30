@@ -3,7 +3,17 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 //Get all projects action
 export const getAllProjects = createAsyncThunk("getProjects", async (args, {rejectWithValue }) => {
   try{
-  const response = await fetch('https://issuetrackingwebapp.azurewebsites.net/api/project/GetAllProjects');
+  const response = await fetch('https://bugtrackerwebapp123.azurewebsites.net/api/project/GetAllProjects');
+  const result= await response.json();
+  return result;
+  }catch(err){
+    return rejectWithValue("Found an error!",err.response.data)
+  }
+})
+
+export const getProjectNameProjectId = createAsyncThunk("getProjectNameProjectId", async (projectId, {rejectWithValue }) => {
+  try{
+  const response = await fetch(`https://bugtrackerwebapp123.azurewebsites.net/api/project/GetProjectById?projectid=${projectId}`);
   const result= await response.json();
   return result;
   }catch(err){
@@ -14,7 +24,7 @@ export const getAllProjects = createAsyncThunk("getProjects", async (args, {reje
 //Add new Project
 export const addNewProject =createAsyncThunk("addProject",async(data,{rejectWithValue})=>{
   try{
-  const response=await fetch('https://issuetrackingwebapp.azurewebsites.net/api/project/addproject',{
+  const response=await fetch('https://bugtrackerwebapp123.azurewebsites.net/api/project/addproject',{
     method:"POST",
     headers: {
       "Content-Type": "application/json",
@@ -46,6 +56,17 @@ export const Projects = createSlice({
       state.data = action.payload;
     },
     [getAllProjects.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [getProjectNameProjectId.pending]: (state) => {
+      state.loading = true;
+    },
+    [getProjectNameProjectId.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.data = action.payload;
+    },
+    [getProjectNameProjectId.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

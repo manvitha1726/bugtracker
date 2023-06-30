@@ -51,8 +51,8 @@ function ProjectScreen() {
   };
 
   const arrowStyle = {
-    width: 'auto',
-    height: 'auto',
+    width: '25px',
+    height: '25px',
     background: 'black', // Change the arrow color here
     borderRadius:'50%'
   };
@@ -132,7 +132,7 @@ const settings = {
       {/* <hr className="seperator" /> */}<br/>
       <div style={{width:'75%'}} >
           
-          <Slider {...settings}>
+          {/* <Slider {...settings}>
             {
               filteredProjects.map((val) => (
                 <ProjectCard
@@ -141,15 +141,15 @@ const settings = {
                 />
               ))
             }
-          </Slider>
-          {/* <Carousel breakPoints={breakPoints}>
+          </Slider> */}
+          <Carousel breakPoints={breakPoints}>
           {filteredProjects.map((val) => (
             <ProjectCard
               key={val.projectId}
               project={val}
             />  
           ))}  
-          </Carousel> */}
+          </Carousel>
      </div>
       {/* <Pagination
       totalPosts={filteredProjects.length}

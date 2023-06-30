@@ -20,7 +20,8 @@ function DisplayIssue() {
     
     const initialFormData = {   
         selectedProjectId:"",
-        issueName: "",
+        // issueName: "",
+        shortDescription: '',
         issueType: "",
         moduleName: "",
         description: "",
@@ -35,6 +36,7 @@ function DisplayIssue() {
         ressummary: "",
         stepsToReproduce: "",
         testingType: "",
+        category: '',
         iterationNumber: "",
         status: "",
         linkToPast: "",
@@ -44,7 +46,7 @@ function DisplayIssue() {
     };
 
     if(dataById.length!==0){
-        initialFormData.issueName = dataById[0].issueName;
+        initialFormData.shortDescription = dataById[0].shortDescription;
         initialFormData.issueType=dataById[0].issueType;
         initialFormData.moduleName=dataById[0].moduleName;
         initialFormData.description =dataById[0].description;
@@ -59,6 +61,7 @@ function DisplayIssue() {
         initialFormData.ressummary = dataById[0].ressummary
         initialFormData.stepsToReproduce = dataById[0].stepsToReproduce;
         initialFormData.testingType = dataById[0].testingType;
+        initialFormData.category = dataById[0].category;
         initialFormData.iterationNumber = dataById[0].iterationNumber;
         initialFormData.status = dataById[0].status;
         initialFormData.linkToPast = dataById[0].linkToPast;
@@ -91,11 +94,11 @@ function DisplayIssue() {
     return (
       <div className="main_container">
         <form className="container">
-          <h3 className="text-center">{`Issue : ${initialFormData.issueName}`}</h3><br />
+          {/* <h3 className="text-center">{`Issue : ${initialFormData.}`}</h3><br /> */}
           <div className="row">
             <div className="col-25">
-              <label className="form-label" htmlFor="name">Short Description</label>
-              <input  className="form-control" type="text" id="name" name="issueName" value={initialFormData.issueName} disabled/>
+              <label className="form-label" htmlFor="shortDescription">Short Description</label>
+              <input  className="form-control" type="text" id="shortDescription" name="shortDescription" value={initialFormData.shortDescription} disabled/>
             </div>
 
             <div className="col-75">
@@ -154,7 +157,7 @@ function DisplayIssue() {
             <div className="col-3">
               <label className="form-label" htmlFor="testingtype">Category Name</label>
               <select id="testingtype" disabled>
-                <option value={initialFormData.testingType}>{initialFormData.testingType}</option>
+                <option value={initialFormData.category}>{initialFormData.category}</option>
               </select>
             </div>
           </div>

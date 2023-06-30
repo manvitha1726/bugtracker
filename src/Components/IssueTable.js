@@ -158,11 +158,10 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, onItemClick }) => {
     <div className='Main-Container'>
       <Accordion defaultActiveKey='0'>
         <Accordion.Item eventKey='0'>
-          <Accordion.Header>
-            <div className='table-head'>
-              <FaCalendarAlt className='icon-height' /> &nbsp;&nbsp;
+        <Accordion.Header style={{ backgroundColor: 'rgb(199, 206, 207)',  padding:'10px', color:'black'  }} onFocus={(e) =>{ e.target.style.backgroundColor = 'rgb(199, 206, 207)'; e.target.style.color = 'black' ;e.target.style.outline= 'none';e.target.style.boxShadow='none'}}>              
+        <FaCalendarAlt className='icon-height' /> &nbsp;&nbsp;
               <div className='table-info-wrapper'>
-                <a onClick={() => handleButtonClick('ViewIssues')}>{tableName}</a>
+                <a style={{color:'black'}} onClick={() => handleButtonClick('ViewIssues')}>{tableName}</a>
                 {issuesList.length > 0 ? (
                   <span className='table-info'>
                     1 - {issuesList.length} / {noOfIssues}
@@ -174,10 +173,8 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, onItemClick }) => {
                   View Issues
                 </button>
               </div>
-            </div>
           </Accordion.Header>
-          <Accordion.Body>
-            <div className='table-container'>
+          <Accordion.Body style={{padding:'5px 0px 0px 0px'}}>
               <table className='table'>
                 <tbody>
                   {issuesList.length > 0 ? (
@@ -218,7 +215,17 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, onItemClick }) => {
                   )}
                 </tbody>
               </table>
-            </div>
+              <style>
+                {`
+                    .custom-header{
+                      background-color:black;
+                    }
+                    .custom-header: focus{
+                      background-color:white;
+                    }
+
+                `}
+              </style>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 import { FaPlus ,FaEye,FaPencilAlt,FaSort, FaImage} from 'react-icons/fa';
-import { getAllProjects } from "../Features/ProjectsSlice";
+import { getAllProjects, getProjectNameProjectId } from "../Features/ProjectsSlice";
 import {useNavigate} from 'react-router-dom'; 
 import Pagination from './Pagination/Pagination';
 import './Home.css';
@@ -45,10 +45,8 @@ function IssueStatusBar() {
 
     const projObj= useSelector((state) => state.projects);
     useEffect(() => {
-      dispatch(getAllProjects());
-      console.log("selected filters in ISB--", selectedFilters);
+      dispatch(getProjectNameProjectId(ProjectId));
       handleFiltersFromLandingPage();
-      // console.log("selected filters in ISB---", issueFilterVal);
       handleFilterApply();
       // console.log("projects data",projObj.data);
     }, []);
@@ -265,7 +263,7 @@ function IssueStatusBar() {
                 
               </div>
               <div className='heading-container'>
-                <h3>{projObj.data[ProjectId-1].projectname} Issues</h3>
+                <h3>{projObj.projectname} Issues</h3>
               </div>
               <div className='align'>
                 <input className="pa2 bb br3 ma2 shadow" type="text" placeholder="Search Issue" value={searchTerm} onChange={handleSearch} />
@@ -358,7 +356,7 @@ function IssueStatusBar() {
                     <div className='row-'>
 
                         <a onClick={() => NavigateToSelectedIssue(issue.issueId)} className='clickable-'>
-                            {issue.issueName}
+                            {issue.shortDescription}
                         </a> &nbsp;&nbsp;&nbsp;
                         <div className='pointer-icon1'>
                             <ImageCarouselModal images={issue.images} />

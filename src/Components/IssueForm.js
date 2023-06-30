@@ -6,7 +6,7 @@ import EmployeeDropdown from "./EmployeeDropdown";
 import AddEmployee from "./AddEmployee";
 import ImageUpload from "./ImageUpload/ImageUpload";
 import validateForm from './formValidation';
-import { getAllProjects } from "../Features/ProjectsSlice";
+import { getAllProjects, getProjectNameProjectId } from "../Features/ProjectsSlice";
 import './IssueForm.css';
 
 function IssueForm() {
@@ -16,19 +16,21 @@ function IssueForm() {
   const projObj= useSelector((state) => state.projects);
   const initialFormData = {
     projectId: `${projectId}`,
-    issueName: "",
+    category: 'Data Base',
+    // issueName: "",
+    shortDescription: '',
     issueType: "",
     moduleName: "",
     description: "",
-    summary: "",
+    // summary: "",
     identfiedemp: "",
-    priority: "Low",
-    targetdate: "",
+    priority: "P1",
+    // targetdate: "",
     assignTo: "",
-    progressreport: "",
-    stepsToReproduce: "",
+    // progressreport: "",
+    // stepsToReproduce: "",
     testingType: "Smoke Testing",
-    iterationNumber: "",
+    // iterationNumber: "",
     seviority: 'S1',
     linkToPast: null,
     images: ""
@@ -66,7 +68,7 @@ function IssueForm() {
     }, [selectedIssue])
 
   useEffect(() => {
-    dispatch(getAllProjects());
+    dispatch(getProjectNameProjectId());
     console.log("projects data",projObj.data);
   }, []);
 
@@ -92,6 +94,11 @@ function IssueForm() {
     setFormData((prevFormData) => ({ ...prevFormData, testingType: event.target.value }));
   };
 
+  const handleCategorySelection = (event) => {
+    setSelectedCategory(event.target.value);
+    setFormData((prevFormData) => ({ ...prevFormData, category: event.target.value }));
+  };
+
   const handleSelectedPriority = (event) => {
     setSelectedPriority(event.target.value);
     setFormData((prevFormData) => ({ ...prevFormData, priority: event.target.value }));
@@ -105,15 +112,15 @@ function IssueForm() {
 
   const handleSubmit = (event) => {
     const validationData={
-            issueName:formData.issueName,
+            // issueName:formData.issueName,
             moduleName:formData.moduleName,
-            summary:formData.summary,
+            // summary:formData.summary,
             identfiedemp:formData.identfiedemp,
-            targetdate:formData.targetdate,
-            progressreport:formData.progressreport,
-            stepsToReproduce:formData.stepsToReproduce,
+            // targetdate:formData.targetdate,
+            // progressreport:formData.progressreport,
+            // stepsToReproduce:formData.stepsToReproduce,
             description:formData.description,
-            iterationNumber:formData.iterationNumber
+            // iterationNumber:formData.iterationNumber
     }
     event.preventDefault();
     console.log("Before submit validation data", validationData);
@@ -138,15 +145,15 @@ function IssueForm() {
  return (
   <>
         <form className="container">
-        <h4 style={{alignContent:"flex-start"}}>{projObj.data[projectId-1].projectname}</h4><br/>
+        <h4 style={{alignContent:"flex-start"}}>{projObj.projectname}</h4><br/>
         <div class="row">
             <div class="col-25">
-              <label  className="form-label" for="issueName">Short Description</label> 
-              <input type="text" className="form-control" id="issueName" name="issueName" onChange={handleChange} placeholder="Short Description about Issue"/>
+              <label  className="form-label" for="shortDescription">Short Description</label> 
+              <input type="text" className="form-control" id="shortDescription" name="shortDescription" onChange={handleChange} placeholder="Short Description about Issue"/>
             </div>
             <div className="col-75">
                 <label className="form-label" htmlFor="moduleName">Module Name</label>
-                <input className="form-control" type="text" id="moduleName" name="moduleName" onChange={handleChange} />
+                <input className="form-control" type="text" id="moduleName" name="moduleName" placeholder="Module where issue has occured" onChange={handleChange} />
             {/* <label className="form-label">Category Name</label><br></br> 
                         <select className="drop" id="IssueType" style={{height:"40%"}} value={selectedIssue} onChange={handleIssueSelection} required>
                         <option value="DataBase">DataBase</option>
@@ -209,8 +216,8 @@ function IssueForm() {
         <div class="row">
             <div class="col-4">
             <label className="form-label">Category Name</label><br></br> 
-                    <select className="drop" id="IssueType"  value={selectedIssue} onChange={handleIssueSelection} required>
-                        <option value="DataBase">DataBase</option>
+                    <select className="drop" id="IssueType"  value={selectedCategory} onChange={handleCategorySelection} required>
+                        <option value="Data Base">Data Base</option>
                         <option value="API">API</option>
                         <option value="UI">UI</option>  
                     </select>
