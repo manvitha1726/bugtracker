@@ -6,7 +6,7 @@ import EmployeeDropdown from "./EmployeeDropdown";
 import AddEmployee from "./AddEmployee";
 import ImageUpload from "./ImageUpload/ImageUpload";
 import validateForm from './formValidation';
-import { getAllProjects, getProjectNameProjectId } from "../Features/ProjectsSlice";
+import { getProjectNameProjectId } from "../Features/ProjectsSlice";
 import './IssueForm.css';
 import './Home.css';
 

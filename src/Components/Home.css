@@ -274,16 +274,13 @@
     cursor: pointer;
   }
 
-  .clickable-:hover{
-    color: green;
-  }
   .table-1stcol{
     position: relative;
   }
 
   .pointer-icon1{
     position: absolute;
-    right: 20%;
+    right: 25%;
   }
   .pointer-icon1:hover{
     cursor: pointer;

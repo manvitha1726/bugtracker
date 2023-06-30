@@ -12,7 +12,7 @@ export const getAllProjects = createAsyncThunk("getProjects", async (args, {reje
 })
 
 //Fetch ProjectName by projectId
-export const getProjectById = createAsyncThunk("getProjectById", async (projectId, {rejectWithValue }) => {
+export const getProjectNameProjectId = createAsyncThunk("getProjectById", async (projectId, {rejectWithValue }) => {
   try{
   const response = await fetch(`https://bugtrackerwebapp123.azurewebsites.net/api/project/GetProjectById?projectid=${projectId}`);
   const result= await response.json();
@@ -65,14 +65,14 @@ export const Projects = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    [getProjectById.pending]: (state) => {
+    [getProjectNameProjectId.pending]: (state) => {
       state.loading = true;
     },
-    [getProjectById.fulfilled]: (state, action) => {
+    [getProjectNameProjectId.fulfilled]: (state, action) => {
       state.loading = false;
       state.ProjectName = action.payload;
     },
-    [getProjectById.rejected]: (state, action) => {
+    [getProjectNameProjectId.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
