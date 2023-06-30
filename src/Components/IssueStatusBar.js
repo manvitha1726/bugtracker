@@ -62,16 +62,17 @@ function IssueStatusBar() {
       // console.log("data : -", data);
       if(!isFromLandingPage){ 
         const filteredData1 = data.filter(issue => {
-          
-              const lowerCaseIssueName = issue.issueName.toLowerCase();
+              const lowerCaseissueId = issue.issueId.toLowerCase();
+              const lowerCaseShortDescription = issue.shortDescription.toLowerCase();
               const lowerCaseStatus = issue.status.toLowerCase();
               const lowerCasePriority = issue.priority.toLowerCase();
               const lowerCaseSearchTerm=searchTerm.toLowerCase();
             
               return (
-                lowerCaseIssueName.includes(lowerCaseSearchTerm) ||
+                lowerCaseShortDescription.includes(lowerCaseSearchTerm) ||
                 lowerCaseStatus.includes(lowerCaseSearchTerm) ||
-                lowerCasePriority.includes(lowerCaseSearchTerm)
+                lowerCasePriority.includes(lowerCaseSearchTerm) ||
+                lowerCaseissueId.includes(lowerCaseSearchTerm)
               );
           
         }); 
@@ -141,6 +142,23 @@ function IssueStatusBar() {
       const sortedData = [...filteredData].sort((a, b) => {
       const priorityOrder = { Open: 1, Hold: 2, "In Progress": 3 , Close: 4};
         return priorityOrder[a.status] - priorityOrder[b.status];
+      });
+      if(sortOrder == "asc"){
+        sortedData.reverse();
+        setSortOrder("dsc");
+      }
+
+      else{
+        setSortOrder("asc");
+      }
+      setFilteredData(sortedData);
+      setDataSorted(true)
+    };
+
+    const handleSevioritySort = () => {
+      const sortedData = [...filteredData].sort((a, b) => {
+      const seviorityOrder = { S1: 1, S2: 2, S3: 3 , S4: 4};
+        return seviorityOrder[a.seviority] - seviorityOrder[b.seviority];
       });
       if(sortOrder == "asc"){
         sortedData.reverse();
@@ -354,7 +372,7 @@ function IssueStatusBar() {
                 <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)", width:'20%'}}>Issue Id</th>
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
                 <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Priority &nbsp;<FaSort onClick={handleSort}/></th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Severity</th>
+                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Severity &nbsp;<FaSort onClick={handleSevioritySort}/></th>
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Category</th>
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)", width:'25%'}}>Summary</th>
               </tr>
