@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import { addEmployees } from '../Features/EmployeeSlice';
 import {useNavigate} from 'react-router-dom';
 import './Home.css';
@@ -44,12 +44,13 @@ function AddEmployee({func, projectId}) {
     return (
         <div className='employee-add-card'>
             <br/>
-            <button 
+            <Button
                 className='button-background-color'
                 onClick={handleOpenModal}
+                
             >
                 Add Employee
-            </button>
+            </Button>
             <Modal
                 isOpen={isOpen}
                 toggle={handleCloseModal}>

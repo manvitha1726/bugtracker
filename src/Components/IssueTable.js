@@ -96,7 +96,17 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, onItemClick }) => {
     <div className='Main-Container'>
       <Accordion defaultActiveKey='0'>
         <Accordion.Item eventKey='0'>
-        <Accordion.Header style={{ outline: 'none', border: '1px solid rgb(199, 206, 207)', margin: "0px 10px 0px 10px", backgroundColor: 'rgb(199, 206, 207)', height: '40px', width: '100%', transition: 'background-color 0.3s ease' }} onFocus={(e) => { e.target.style.backgroundColor = 'rgb(199, 206, 207)'; e.target.style.boxShadow = 'none'; }}>
+        <Accordion.Header style={{ 
+          outline: 'none', 
+          border: '1px solid rgb(199, 206, 207)', 
+          margin: "0px 10px 0px 10px", 
+          backgroundColor: 'rgb(199, 206, 207)', 
+          height: '40px', width: '100%', 
+          transition: 'background-color 0.3s ease' }} 
+          onFocus={(e) => { 
+            e.target.style.backgroundColor = 'rgb(199, 206, 207)'; 
+            e.target.style.boxShadow = 'none';
+          }}>
             {/* <div className='table-head'> */}
             {tableName != 'TimePeriod' ? (
                 <>

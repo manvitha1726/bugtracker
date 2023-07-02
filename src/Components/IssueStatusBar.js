@@ -124,7 +124,7 @@ function IssueStatusBar() {
 
     const handleSort = () => {
         const sortedData = [...filteredData].sort((a, b) => {
-        const priorityOrder = { Low: 1, Medium: 2, High: 3 };
+        const priorityOrder = { P1: 1, P2: 2, P3: 3 };
         return priorityOrder[a.priority] - priorityOrder[b.priority];
       });
       if(sortOrder == "asc"){
@@ -324,9 +324,9 @@ function IssueStatusBar() {
                       onChange={handleFilterChange}
                     >
                       <option value="Any">Any</option>
-                      <option value="Low">Low</option>
-                      <option value="Medium">Medium</option>
-                      <option value="High">High</option>
+                      <option value="P1">P1</option>
+                      <option value="P2">P2</option>
+                      <option value="P3">P3</option>
                     </select>
                 </div>
                 &nbsp;&nbsp;&nbsp;
