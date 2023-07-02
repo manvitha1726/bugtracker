@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
-import {getProjectNameProjectId} from '../Features/ProjectsSlice';
+import {getProjectById, getProjectNameProjectId} from '../Features/ProjectsSlice';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 import { FaPlus ,FaEye,FaPencilAlt,FaSort, FaImage} from 'react-icons/fa';
 import { getAllProjects } from "../Features/ProjectsSlice";
@@ -46,7 +46,6 @@ function IssueStatusBar() {
     useEffect(() => { 
       dispatch(GetIssueByProjectId(ProjectId)) 
       dispatch(getProjectNameProjectId(ProjectId))
-      dispatch(getProjectNameProjectId(ProjectId))
     },[])
 
     const projObj= useSelector((state) => state.projects);
@@ -63,16 +62,17 @@ function IssueStatusBar() {
       // console.log("data : -", data);
       if(!isFromLandingPage){ 
         const filteredData1 = data.filter(issue => {
-          
-              const lowerCaseIssueName = issue.issueName.toLowerCase();
+              const lowerCaseissueId = issue.issueId.toLowerCase();
+              const lowerCaseShortDescription = issue.shortDescription.toLowerCase();
               const lowerCaseStatus = issue.status.toLowerCase();
               const lowerCasePriority = issue.priority.toLowerCase();
               const lowerCaseSearchTerm=searchTerm.toLowerCase();
             
               return (
-                lowerCaseIssueName.includes(lowerCaseSearchTerm) ||
+                lowerCaseShortDescription.includes(lowerCaseSearchTerm) ||
                 lowerCaseStatus.includes(lowerCaseSearchTerm) ||
-                lowerCasePriority.includes(lowerCaseSearchTerm)
+                lowerCasePriority.includes(lowerCaseSearchTerm) ||
+                lowerCaseissueId.includes(lowerCaseSearchTerm)
               );
           
         }); 
@@ -124,7 +124,7 @@ function IssueStatusBar() {
 
     const handleSort = () => {
         const sortedData = [...filteredData].sort((a, b) => {
-        const priorityOrder = { Low: 1, Medium: 2, High: 3 };
+        const priorityOrder = { P1: 1, P2: 2, P3: 3 };
         return priorityOrder[a.priority] - priorityOrder[b.priority];
       });
       if(sortOrder == "asc"){
@@ -142,6 +142,23 @@ function IssueStatusBar() {
       const sortedData = [...filteredData].sort((a, b) => {
       const priorityOrder = { Open: 1, Hold: 2, "In Progress": 3 , Close: 4};
         return priorityOrder[a.status] - priorityOrder[b.status];
+      });
+      if(sortOrder == "asc"){
+        sortedData.reverse();
+        setSortOrder("dsc");
+      }
+
+      else{
+        setSortOrder("asc");
+      }
+      setFilteredData(sortedData);
+      setDataSorted(true)
+    };
+
+    const handleSevioritySort = () => {
+      const sortedData = [...filteredData].sort((a, b) => {
+      const seviorityOrder = { S1: 1, S2: 2, S3: 3 , S4: 4};
+        return seviorityOrder[a.seviority] - seviorityOrder[b.seviority];
       });
       if(sortOrder == "asc"){
         sortedData.reverse();
@@ -307,9 +324,9 @@ function IssueStatusBar() {
                       onChange={handleFilterChange}
                     >
                       <option value="Any">Any</option>
-                      <option value="Low">Low</option>
-                      <option value="Medium">Medium</option>
-                      <option value="High">High</option>
+                      <option value="P1">P1</option>
+                      <option value="P2">P2</option>
+                      <option value="P3">P3</option>
                     </select>
                 </div>
                 &nbsp;&nbsp;&nbsp;
@@ -355,7 +372,7 @@ function IssueStatusBar() {
                 <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)", width:'20%'}}>Issue Id</th>
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
                 <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Priority &nbsp;<FaSort onClick={handleSort}/></th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Severity</th>
+                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Severity &nbsp;<FaSort onClick={handleSevioritySort}/></th>
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Category</th>
                 <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)", width:'25%'}}>Summary</th>
               </tr>
