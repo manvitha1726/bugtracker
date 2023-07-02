@@ -2,44 +2,16 @@ import { React, useState ,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaCalendarAlt } from 'react-icons/fa';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import './IssueTable.css';
 
 import Accordion from 'react-bootstrap/Accordion';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
-import {GetIssuesByTimePeriod} from "../Features/IssueSlice";
 
-const IssueTable = ({ issuesList, tableName, noOfIssues, onItemClick }) => {
+const IssueTable = ({ issuesList, tableName, noOfIssues, fromDate,toDate,handleFromDateChange,handleToDateChange,onItemClick }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { selectedProjectId } = useSelector((state) => state.selectedFields);
   const selectedFilters = useSelector((state) => state.selectedFields.selectedFilters);
-  const [fromDate, setFromDate] = useState(null);
-  const [toDate, setToDate] = useState(null);
-  // const [fromDate, setFromDate] = useState(() => {
-  //   const oneWeekAgo = new Date();
-  //   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-  //   return oneWeekAgo;
-  // });
-  
-  // const [toDate, setToDate] = useState(() => new Date());
-  
-  const [isOpen, setIsOpen] = useState(false);
-  const { dataByTimePeriod, loading, error} = useSelector((state) => state.issues);
-
-  const handleOpenModal = () => {
-    setIsOpen(true);
-  };
-  const handleCloseModal = () => {
-    setIsOpen(false);
-  };
-  const handleFromDateChange = (selectedDate) => {
-    setFromDate(selectedDate);
-  };
-
-  const handleToDateChange = (selectedDate) => {
-    setToDate(selectedDate);
-  };
 
   const handleButtonClick = (item) => {
     if (tableName === 'Unassigned') {
@@ -72,36 +44,14 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, onItemClick }) => {
     dispatch(setSelectedIssueId(issueId));
     navigate(`/projects/${selectedProjectId}/display-issue${issueId}`);
   };
-  useEffect(() => {
-    if (fromDate && toDate) {
-      dispatch(GetIssuesByTimePeriod({selectedProjectId, fromDate, toDate}));
-    }
-   
-  }, [fromDate, toDate]);
 
-  // useEffect(() => {
-  //   const lastWeekDate = new Date();
-  //   lastWeekDate.setDate(lastWeekDate.getDate() - 7);
-  //   setFromDate(lastWeekDate.toISOString().split('T')[0]);
-  //   setToDate(new Date().toISOString().split('T')[0]);
-  // }, []);
-
-  if(tableName=="TimePeriod"){
-    issuesList=dataByTimePeriod;
-    noOfIssues=dataByTimePeriod.length;
-  }
- 
- console.log( "issuesList",dataByTimePeriod);
   return (
     <div className='Main-Container'>
       <Accordion defaultActiveKey='0'>
-        <Accordion.Item eventKey='0'>
         <Accordion.Header style={{ outline: 'none', border: '1px solid rgb(199, 206, 207)', margin: "0px 10px 0px 10px", backgroundColor: 'rgb(199, 206, 207)', height: '40px', width: '100%', transition: 'background-color 0.3s ease' }} onFocus={(e) => { e.target.style.backgroundColor = 'rgb(199, 206, 207)'; e.target.style.boxShadow = 'none'; }}>
-            {/* <div className='table-head'> */}
             {tableName != 'TimePeriod' ? (
                 <>
                   <FaCalendarAlt className='icon-height' /> &nbsp;&nbsp;
-                  {/* <FaCalendarAlt className='icon-height' onClick={handleOpenModal} /> &nbsp;&nbsp; */}
                 </>
               ) : (
                 <>
@@ -194,7 +144,6 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, onItemClick }) => {
               </table>
             </div>
           </Accordion.Body>
-        </Accordion.Item>
       </Accordion>
     </div>
   );

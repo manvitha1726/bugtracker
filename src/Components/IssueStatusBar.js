@@ -11,7 +11,6 @@ import './Home.css';
 import EmployeeDropdown from './EmployeeDropdown';
 import ImagePopup from './ImagePopup';
 import ImageCarouselModal from './ImageCarouselModal.js';
-import ImageCarouselModal from './ImageCarouselModal.js';
 
 function IssueStatusBar() {     
     const dispatch = useDispatch();  
