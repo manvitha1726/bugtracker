@@ -15,11 +15,6 @@ const Home = () => {
                     <br/><br/><br/>
                     <h4 className="h4">Go Ahead and Analyse Issues!</h4>
                     <br/><br/><br/>
-                    <center>
-                        <a href="/projects">
-                    <button className='button-background-color'>
-                        Explore Projects
-                    </button></a></center>
                 </div>
             </div>
             <Footer/>

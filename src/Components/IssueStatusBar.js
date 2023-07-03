@@ -282,7 +282,7 @@ function IssueStatusBar() {
               
                 <div className="icon-container">
                   <FaPlus className="icon rounded p-1" style={{ backgroundColor: "black",height:'25px',width:'25px',color:'white',marginLeft:'80px',}} onClick={handlePlusIconClick} />
-                  <p style={{color:'black ',marginLeft:'80px'}}>Add Issue</p>
+                  <p style={{color:'black ',marginLeft:'60px'}}>Add Issue</p>
                 
               </div>
               <div className='heading-container'>
