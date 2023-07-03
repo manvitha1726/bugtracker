@@ -9,7 +9,6 @@ import {useNavigate} from 'react-router-dom';
 import Pagination from './Pagination/Pagination';
 import './Home.css';
 import EmployeeDropdown from './EmployeeDropdown';
-import ImagePopup from './ImagePopup';
 import ImageCarouselModal from './ImageCarouselModal.js';
 
 function IssueStatusBar() {     
@@ -28,7 +27,6 @@ function IssueStatusBar() {
     const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState();
     const [IdentifiedEmployee, setIdentifiedEmployee] = useState();
     const [isFromLandingPage, setIsFromLandingPage] = useState(true);
-    const [showImagePopup, setShowImagePopup] = useState(false);
     const projectname = useSelector((state) => state.projects.ProjectName.projectname);
 
     const [issueFilterVal, setIssueFilterVal] = useState({

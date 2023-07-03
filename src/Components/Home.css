@@ -41,8 +41,8 @@
 .heading-container {
   margin-left: 22%;
   flex-grow: 1;
-  display: flex;
-}
+  display: flex;}
+/* }
 .button-class
 {
     border-radius: 10px;
@@ -50,7 +50,7 @@
     color:white;
     height: 35px;
     padding:5px;
-}
+} */
 button
 {
     border-radius: 10px;

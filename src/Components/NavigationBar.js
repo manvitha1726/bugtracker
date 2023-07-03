@@ -70,7 +70,7 @@ import { FaBook, FaRoad, FaCog } from "react-icons/fa";
 import "./NavigationBar.css";
 
 function NavigationBar({ onItemClick }) {
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState("MyView");
 
   const handleItemClick = (item) => {
     onItemClick(item);

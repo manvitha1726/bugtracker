@@ -103,7 +103,7 @@ const ImageCarouselModal = ({ images }) => {
           <ModalHeader>
             <h3>Attachments</h3>
           </ModalHeader>
-          <button style={{position:'absolute',top:'10px',right:'10px'}} onClick={closeModal}>Close</button>
+          <button className="button-background-color" style={{position:'absolute',top:'10px',right:'10px'}} onClick={closeModal}>Close</button>
           {carouselImages.length > 0?
           
             <Slider {...settings}>
