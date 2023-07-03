@@ -244,7 +244,7 @@ function IssueForm() {
         </div>
 
         <div className="row" style={{display:'flex', flexDirection:'row'}}>
-            <label className="form-label" htmlFor="images">Upload Image</label>
+            <label className="form-label " htmlFor="images">Upload Image</label>
             <ImageUpload callBackFunc={setAttachedFiles} />
         </div>
 

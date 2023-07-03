@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
-import {getProjectNameProjectId} from '../Features/ProjectsSlice';
+import {getProjectById, getProjectNameProjectId} from '../Features/ProjectsSlice';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 import { FaPlus ,FaEye,FaPencilAlt,FaSort, FaImage} from 'react-icons/fa';
 import { getAllProjects } from "../Features/ProjectsSlice";
@@ -9,8 +9,6 @@ import {useNavigate} from 'react-router-dom';
 import Pagination from './Pagination/Pagination';
 import './Home.css';
 import EmployeeDropdown from './EmployeeDropdown';
-import ImagePopup from './ImagePopup';
-import ImageCarouselModal from './ImageCarouselModal.js';
 import ImageCarouselModal from './ImageCarouselModal.js';
 
 function IssueStatusBar() {     
@@ -29,7 +27,6 @@ function IssueStatusBar() {
     const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState();
     const [IdentifiedEmployee, setIdentifiedEmployee] = useState();
     const [isFromLandingPage, setIsFromLandingPage] = useState(true);
-    const [showImagePopup, setShowImagePopup] = useState(false);
     const projectname = useSelector((state) => state.projects.ProjectName.projectname);
 
     const [issueFilterVal, setIssueFilterVal] = useState({
@@ -47,7 +44,6 @@ function IssueStatusBar() {
     useEffect(() => { 
       dispatch(GetIssueByProjectId(ProjectId)) 
       dispatch(getProjectNameProjectId(ProjectId))
-      dispatch(getProjectNameProjectId(ProjectId))
     },[])
 
     const projObj= useSelector((state) => state.projects);
@@ -64,16 +60,17 @@ function IssueStatusBar() {
       // console.log("data : -", data);
       if(!isFromLandingPage){ 
         const filteredData1 = data.filter(issue => {
-          
-              const lowerCaseIssueName = issue.issueName.toLowerCase();
+              const lowerCaseissueId = issue.issueId.toLowerCase();
+              const lowerCaseShortDescription = issue.shortDescription.toLowerCase();
               const lowerCaseStatus = issue.status.toLowerCase();
               const lowerCasePriority = issue.priority.toLowerCase();
               const lowerCaseSearchTerm=searchTerm.toLowerCase();
             
               return (
-                lowerCaseIssueName.includes(lowerCaseSearchTerm) ||
+                lowerCaseShortDescription.includes(lowerCaseSearchTerm) ||
                 lowerCaseStatus.includes(lowerCaseSearchTerm) ||
-                lowerCasePriority.includes(lowerCaseSearchTerm)
+                lowerCasePriority.includes(lowerCaseSearchTerm) ||
+                lowerCaseissueId.includes(lowerCaseSearchTerm)
               );
           
         }); 
@@ -125,7 +122,7 @@ function IssueStatusBar() {
 
     const handleSort = () => {
         const sortedData = [...filteredData].sort((a, b) => {
-        const priorityOrder = { Low: 1, Medium: 2, High: 3 };
+        const priorityOrder = { P1: 1, P2: 2, P3: 3 };
         return priorityOrder[a.priority] - priorityOrder[b.priority];
       });
       if(sortOrder == "asc"){
@@ -143,6 +140,23 @@ function IssueStatusBar() {
       const sortedData = [...filteredData].sort((a, b) => {
       const priorityOrder = { Open: 1, Hold: 2, "In Progress": 3 , Close: 4};
         return priorityOrder[a.status] - priorityOrder[b.status];
+      });
+      if(sortOrder == "asc"){
+        sortedData.reverse();
+        setSortOrder("dsc");
+      }
+
+      else{
+        setSortOrder("asc");
+      }
+      setFilteredData(sortedData);
+      setDataSorted(true)
+    };
+
+    const handleSevioritySort = () => {
+      const sortedData = [...filteredData].sort((a, b) => {
+      const seviorityOrder = { S1: 1, S2: 2, S3: 3 , S4: 4};
+        return seviorityOrder[a.seviority] - seviorityOrder[b.seviority];
       });
       if(sortOrder == "asc"){
         sortedData.reverse();
@@ -262,13 +276,12 @@ function IssueStatusBar() {
   if(dataLoaded){
       return (
         <div className='Mains-Container'>
-         <div className="row-container">
+         <div className="row-container IssueStatusBar-background-color">
               
-                <div className="icon-container">
-                  <FaPlus className="icon rounded p-1" style={{ backgroundColor: "black",height:'25px',width:'25px',color:'white',marginLeft:'80px',}} onClick={handlePlusIconClick} />
-                  <p style={{color:'black ',marginLeft:'80px'}}>Add Issue</p>
+         <div className="icon-container">
+                  <button className="button-background-color" onClick={handlePlusIconClick}>Add Issue</button>
+          </div>
                 
-              </div>
               <div className='heading-container'>
                 <h3> {projectname} Issues</h3>
               </div>
@@ -308,9 +321,9 @@ function IssueStatusBar() {
                       onChange={handleFilterChange}
                     >
                       <option value="Any">Any</option>
-                      <option value="Low">Low</option>
-                      <option value="Medium">Medium</option>
-                      <option value="High">High</option>
+                      <option value="P1">P1</option>
+                      <option value="P2">P2</option>
+                      <option value="P3">P3</option>
                     </select>
                 </div>
                 &nbsp;&nbsp;&nbsp;
@@ -332,12 +345,12 @@ function IssueStatusBar() {
                 &nbsp;&nbsp;&nbsp;
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Identfied by</label>
-                    <EmployeeDropdown callBackFunc={setIdentifiedEmployee} />
+                    <EmployeeDropdown isFromFilters={true} callBackFunc={setIdentifiedEmployee} />
                 </div>
                 &nbsp;&nbsp;&nbsp;
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Assigned Employee</label>
-                    <EmployeeDropdown callBackFunc={setSelectedAssignedEmployee} employeeFromFiltersLandingPage={issueFilterVal.assignTo} />
+                    <EmployeeDropdown isFromFilters={true} callBackFunc={setSelectedAssignedEmployee} employeeFromFiltersLandingPage={issueFilterVal.assignTo} />
                 </div>                
               </div>
               <br />
@@ -350,15 +363,15 @@ function IssueStatusBar() {
           </div>
 
           <div className='Issue-table'>
-          <table className="table table-bordered rounded-lg">
+          <table className="table-bordered rounded-lg">
             <thead>
               <tr>
-                <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)", width:'20%'}}>Issue Id</th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
-                <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Priority &nbsp;<FaSort onClick={handleSort}/></th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Severity</th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Category</th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)", width:'25%'}}>Summary</th>
+                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'20%'}}>Issue Id</th>
+                <th className='p-3 text-center IssueStatusBar-background-color' >Status &nbsp; <FaSort className='clickable-element' onClick={handleStatusSort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' >Priority &nbsp;<FaSort className='clickable-element' onClick={handleSort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' >Severity &nbsp;<FaSort className='clickable-element' onClick={handleSevioritySort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' >Category</th>
+                <th className='p-3 text-center IssueStatusBar-background-color'  style={{width:'25%'}}>Summary</th>
               </tr>
             </thead>
             <tbody>
