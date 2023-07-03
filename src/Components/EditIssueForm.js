@@ -137,11 +137,10 @@ function EditIssueForm() {
   }, [IdentifiedEmployee]);
  
 
-  const handleFileUpload = (event) => {
-    const files = event.target.files;
-    setAttachedFiles([...attachedFiles, ...files]);
-    setFormData((prevFormData) => ({ ...prevFormData, images: event.target.value }));
-  };
+  useEffect(() => {
+    console.log("image from edit form: ", attachedFiles);
+    setFormData((prevFormData) => ({ ...prevFormData, images: attachedFiles }));
+  }, [attachedFiles]);
 
   const handleIssueSelection = (event) => {
     setSelectedIssue(event.target.value);
