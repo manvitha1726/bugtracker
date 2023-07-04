@@ -248,12 +248,10 @@ function IssueStatusBar() {
   if(dataLoaded){
       return (
         <div className='Mains-Container'>
-         <div className="row-container">
+         <div className="row-container IssueStatusBar-background-color">
               
                 <div className="icon-container">
-                  <FaPlus className="icon rounded p-1" style={{ backgroundColor: "black",height:'25px',width:'25px',color:'white',marginLeft:'80px',}} onClick={handlePlusIconClick} />
-                  <p style={{color:'black ',marginLeft:'60px'}}>Add Issue</p>
-                
+                <button className="button-background-color" onClick={handlePlusIconClick}>Add Issue</button>
               </div>
               <div className='heading-container'>
                 <h3> {projectname} Issues</h3>
@@ -336,15 +334,15 @@ function IssueStatusBar() {
           </div>
 
           <div className='Issue-table'>
-          <table className="table table-bordered rounded-lg">
+          <table className="table-bordered rounded-lg">
             <thead>
               <tr>
-                <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)", width:'20%'}}>Issue Id</th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
-                <th className='p-3 text-center' style={{backgroundColor:"rgb(199, 206, 207)"}}>Priority &nbsp;<FaSort onClick={handleSort}/></th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Severity &nbsp;<FaSort onClick={handleSevioritySort}/></th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)"}}>Category</th>
-                <th className='p-3 text-center'  style={{backgroundColor:"rgb(199, 206, 207)", width:'25%'}}>Summary</th>
+                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'20%'}}>Issue Id</th>
+                <th className='p-3 text-center IssueStatusBar-background-color' >Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' >Priority &nbsp;<FaSort onClick={handleSort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' >Severity &nbsp;<FaSort onClick={handleSevioritySort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' >Category</th>
+                <th className='p-3 text-center IssueStatusBar-background-color'  style={{width:'25%'}}>Summary</th>
               </tr>
             </thead>
             <tbody>

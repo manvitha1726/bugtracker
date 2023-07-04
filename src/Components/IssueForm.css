@@ -55,7 +55,6 @@ input:focus,textarea:focus{
   transition:.2s;
   box-sizing:border-box;
   border-color: rgb(139, 200, 209);
-  box-shadow: 0 0 8px 0 rgb(139, 200, 209)
 }
 
 label {
@@ -138,15 +137,11 @@ img{
   color: red;
 }
 
-.form-control
-{
-  width: 120%;
-}
 
 .form-label
 {
   font-size: medium;
-  color: rgb(45, 202, 226);
+  color: rgb(0, 0, 0);
 }
 
 .fixedwidth {
@@ -301,16 +296,7 @@ img{
   color: red;
 }
 
-.form-label
-{
-  font-size: medium;
-  color: rgb(45, 202, 226);
-}
-
 select
 {
   height: 50%;
-}
-.IssueStatusBar-background-color{
-  background-color:rgb(199, 206, 207);
 }
