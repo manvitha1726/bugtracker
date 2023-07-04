@@ -160,15 +160,53 @@ export const updateIssue = createAsyncThunk(
   }
 );
 
+//Get No.of pages possible
+export const GetPagesCount= createAsyncThunk(
+  "GetPagesCount",
+  async ({
+    ProjectId,status,priority,seviority,identfiedemp,assignTo,postsPerPage}, {rejectWithValue}) => {
+      try{ 
+          const response = await fetch(
+              `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/noPossiblePagesByFilters?projectId=${ProjectId}&status=${status}&priority=${priority}&seviourity=${seviority}&identifiedemp=${identfiedemp}&assignto=${assignTo}&issuesperpage=${postsPerPage}`
+          );
+          const result = await response.json();
+          return result;
+      }
+      catch(err){
+          return rejectWithValue("Found an error", err.response.data);
+      }
+  }
+) 
+
+//Get Issues By pagination
+export const GetIssuesByPagination= createAsyncThunk(
+  "GetIssuesByPagination",
+  async ({ProjectId,status,priority,seviority,identfiedemp,assignTo,currentPage,postsPerPage}, {rejectWithValue}) => {
+      try{ 
+        console.log(ProjectId,status,priority,seviority,identfiedemp,assignTo,postsPerPage,currentPage)
+          const response = await fetch(
+              `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/issuesPaginationByFilters?projectId=${ProjectId}&status=${status}&priority=${priority}&seviourity=${seviority}&identifiedemp=${identfiedemp}&assignto=${assignTo}&issuesperpage=${postsPerPage}&pageno=${currentPage}`
+          );
+          const result = await response.json();
+          return result;
+      }
+      catch(err){
+          return rejectWithValue("Found an error", err.response.data);
+      }
+  }
+) 
+
 
 export const Issues = createSlice({
   name: "Issues",
   initialState: {
     data: [],
+    paginationdata:[],
     loading: false,
     error: null,
     dataById: [],
-    dataByTimePeriod: []
+    dataByTimePeriod: [],
+    pagesCount:0
   },
   reducers: {
  
@@ -182,6 +220,28 @@ export const Issues = createSlice({
       state.data = action.payload;
     },
     [getAllIssues.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [GetPagesCount.pending]: (state) => {
+      state.loading = true;
+    },
+    [GetPagesCount.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.pagesCount = action.payload;
+    },
+    [GetPagesCount.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [GetIssuesByPagination.pending]: (state) => {
+      state.loading = true;
+    },
+    [GetIssuesByPagination.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.paginationdata = action.payload;
+    },
+    [GetIssuesByPagination.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

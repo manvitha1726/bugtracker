@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
 import {getProjectById, getProjectNameProjectId} from '../Features/ProjectsSlice';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 import { FaPlus ,FaEye,FaPencilAlt,FaSort, FaImage} from 'react-icons/fa';
-import { getAllProjects } from "../Features/ProjectsSlice";
+import {GetPagesCount,GetIssuesByPagination} from "../Features/IssueSlice";
 import {useNavigate} from 'react-router-dom'; 
 import Pagination from './Pagination/Pagination';
 import './Home.css';
@@ -14,7 +13,6 @@ import ImageCarouselModal from './ImageCarouselModal.js';
 function IssueStatusBar() {     
     const dispatch = useDispatch();  
     const navigate = useNavigate();
-    const { data, loading, error } = useSelector((state) => state.issues);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(4);
@@ -24,10 +22,13 @@ function IssueStatusBar() {
     const [currentPosts, setCurrentPosts] = useState([]);
     const [dataSorted, setDataSorted] = useState(false);
     const [isDataFiltered, setIsDataFiltered] = useState(false);
-    const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState();
-    const [IdentifiedEmployee, setIdentifiedEmployee] = useState();
+    const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState(-1);
+    const [IdentifiedEmployee, setIdentifiedEmployee] = useState(-1);
     const [isFromLandingPage, setIsFromLandingPage] = useState(true);
     const projectname = useSelector((state) => state.projects.ProjectName.projectname);
+    const {paginationdata, loading, error } = useSelector((state) => state.issues);
+    const noOfpages=useSelector((state)=>state.issues.pagesCount)
+    
 
     const [issueFilterVal, setIssueFilterVal] = useState({
       status: 'Any',
@@ -42,24 +43,29 @@ function IssueStatusBar() {
     // console.log("projectidd",ProjectId);
 
     useEffect(() => { 
-      dispatch(GetIssueByProjectId(ProjectId)) 
+      const { status, identfiedemp, assignTo, priority, seviority } = issueFilterVal;
+      dispatch(GetPagesCount({ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage}));
       dispatch(getProjectNameProjectId(ProjectId))
     },[])
 
-    const projObj= useSelector((state) => state.projects);
+    useEffect(() => { 
+      const { status, identfiedemp, assignTo, priority, seviority } = issueFilterVal;
+      console.log(issueFilterVal, selectedAssignedEmployee, IdentifiedEmployee)
+      dispatch(GetIssuesByPagination({ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage,currentPage}));
+    },[currentPage])
+
+    console.log("jiohhvu",paginationdata,noOfpages,currentPage);
+
     useEffect(() => {
-      dispatch(getAllProjects());
       console.log("selected filters in ISB--", selectedFilters);
       handleFiltersFromLandingPage();
-      // console.log("selected filters in ISB---", issueFilterVal);
       handleFilterApply();
-      // console.log("projects data",projObj.data);
     }, []);
       
     useEffect(() => {
-      // console.log("data : -", data);
-      if(!isFromLandingPage){ 
-        const filteredData1 = data.filter(issue => {
+      console.log("asd", isFromLandingPage);
+      if(paginationdata.length>0){ 
+        const filteredData1 = paginationdata.filter(issue => {
               const lowerCaseissueId = issue.issueId.toLowerCase();
               const lowerCaseShortDescription = issue.shortDescription.toLowerCase();
               const lowerCaseStatus = issue.status.toLowerCase();
@@ -75,33 +81,36 @@ function IssueStatusBar() {
           
         }); 
 
+
       setFilteredData(filteredData1)
-    
       setDataLoaded(true);
-      const lastPostIndex = currentPage * postsPerPage;
-      const firstPostIndex = lastPostIndex - postsPerPage;
-      setCurrentPosts(filteredData1.slice(firstPostIndex, lastPostIndex));
+      setCurrentPosts(filteredData1);
+    }
+    else{
+      setCurrentPage(1);
     }
     // handleFilterApply();
-    }, [data, searchTerm])  
+    }, [paginationdata, searchTerm])  
 
+    console.log("filteredData",filteredData);
     useEffect(() =>{
       if(dataLoaded){
-      const lastPostIndex = currentPage * postsPerPage;
-      const firstPostIndex = lastPostIndex - postsPerPage;
-      setCurrentPosts(filteredData.slice(firstPostIndex, lastPostIndex));
+      // const lastPostIndex = currentPage * postsPerPage;
+      // const firstPostIndex = lastPostIndex - postsPerPage;
+      setCurrentPosts(filteredData);
       setDataSorted(false)
       }
     }, [dataSorted, currentPage])
 
     useEffect(() =>{
       if(dataLoaded){
-      const lastPostIndex = currentPage * postsPerPage;
-      const firstPostIndex = lastPostIndex - postsPerPage;
-      setCurrentPosts(filteredData.slice(firstPostIndex, lastPostIndex));
+      // const lastPostIndex = currentPage * postsPerPage;
+      // const firstPostIndex = lastPostIndex - postsPerPage;
+      setCurrentPosts(filteredData);
       setIsDataFiltered(false);
       }
     }, [isDataFiltered, currentPage])
+    {console.log("selectedAssignedEmployee,", selectedAssignedEmployee);}
 
 
     useEffect(() => {
@@ -119,7 +128,12 @@ function IssueStatusBar() {
         // setFiltersFromLandingPage(true);
       }
     }
-
+    // const disPatchIssues=(page)=>{
+    //   // const { status, identfiedemp, assignTo, priority, seviority } = issueFilterVal;
+    //   setCurrentPage(page);
+    //   // console.log("vcjsja",ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage,currentPage)
+    //   // dispatch(GetIssuesByPagination(ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage,currentPage));
+    // }
     const handleSort = () => {
         const sortedData = [...filteredData].sort((a, b) => {
         const priorityOrder = { P1: 1, P2: 2, P3: 3 };
@@ -176,22 +190,7 @@ function IssueStatusBar() {
       dispatch(setSelectedIssueId(issueId));
       navigate(`/projects/${ProjectId}/EditIssue${issueId}`);
     };
-    
-   
-    // console.log(data);
-    const handleStatusChange = (issueId, status) => {
-        dispatch(updateIssueStatus({ issueId, status }))
-          .then((response) => {
-            // console.log("Result",response);
-            // console.log('Issue status updated successfully');
-            if(response.payload){ 
-              dispatch(GetIssueByProjectId(ProjectId));
-            }
-          })
-          .catch(error => {
-            console.error('Error updating bug status:', error);
-          });
-     };
+  
   
      const handleFilterChange = (event) => {
       const { name, value } = event.target;
@@ -199,9 +198,8 @@ function IssueStatusBar() {
      }
      const handleFilterApply = () => {
       console.log("filters : ", selectedFilters);
-      {console.log("selectedAssignedEmployee,", selectedAssignedEmployee);}
       {console.log("IdentifiedEmployee : ", selectedAssignedEmployee);}
-      const filtered = data.filter(issue => {
+      const filtered = paginationdata.filter(issue => {
         // Check if each field in issueFilterVal matches the corresponding issue property
         var status = 'Any', identfiedemp = -1, assignTo = -1, priority = 'Any', seviority = 'Any';
         if(selectedFilters!==null){
@@ -219,6 +217,7 @@ function IssueStatusBar() {
           priority = issueFilterVal.priority;
           seviority = issueFilterVal.seviority;
         }
+        
         // console.log(status.toString(), identfiedemp.toString(), assignTo.toString(), priority.toString(), seviority.toString());
         // {console.log("iss11", issue);}
         // {console.log(`${issue.assignTo}`, assignTo, `${issue.identfiedemp}` == identfiedemp);}
@@ -230,10 +229,15 @@ function IssueStatusBar() {
           (priority === 'Any' || issue.priority === priority) &&
           (seviority === 'Any' || issue.seviority === seviority)
         ) {
+          
           return true; // Include issue in the filtered list
         }
         return false; // Exclude issue from the filtered list
       });
+      const { status, identfiedemp, assignTo, priority, seviority } = issueFilterVal;
+      dispatch(GetPagesCount({ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage}));
+      dispatch(GetIssuesByPagination({ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage,currentPage}));
+     
       console.log("filtered : ", filtered);
       setDataLoaded(true)
       setFilteredData(filtered);
@@ -253,8 +257,12 @@ function IssueStatusBar() {
      }
 
      const handleFilterReset = () => {
-        setFilteredData(data);
+        // console.log("abxha",paginationdata);
+        dispatch(GetPagesCount({ProjectId, status:"Any",identfiedemp: -1, assignTo:-1,priority: "Any",seviority: "Any", postsPerPage}));
+        dispatch(GetIssuesByPagination({ProjectId, status:"Any",identfiedemp: -1, assignTo:-1,priority: "Any",seviority: "Any", postsPerPage,currentPage}));
+        setFilteredData(paginationdata);
         setIsDataFiltered(true);
+        setIssueFilterVal({status:"Any",identfiedemp: -1, assignTo:-1,priority: "Any",seviority: "Any"});
      }
 
   if(loading){
@@ -426,12 +434,11 @@ function IssueStatusBar() {
               </tbody>
             </table>
             <Pagination
-                  totalPosts={filteredData.length}
-                  postsPerPage={postsPerPage}
-                  setCurrentPage={setCurrentPage}
+                  noOfpages={noOfpages}
+                  setCurrentPage={setCurrentPage} 
                   currentPage={currentPage}
                 />
-          </div>
+          </div> 
         </div>
       );
   }
