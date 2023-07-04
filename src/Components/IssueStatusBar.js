@@ -89,8 +89,12 @@ function IssueStatusBar() {
     else{
       setCurrentPage(1);
     }
-    // handleFilterApply();
-    }, [paginationdata, searchTerm])  
+    }, [searchTerm])  
+    useEffect(()=>{
+      setFilteredData(paginationdata)
+      setDataLoaded(true);
+      setCurrentPosts(paginationdata);
+    })
 
     console.log("filteredData",filteredData);
     useEffect(() =>{
@@ -128,12 +132,6 @@ function IssueStatusBar() {
         // setFiltersFromLandingPage(true);
       }
     }
-    // const disPatchIssues=(page)=>{
-    //   // const { status, identfiedemp, assignTo, priority, seviority } = issueFilterVal;
-    //   setCurrentPage(page);
-    //   // console.log("vcjsja",ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage,currentPage)
-    //   // dispatch(GetIssuesByPagination(ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage,currentPage));
-    // }
     const handleSort = () => {
         const sortedData = [...filteredData].sort((a, b) => {
         const priorityOrder = { P1: 1, P2: 2, P3: 3 };
@@ -199,41 +197,7 @@ function IssueStatusBar() {
      const handleFilterApply = () => {
       console.log("filters : ", selectedFilters);
       {console.log("IdentifiedEmployee : ", selectedAssignedEmployee);}
-      const filtered = paginationdata.filter(issue => {
-        // Check if each field in issueFilterVal matches the corresponding issue property
-        var status = 'Any', identfiedemp = -1, assignTo = -1, priority = 'Any', seviority = 'Any';
-        if(selectedFilters!==null){
-          status = selectedFilters.status;
-          identfiedemp = selectedFilters.identfiedemp;
-          assignTo = selectedFilters.assignTo;
-          priority = selectedFilters.priority;
-          seviority = selectedFilters.severity;
-          dispatch(setSelectedFilters(null));
-        }
-        else{
-          status = issueFilterVal.status;
-          identfiedemp = issueFilterVal.identfiedemp;
-          assignTo = issueFilterVal.assignTo;
-          priority = issueFilterVal.priority;
-          seviority = issueFilterVal.seviority;
-        }
-        
-        // console.log(status.toString(), identfiedemp.toString(), assignTo.toString(), priority.toString(), seviority.toString());
-        // {console.log("iss11", issue);}
-        // {console.log(`${issue.assignTo}`, assignTo, `${issue.identfiedemp}` == identfiedemp);}
-        // {console.log("as1 : ", assignTo === '1' , assignTo == -1  , issue.assignTo == assignTo, `${issue.assignTo}`, assignTo, assignTo, 'null' === null)}
-        if (
-          (status === 'Any' || issue.status === status) &&
-          (identfiedemp === "undefined" ||  identfiedemp == -1 || issue.identfiedemp == identfiedemp) &&
-          (assignTo === 'undefined' || assignTo == -1  || ((issue.assignTo == null) && assignTo == 0)) &&
-          (priority === 'Any' || issue.priority === priority) &&
-          (seviority === 'Any' || issue.seviority === seviority)
-        ) {
-          
-          return true; // Include issue in the filtered list
-        }
-        return false; // Exclude issue from the filtered list
-      });
+      const filtered = paginationdata;
       const { status, identfiedemp, assignTo, priority, seviority } = issueFilterVal;
       dispatch(GetPagesCount({ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage}));
       dispatch(GetIssuesByPagination({ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage,currentPage}));
