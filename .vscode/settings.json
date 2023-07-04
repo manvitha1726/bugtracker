@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/7b2e103d-3f4b-45af-9899-07c319561b98/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/Tracking-Tool",
+    "appService.deploySubpath": "."
+}
