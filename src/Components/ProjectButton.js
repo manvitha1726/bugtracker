@@ -50,24 +50,34 @@ const ProjectButton = () => {
 
   return (
     <div>
-      <button className="addprojectbt button-background-color" onClick={handleOpenModal}>Add Project</button>
+      <button className="button-background-color" onClick={handleOpenModal}>Add Project</button>
 
       <Modal isOpen={isOpen} toggle={handleCloseModal}>
-        <ModalHeader  className="modal-header" toggle={handleCloseModal}>Project Details</ModalHeader>
+        <ModalHeader  className="modal-header" toggle={handleCloseModal}>Enter Project Details</ModalHeader>
         <ModalBody>
           <form onSubmit={handleSubmit}>
-              <label>Project Id:
-              <input type="text" value={projectId} onChange={hadleIdChange} style={{marginLeft:"10px"}} />
-                <div className='validations'>
-                {errors.projectid && <span>{errors.projectid}</span>}
+            <div className='add-project-col'>
+              <div className="Project-form-label">
+                <label>Project Id:</label>
+              </div>
+              <div className="Project-form-control">
+                <input  type="text" value={projectId} onChange={hadleIdChange} style={{marginLeft:"10px"}} />
+                  <div className='validations'>
+                  {errors.projectid && <span>{errors.projectid}</span>}
+                  </div>
                 </div>
-              </label>
-              <label>Project Name:
+            </div>  
+            <div className='add-project-col'>
+            <div className="Project-form-label">
+              <label >Project Name:</label>
+            </div>
+            <div className="Project-form-control">
               <input type="text" value={projectName} onChange={handleInputChange} style={{marginLeft:"10px"}} />
                 <div className='validations'>
                 {errors.projectname && <span>{errors.projectname}</span>}
                 </div>
-              </label>
+            </div>
+            </div>  
           </form>
         </ModalBody>
         <ModalFooter>
