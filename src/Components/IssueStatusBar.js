@@ -351,7 +351,7 @@ function IssueStatusBar() {
           </div>
 
           <div className='Issue-table'>
-          <table className="table table-bordered rounded-lg">
+          <table>
             <thead>
               <tr>
                 <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'20%'}}>Issue Id</th>
