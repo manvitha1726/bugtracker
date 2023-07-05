@@ -7,15 +7,18 @@ import EmployeeDropdown from "./EmployeeDropdown";
 
 import './IssueForm.css';
 import ImageCarouselModal from "./ImageCarouselModal.js";
+import { GetEmployeeById } from "../Features/EmployeeSlice";
 
 function DisplayIssue() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { dataById, loading, error} = useSelector((state) => state.issues);
     const {selectedProjectId,selectedIssueId} = useSelector((state) => state.selectedFields);
+    const [data, isLoading, isError] = useSelector((state) => state.employees);
 
     useEffect(() => {
       dispatch(GetIssueById(selectedIssueId));
+      
     }, [selectedIssueId]);
     
     const initialFormData = {   
@@ -39,7 +42,7 @@ function DisplayIssue() {
         category: '',
         iterationNumber: "",
         status: "",
-        linkToPast: "",
+        linkToParent: "",
         images: "",
         seviority: '',
         
@@ -64,7 +67,7 @@ function DisplayIssue() {
         initialFormData.category = dataById[0].category;
         initialFormData.iterationNumber = dataById[0].iterationNumber;
         initialFormData.status = dataById[0].status;
-        initialFormData.linkToPast = dataById[0].linkToPast;
+        initialFormData.linkToParent = dataById[0].linkToParent;
         initialFormData.images = dataById[0].images;
         initialFormData.seviority = dataById[0].seviority;
         initialFormData.selectedProjectId=dataById[0].selectedProjectId;
@@ -132,7 +135,10 @@ function DisplayIssue() {
             <div className="col-3">
                   <label className="form-label" htmlFor="assignTo">Assigned To</label>
                   {/* <input className="form-control" type="text" id="assignTo" name="assignTo" value={initialFormData.assignTo} disabled/> */}
-                  <EmployeeDropdown empid={initialFormData.assignTo} />
+                  {/* <EmployeeDropdown empid={initialFormData.assignTo} /> */}
+                  <select className="IssueStatusBar-background-color">
+                    <option>{initialFormData.assignTo}</option>
+                  </select>
                 </div>
           </div>
 
@@ -140,7 +146,10 @@ function DisplayIssue() {
             <div class="col-3">
               <label className="form-label" htmlFor="identifiedemp">Identfied By</label>
               {/* <input className="fixedwidth" type="text" id="identfiedemp" name="identfiedemp" value={initialFormData.identfiedemp} disabled/> */}
-              <EmployeeDropdown empid={initialFormData.identfiedemp} />
+              {/* <EmployeeDropdown empid={initialFormData.identfiedemp} /> */}
+              <select className="IssueStatusBar-background-color">
+                    <option>{initialFormData.assignTo}</option>
+                  </select>
             </div>
             <div class="col-3">
                 <label className="form-label" htmlFor="seviority">Seviority</label>
@@ -165,11 +174,11 @@ function DisplayIssue() {
             <div className="row">
               <div className="col-25">
                 <label className="form-label" htmlFor="dateidentified">Identified Date</label>
-                <input className="form-control" type="text" id="dateidentified" name="dateidentified" value={initialFormData.dateidentified} disabled />
+                <input className="form-control" type="text" id="dateidentified" name="dateidentified" value={initialFormData.dateidentified.substring(0,10)} disabled />
               </div>
               <div className="col-75">
                   <label className="form-label" htmlFor="targetdate">Target Resolution Date</label>
-                  <input className="form-control" type="text" id="targetdate" name="targetdate" value={initialFormData.targetdate} disabled/>
+                  <input className="form-control" type="text" id="targetdate" name="targetdate" value={initialFormData.targetdate.substring(0,10)} disabled/>
               </div>
             </div>
 
@@ -181,7 +190,7 @@ function DisplayIssue() {
             </div>
             <div className="col-75">
               <label className="form-label" htmlFor="linkToPast">Link To Parent:</label>
-              <input className="form-control" type="text" id="linkToPast" name="linkToPast" value={initialFormData.linkToPast} disabled/>
+              <input className="form-control" type="text" id="linkToPast" name="linkToPast" value={initialFormData.linkToParent} disabled/>
             </div>
           </div>
 
