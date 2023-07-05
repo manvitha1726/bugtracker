@@ -338,9 +338,9 @@ function IssueStatusBar() {
             <thead>
               <tr>
                 <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'20%'}}>Issue Id</th>
-                <th className='p-3 text-center IssueStatusBar-background-color' >Status &nbsp; <FaSort onClick={handleStatusSort}/></th>
-                <th className='p-3 text-center IssueStatusBar-background-color' >Priority &nbsp;<FaSort onClick={handleSort}/></th>
-                <th className='p-3 text-center IssueStatusBar-background-color' >Severity &nbsp;<FaSort onClick={handleSevioritySort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' >Status &nbsp; <FaSort className="clickable-element" onClick={handleStatusSort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' >Priority &nbsp;<FaSort className="clickable-element" onClick={handleSort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' >Severity &nbsp;<FaSort className="clickable-element" onClick={handleSevioritySort}/></th>
                 <th className='p-3 text-center IssueStatusBar-background-color' >Category</th>
                 <th className='p-3 text-center IssueStatusBar-background-color'  style={{width:'25%'}}>Summary</th>
               </tr>
@@ -351,7 +351,7 @@ function IssueStatusBar() {
                   <td className='p-3 table-1stcol' style={{position:"relative"}}>
                     
                   <div className='row-'>
-                        <a onClick={() => NavigateToSelectedIssue(issue.issueId)} className='clickable-'>
+                        <a onClick={() => NavigateToSelectedIssue(issue.issueId)} className='clickable-element'>
                             {issue.issueId}
                         </a> &nbsp;&nbsp;&nbsp;
                         <div className='pointer-icon1'>

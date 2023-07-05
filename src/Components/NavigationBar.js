@@ -81,7 +81,7 @@ function NavigationBar({ onItemClick }) {
   return (
     <div className="left-nav-bar">
       <div
-        className={`nav-item ${selectedItem === 'MyView' ? 'selected' : ''}`}
+        className={`nav-item clickable-element ${selectedItem === 'MyView' ? 'selected' : ''}`}
         onClick={() => handleItemClick('MyView')}
       >
         <FaCog className="nav-icon" />
@@ -89,7 +89,7 @@ function NavigationBar({ onItemClick }) {
       </div>
 
       <div
-        className={`nav-item ${selectedItem === 'ViewIssues' ? 'selected' : ''}`}
+        className={`nav-item clickable-element ${selectedItem === 'ViewIssues' ? 'selected' : ''}`}
         onClick={() => handleItemClick('ViewIssues')}
       >
         <FaBook className="nav-icon" />
@@ -97,7 +97,7 @@ function NavigationBar({ onItemClick }) {
       </div>
 
       <div
-        className={`nav-item ${selectedItem === 'RoadMap' ? 'selected' : ''}`}
+        className={`nav-item clickable-element ${selectedItem === 'RoadMap' ? 'selected' : ''}`}
         onClick={() => handleItemClick('RoadMap')}
       >
         <FaRoad className="nav-icon" />
