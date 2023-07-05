@@ -43,18 +43,16 @@ function IssueStatusBar() {
     // console.log("projectidd",ProjectId);
 
     useEffect(() => { 
-      const { status, identfiedemp, assignTo, priority, seviority } = issueFilterVal;
-      dispatch(GetPagesCount({ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage}));
+      dispatch(GetPagesCount({ProjectId,...issueFilterVal, postsPerPage}));
       dispatch(getProjectNameProjectId(ProjectId))
     },[])
 
     useEffect(() => { 
-      const { status, identfiedemp, assignTo, priority, seviority } = issueFilterVal;
-      console.log(issueFilterVal, selectedAssignedEmployee, IdentifiedEmployee)
-      dispatch(GetIssuesByPagination({ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage,currentPage}));
+      // console.log(issueFilterVal, selectedAssignedEmployee, IdentifiedEmployee)
+      dispatch(GetIssuesByPagination({ProjectId, ...issueFilterVal, postsPerPage,currentPage}));
     },[currentPage])
 
-    console.log("jiohhvu",paginationdata,noOfpages,currentPage);
+    // console.log("jiohhvu",paginationdata,noOfpages,currentPage);
 
     useEffect(() => {
       console.log("selected filters in ISB--", selectedFilters);
@@ -63,7 +61,7 @@ function IssueStatusBar() {
     }, []);
       
     useEffect(() => {
-      console.log("asd", isFromLandingPage);
+      // console.log("asd", isFromLandingPage);
       if(paginationdata.length>0){ 
         const filteredData1 = paginationdata.filter(issue => {
               const lowerCaseissueId = issue.issueId.toLowerCase();
@@ -81,7 +79,6 @@ function IssueStatusBar() {
           
         }); 
 
-
       setFilteredData(filteredData1)
       setDataLoaded(true);
       setCurrentPosts(filteredData1);
@@ -96,7 +93,7 @@ function IssueStatusBar() {
       setCurrentPosts(paginationdata);
     })
 
-    console.log("filteredData",filteredData);
+    // console.log("filteredData",filteredData);
     useEffect(() =>{
       if(dataLoaded){
       // const lastPostIndex = currentPage * postsPerPage;
@@ -114,7 +111,7 @@ function IssueStatusBar() {
       setIsDataFiltered(false);
       }
     }, [isDataFiltered, currentPage])
-    {console.log("selectedAssignedEmployee,", selectedAssignedEmployee);}
+    // {console.log("selectedAssignedEmployee,", selectedAssignedEmployee);}
 
 
     useEffect(() => {
@@ -132,6 +129,8 @@ function IssueStatusBar() {
         // setFiltersFromLandingPage(true);
       }
     }
+    console.log("filters using by issuestatusbar",issueFilterVal);
+
     const handleSort = () => {
         const sortedData = [...filteredData].sort((a, b) => {
         const priorityOrder = { P1: 1, P2: 2, P3: 3 };
@@ -188,29 +187,25 @@ function IssueStatusBar() {
       dispatch(setSelectedIssueId(issueId));
       navigate(`/projects/${ProjectId}/EditIssue${issueId}`);
     };
-  
-  
      const handleFilterChange = (event) => {
       const { name, value } = event.target;
       setIssueFilterVal((prevFilters) => ({ ...prevFilters, [name]: value }));
      }
      const handleFilterApply = () => {
-      console.log("filters : ", selectedFilters);
-      {console.log("IdentifiedEmployee : ", selectedAssignedEmployee);}
+      // console.log("filters : ", selectedFilters);
+      // {console.log("IdentifiedEmployee : ", selectedAssignedEmployee);}
       const filtered = paginationdata;
-      const { status, identfiedemp, assignTo, priority, seviority } = issueFilterVal;
-      dispatch(GetPagesCount({ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage}));
-      dispatch(GetIssuesByPagination({ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage,currentPage}));
+      dispatch(GetPagesCount({ProjectId,...issueFilterVal, postsPerPage}));
+      dispatch(GetIssuesByPagination({ProjectId,...issueFilterVal, postsPerPage,currentPage}));
      
-      console.log("filtered : ", filtered);
+      // console.log("filtered : ", filtered);
       setDataLoaded(true)
       setFilteredData(filtered);
       setIsDataFiltered(true);
-        
      }
 
      const NavigateToSelectedIssue = (issueId) => {
-      console.log(issueId);
+      // console.log(issueId);
       dispatch(setSelectedIssueId(issueId));
       navigate(`/projects/${ProjectId}/display-issue${issueId}`);
      }

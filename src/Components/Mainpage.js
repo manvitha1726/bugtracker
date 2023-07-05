@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 const Mainpage = () => {
   const [selectedItem, setSelectedItem] = useState("MyView");
   const projectId = useSelector((state) => state.selectedFields.selectedProjectId);
- const navigate=useNavigate();
+  const navigate=useNavigate();
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
