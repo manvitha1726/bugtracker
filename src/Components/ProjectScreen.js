@@ -4,8 +4,8 @@ import ProjectButton from './ProjectButton';
 import ProjectCard from './ProjectCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProjects } from '../Features/ProjectsSlice';
-import Carousel from "react-elastic-carousel";
 import './Home.css';
+import Slider from 'react-slick';
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
@@ -44,7 +44,36 @@ function ProjectScreen() {
   const handleChange = (e) => {
     setSearchField(e.target.value);
   };
-    
+
+  const CustomNextArrow = (props) => {
+    const { className, onClick } = props;
+    return (
+      <div
+        className={className}
+        onClick={onClick}
+        style={{
+          ...arrowStyle
+          // right: '0px', // Adjust the position of the right arrow
+        }}
+      />
+    );
+  };
+
+  const arrowStyle = {
+    background: 'rgb(199, 206, 207)',
+    borderRadius: '80%',
+    transform: 'scale(2.3)', // Update the scale value to increase the size
+  };
+
+const settings = {
+    dots: true,
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    speed:1000,
+    prevArrow: <CustomNextArrow />,
+    nextArrow: <CustomNextArrow />,
+};
   return (
     <div>
     <center>
@@ -71,14 +100,14 @@ function ProjectScreen() {
       <div className='mt-4'>
        <br/>
       <div className="carousel-wrapper">
-      <Carousel breakPoints={breakPoints}>
-      {filteredProjects.map((val) => (
-        <ProjectCard
-          key={val.projectId}
-          project={val}
-        />  
-      ))}  
-      </Carousel>
+      <Slider {...settings}>
+        {filteredProjects.map((val) => (
+          <ProjectCard
+            key={val.projectId}
+            project={val}
+          />  
+        ))} 
+      </Slider>
      </div>
       </div>
     </section>
