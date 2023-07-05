@@ -219,12 +219,12 @@ function EditIssueForm() {
             <div className="col-25">
               <label className="form-label" htmlFor="shortDescription">Short Description</label>
             
-              <input  className="form-control" type="text" id="shortDescription" name="shortDescription" value={formData.shortDescription} onChange={handleChange} />
+              <input type="text" id="shortDescription" name="shortDescription" value={formData.shortDescription} onChange={handleChange} />
             </div>
 
             <div className="col-75">
             <label className="form-label" htmlFor="moduleName">Module Name</label>
-              <input className="form-control" type="text" id="moduleName" name="moduleName" value={formData.moduleName} onChange={handleChange} />
+              <input type="text" id="moduleName" name="moduleName" value={formData.moduleName} onChange={handleChange} />
             </div>
           </div>
 
@@ -259,7 +259,6 @@ function EditIssueForm() {
           
             <div className="col-3">
                   <label className="form-label" htmlFor="assignTo">Assigned To</label>
-                  {/* <input className="form-control" type="text" id="assignTo" name="assignTo" value={formData.assignTo} onChange={handleChange} /> */}
                   <EmployeeDropdown empid={formData.assignTo} callBackFunc={setSelectedAssignedEmployee} />
                 </div>
             
@@ -301,24 +300,20 @@ function EditIssueForm() {
           </div>
 
           <div className="row">
-              {/* <div className="col-25">
-                <label className="form-label" htmlFor="dateidentified">Identified Date</label>
-                <input className="form-control" type="text" id="dateidentified" name="dateidentified" value={formData.dateidentified} onChange={handleChange} />
-                </div> */}
               <div className="col-25">
                   <label className="form-label" htmlFor="targetdate">Target Resolution Date</label>
-                  <input className="form-control" type="text" id="targetRsolution" name="targetRsolution" value={formData.targetdate} onChange={handleChange} />
+                  <input  type="text" id="targetRsolution" name="targetRsolution" value={formData.targetdate} onChange={handleChange} />
               </div>
             </div>
 
           <div className="row">
             <div className="col-25">
               <label className="form-label" htmlFor="iterationNumber">Iteration Number</label>
-              <input type="number" id="iterationNumber" className="form-control" name="iterationNumber" value={formData.iterationNumber} onChange={handleChange} />
+              <input type="number" id="iterationNumber" name="iterationNumber" value={formData.iterationNumber} onChange={handleChange} />
             </div>
             <div className="col-75">
               <label className="form-label" htmlFor="linkToPast">Link To Parent:</label>
-              <input className="form-control" type="text" id="linkToPast" name="linkToPast" value={formData.linkToPast} onChange={handleChange} />
+              <input type="text" id="linkToPast" name="linkToPast" value={formData.linkToPast} onChange={handleChange} />
             </div>
           </div>
 
