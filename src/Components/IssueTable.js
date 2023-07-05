@@ -24,7 +24,6 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, fromDate,toDate,handleF
           seviority: 'Any'
         })
       ); 
-      onItemClick(item);
     } else{
       dispatch(
         setSelectedFilters({
@@ -35,9 +34,8 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, fromDate,toDate,handleF
           seviority: 'Any'
         })
       );
-      onItemClick(item);
     }
-  
+    onItemClick(item);
   };
 
   const handleNavigateToIssue = (issueId) => {

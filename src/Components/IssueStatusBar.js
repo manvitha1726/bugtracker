@@ -43,15 +43,13 @@ function IssueStatusBar() {
     // console.log("projectidd",ProjectId);
 
     useEffect(() => { 
-      const { status, identfiedemp, assignTo, priority, seviority } = issueFilterVal;
-      dispatch(GetPagesCount({ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage}));
+      dispatch(GetPagesCount({ProjectId,...issueFilterVal, postsPerPage}));
       dispatch(getProjectNameProjectId(ProjectId))
     },[])
 
     useEffect(() => { 
-      const { status, identfiedemp, assignTo, priority, seviority } = issueFilterVal;
       // console.log(issueFilterVal, selectedAssignedEmployee, IdentifiedEmployee)
-      dispatch(GetIssuesByPagination({ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage,currentPage}));
+      dispatch(GetIssuesByPagination({ProjectId, ...issueFilterVal, postsPerPage,currentPage}));
     },[currentPage])
 
     // console.log("jiohhvu",paginationdata,noOfpages,currentPage);
@@ -112,6 +110,7 @@ function IssueStatusBar() {
     }, [paginationdata])
 
     // console.log("filteredData",filteredData);
+    // console.log("filteredData",filteredData);
     useEffect(() =>{
       if(dataLoaded){
       // const lastPostIndex = currentPage * postsPerPage;
@@ -146,12 +145,8 @@ function IssueStatusBar() {
         // setFiltersFromLandingPage(true);
       }
     }
-    // const disPatchIssues=(page)=>{
-    //   // const { status, identfiedemp, assignTo, priority, seviority } = issueFilterVal;
-    //   setCurrentPage(page);
-    //   // console.log("vcjsja",ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage,currentPage)
-    //   // dispatch(GetIssuesByPagination(ProjectId, status, identfiedemp, assignTo, priority, seviority, postsPerPage,currentPage));
-    // }
+    console.log("filters using by issuestatusbar",issueFilterVal);
+
     const handleSort = () => {
         const sortedData = [...filteredData].sort((a, b) => {
         const priorityOrder = { P1: 1, P2: 2, P3: 3 };
@@ -208,8 +203,6 @@ function IssueStatusBar() {
       dispatch(setSelectedIssueId(issueId));
       navigate(`/projects/${ProjectId}/EditIssue${issueId}`);
     };
-  
-  
      const handleFilterChange = (event) => {
       const { name, value } = event.target;
       setIssueFilterVal((prevFilters) => ({ ...prevFilters, [name]: value }));
