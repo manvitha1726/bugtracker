@@ -150,11 +150,11 @@ function IssueForm() {
         <div class="row">
             <div class="col-25">
               <label  className="form-label" for="shortDescription">Short Description</label> 
-              <input type="text" className="form-control" id="shortDescription" name="shortDescription" onChange={handleChange} placeholder="Short Description about Issue"/>
+              <input type="text" id="shortDescription" name="shortDescription" onChange={handleChange} placeholder="Short Description about Issue"/>
             </div>
             <div className="col-75">
                 <label className="form-label" htmlFor="moduleName">Module Name</label>
-                <input className="form-control" type="text" id="moduleName" name="moduleName" placeholder="Module where issue has occured" onChange={handleChange} />
+                <input  type="text" id="moduleName" name="moduleName" placeholder="Module where issue has occured" onChange={handleChange} />
             {/* <label className="form-label">Category Name</label><br></br> 
                         <select className="drop" id="IssueType" style={{height:"40%"}} value={selectedIssue} onChange={handleIssueSelection} required>
                         <option value="DataBase">DataBase</option>
