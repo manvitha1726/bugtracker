@@ -18,7 +18,7 @@ const Mainpage = () => {
   return (
     <div style={{ display: 'flex', height: '100%' }}>
       <div style={{ width: '10%' }}>
-        <NavigationBar onItemClick={handleItemClick} />
+        <NavigationBar onItemClick={handleItemClick} selectedItem={selectedItem}/>
       </div>
       <div style={{ width: '90%' }}>
         {selectedItem === 'MyView' && <IssueLandingPage onItemClick={handleItemClick}/>}
