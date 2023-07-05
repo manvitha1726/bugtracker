@@ -360,12 +360,12 @@ function IssueStatusBar() {
           <table>
             <thead>
               <tr>
-                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'20%'}}>Issue Id</th>
-                <th className='p-3 text-center IssueStatusBar-background-color' >Status &nbsp; <FaSort className="clickable-element" onClick={handleStatusSort}/></th>
-                <th className='p-3 text-center IssueStatusBar-background-color' >Priority &nbsp;<FaSort className="clickable-element" onClick={handleSort}/></th>
-                <th className='p-3 text-center IssueStatusBar-background-color' >Severity &nbsp;<FaSort className="clickable-element" onClick={handleSevioritySort}/></th>
-                <th className='p-3 text-center IssueStatusBar-background-color' >Category</th>
-                <th className='p-3 text-center IssueStatusBar-background-color'  style={{width:'25%'}}>Summary</th>
+                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'19%'}}>Issue Id</th>
+                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'14%'}} >Status &nbsp; <FaSort className="clickable-element" onClick={handleStatusSort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'14%'}} >Priority &nbsp;<FaSort className="clickable-element" onClick={handleSort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'14%'}} >Severity &nbsp;<FaSort className="clickable-element" onClick={handleSevioritySort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'14%'}} >Category</th>
+                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'35%'}}>Summary</th>
               </tr>
             </thead>
             <tbody>

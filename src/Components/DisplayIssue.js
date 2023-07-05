@@ -7,15 +7,18 @@ import EmployeeDropdown from "./EmployeeDropdown";
 
 import './IssueForm.css';
 import ImageCarouselModal from "./ImageCarouselModal.js";
+import { GetEmployeeById } from "../Features/EmployeeSlice";
 
 function DisplayIssue() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { dataById, loading, error} = useSelector((state) => state.issues);
     const {selectedProjectId,selectedIssueId} = useSelector((state) => state.selectedFields);
+    const [data, isLoading, isError] = useSelector((state) => state.employees);
 
     useEffect(() => {
       dispatch(GetIssueById(selectedIssueId));
+      
     }, [selectedIssueId]);
     
     const initialFormData = {   
@@ -132,7 +135,10 @@ function DisplayIssue() {
             <div className="col-3">
                   <label className="form-label" htmlFor="assignTo">Assigned To</label>
                   {/* <input className="form-control" type="text" id="assignTo" name="assignTo" value={initialFormData.assignTo} disabled/> */}
-                  <EmployeeDropdown empid={initialFormData.assignTo} />
+                  {/* <EmployeeDropdown empid={initialFormData.assignTo} /> */}
+                  <select className="IssueStatusBar-background-color">
+                    <option>{initialFormData.assignTo}</option>
+                  </select>
                 </div>
           </div>
 
@@ -140,7 +146,10 @@ function DisplayIssue() {
             <div class="col-3">
               <label className="form-label" htmlFor="identifiedemp">Identfied By</label>
               {/* <input className="fixedwidth" type="text" id="identfiedemp" name="identfiedemp" value={initialFormData.identfiedemp} disabled/> */}
-              <EmployeeDropdown empid={initialFormData.identfiedemp} />
+              {/* <EmployeeDropdown empid={initialFormData.identfiedemp} /> */}
+              <select className="IssueStatusBar-background-color">
+                    <option>{initialFormData.assignTo}</option>
+                  </select>
             </div>
             <div class="col-3">
                 <label className="form-label" htmlFor="seviority">Seviority</label>
