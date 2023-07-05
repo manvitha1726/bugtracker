@@ -1,4 +1,4 @@
-import { React, useState ,useEffect} from 'react';
+import { React} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -11,7 +11,7 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, fromDate,toDate,handleF
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { selectedProjectId } = useSelector((state) => state.selectedFields);
-  const selectedFilters = useSelector((state) => state.selectedFields.selectedFilters);
+  // const selectedFilters = useSelector((state) => state.selectedFields.selectedFilters);
 
   const handleButtonClick = (item) => {
     if (tableName === 'Unassigned') {
@@ -21,7 +21,7 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, fromDate,toDate,handleF
           status: 'Any',
           identfiedemp: -1,
           priority: 'Any',
-          severity: 'Any'
+          seviority: 'Any'
         })
       ); 
       onItemClick(item);
@@ -32,7 +32,7 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, fromDate,toDate,handleF
           assignTo: -1,
           identfiedemp: -1,
           priority: 'Any',
-          severity: 'Any'
+          seviority: 'Any'
         })
       );
       onItemClick(item);
@@ -49,7 +49,7 @@ const IssueTable = ({ issuesList, tableName, noOfIssues, fromDate,toDate,handleF
     <div className='Main-Container'>
       <Accordion defaultActiveKey='0'>
         <Accordion.Header style={{ outline: 'none', border: '1px solid rgb(199, 206, 207)', margin: "0px 10px 0px 10px", backgroundColor: 'rgb(199, 206, 207)', height: '40px', width: '100%', transition: 'background-color 0.3s ease' }} onFocus={(e) => { e.target.style.backgroundColor = 'rgb(199, 206, 207)'; e.target.style.boxShadow = 'none'; }}>
-            {tableName != 'TimePeriod' ? (
+            {tableName !== 'TimePeriod' ? (
                 <>
                   <FaCalendarAlt className='icon-height' /> &nbsp;&nbsp;
                 </>
