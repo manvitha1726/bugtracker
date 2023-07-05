@@ -40,23 +40,23 @@ function IssueStatusBar() {
 
     const ProjectId = useSelector((state) => state.selectedFields.selectedProjectId);
     const selectedFilters = useSelector((state) => state.selectedFields.selectedFilters);
-    // console.log("projectidd",ProjectId);
+    console.log("selectedFilters",selectedFilters);
 
     useEffect(() => { 
-      dispatch(GetPagesCount({ProjectId,...issueFilterVal, postsPerPage}));
+      dispatch(GetPagesCount({ProjectId,...selectedFilters, postsPerPage}));
       dispatch(getProjectNameProjectId(ProjectId))
     },[])
 
     useEffect(() => { 
       // console.log(issueFilterVal, selectedAssignedEmployee, IdentifiedEmployee)
-      dispatch(GetIssuesByPagination({ProjectId, ...issueFilterVal, postsPerPage,currentPage}));
+      dispatch(GetIssuesByPagination({ProjectId, ...selectedFilters, postsPerPage,currentPage}));
     },[currentPage])
 
     // console.log("jiohhvu",paginationdata,noOfpages,currentPage);
 
     useEffect(() => {
       console.log("selected filters in ISB--", selectedFilters);
-      handleFiltersFromLandingPage();
+      // handleFiltersFromLandingPage();
       handleFilterApply();
     }, []);
 
@@ -130,22 +130,31 @@ function IssueStatusBar() {
     }, [isDataFiltered, currentPage])
 
 
-    useEffect(() => {
-      setIssueFilterVal((prevFilters) => ({ ...prevFilters, assignTo: `${selectedAssignedEmployee}` }));
-    }, [selectedAssignedEmployee]);
+    // useEffect(() => {
+    //   dispatch(setSelectedFilters((prevFilters) => ({ ...prevFilters, assignTo: `${selectedAssignedEmployee}` })));
+    // }, [selectedAssignedEmployee]);
   
+    // useEffect(() => {
+    //   dispatch(setSelectedFilters((prevFilters) => ({ ...prevFilters, identfiedemp: `${IdentifiedEmployee}` })));
+    // }, [IdentifiedEmployee]);
     useEffect(() => {
-      setIssueFilterVal((prevFilters) => ({ ...prevFilters, identfiedemp: `${IdentifiedEmployee}` }));
+      const copyselectedFilters = {...selectedFilters, assignTo:selectedAssignedEmployee}
+      dispatch(setSelectedFilters(copyselectedFilters));
+    }, [selectedAssignedEmployee]);
+    
+    useEffect(() => {
+      const copyselectedFilters = {...selectedFilters, identfiedemp:IdentifiedEmployee}
+      dispatch(setSelectedFilters(copyselectedFilters));
     }, [IdentifiedEmployee]);
+    
 
-
-    const handleFiltersFromLandingPage = () => {
-      if(selectedFilters!==null){
-        setIssueFilterVal(selectedFilters)
-        // setFiltersFromLandingPage(true);
-      }
-    }
-    console.log("filters using by issuestatusbar",issueFilterVal);
+    // const handleFiltersFromLandingPage = () => {
+    //   if(selectedFilters!==null){
+    //     setIssueFilterVal(selectedFilters)
+    //     // setFiltersFromLandingPage(true);
+    //   }
+    // }
+    // console.log("filters using by issuestatusbar",issueFilterVal);
 
     const handleSort = () => {
         const sortedData = [...filteredData].sort((a, b) => {
@@ -205,25 +214,22 @@ function IssueStatusBar() {
     };
      const handleFilterChange = (event) => {
       const { name, value } = event.target;
-      setIssueFilterVal((prevFilters) => ({ ...prevFilters, [name]: value }));
+      const copyselectedFilters = {...selectedFilters,[name]: value }
+      dispatch(setSelectedFilters(copyselectedFilters));
      }
      const handleFilterApply = () => {
       // console.log("selected filters --:- ", selectedFilters);
-      if(selectedFilters!==null){
+     
+   
         dispatch(GetPagesCount({ProjectId, ...selectedFilters, postsPerPage}));
-        dispatch(GetIssuesByPagination({ProjectId, ...selectedFilters, postsPerPage, currentPage}));
-        dispatch(setSelectedFilters(null));
-      }
-      else{
-        dispatch(GetPagesCount({ProjectId, ...issueFilterVal, postsPerPage}));
         if(currentPage > 1){
-          dispatch(GetIssuesByPagination({ProjectId, ...issueFilterVal, postsPerPage,currentPage:1}));  
+          dispatch(GetIssuesByPagination({ProjectId, ...selectedFilters, postsPerPage,currentPage:1}));  
         }
         else{
-          dispatch(GetIssuesByPagination({ProjectId, ...issueFilterVal, postsPerPage,currentPage}));  
+          dispatch(GetIssuesByPagination({ProjectId, ...selectedFilters, postsPerPage,currentPage}));  
         }
       }
-     }
+     
 
      const NavigateToSelectedIssue = (issueId) => {
       // console.log(issueId);
@@ -243,7 +249,7 @@ function IssueStatusBar() {
         setFilteredData(paginationdata);
         setIsDataFiltered(true);
         setCurrentPage(1);
-        setIssueFilterVal({status:"Any",identfiedemp: -1, assignTo:-1,priority: "Any",seviority: "Any"});
+        dispatch(setSelectedFilters({status:"Any",identfiedemp: -1, assignTo:-1,priority: "Any",seviority: "Any"}));
      }
 
   if(loading){
@@ -289,7 +295,7 @@ function IssueStatusBar() {
                     <select 
                     className='IssueStatusBar-background-color'
                       name='status'
-                      value={issueFilterVal.status}
+                      value={selectedFilters.status}
                       onChange={handleFilterChange}
                     >
                       <option value="Any">Any</option>
@@ -305,7 +311,7 @@ function IssueStatusBar() {
                     <select 
                     className='IssueStatusBar-background-color'
                       name='priority'
-                      value={issueFilterVal.priority|| 'Any'}
+                      value={selectedFilters.priority|| 'Any'}
                       onChange={handleFilterChange}
                     >
                       <option value="Any">Any</option>
@@ -320,7 +326,7 @@ function IssueStatusBar() {
                     <select 
                       className='IssueStatusBar-background-color'
                       name='seviority'
-                      value={issueFilterVal.seviority|| 'Any'}
+                      value={selectedFilters.seviority|| 'Any'}
                       onChange={handleFilterChange}
                     >
                       <option value="Any">Any</option>
@@ -338,7 +344,7 @@ function IssueStatusBar() {
                 &nbsp;&nbsp;&nbsp;
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Assigned Employee</label>
-                    <EmployeeDropdown isFromFilters={true} callBackFunc={setSelectedAssignedEmployee} employeeFromFiltersLandingPage={issueFilterVal.assignTo} />
+                    <EmployeeDropdown isFromFilters={true} callBackFunc={setSelectedAssignedEmployee} employeeFromFiltersLandingPage={selectedFilters.assignTo} />
                 </div>                
               </div>
               <br />

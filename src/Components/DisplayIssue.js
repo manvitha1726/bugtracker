@@ -39,7 +39,7 @@ function DisplayIssue() {
         category: '',
         iterationNumber: "",
         status: "",
-        linkToPast: "",
+        linkToParent: "",
         images: "",
         seviority: '',
         
@@ -64,7 +64,7 @@ function DisplayIssue() {
         initialFormData.category = dataById[0].category;
         initialFormData.iterationNumber = dataById[0].iterationNumber;
         initialFormData.status = dataById[0].status;
-        initialFormData.linkToPast = dataById[0].linkToPast;
+        initialFormData.linkToParent = dataById[0].linkToParent;
         initialFormData.images = dataById[0].images;
         initialFormData.seviority = dataById[0].seviority;
         initialFormData.selectedProjectId=dataById[0].selectedProjectId;
@@ -165,11 +165,12 @@ function DisplayIssue() {
             <div className="row">
               <div className="col-25">
                 <label className="form-label" htmlFor="dateidentified">Identified Date</label>
-                <input className="form-control" type="text" id="dateidentified" name="dateidentified" value={initialFormData.dateidentified} disabled />
+                <input className="form-control" type="text" id="dateidentified" name="dateidentified" value={initialFormData.dateidentified.substring(0,10)} disabled />
               </div>
               <div className="col-75">
                   <label className="form-label" htmlFor="targetdate">Target Resolution Date</label>
-                  <input className="form-control" type="text" id="targetdate" name="targetdate" value={initialFormData.targetdate} disabled/>
+                  {initialFormData.targetdate!=null ? <input className="form-control" type="text" id="targetdate" name="targetdate" value={initialFormData.targetdate.substring(0,10)} disabled/>:
+                  <input className="form-control" type="text" id="targetdate" name="targetdate" value={initialFormData.targetdate} disabled/>}
               </div>
             </div>
 
@@ -180,8 +181,8 @@ function DisplayIssue() {
               <input type="number" id="iterationNumber" className="form-control" name="iterationNumber" value={initialFormData.iterationNumber} disabled />
             </div>
             <div className="col-75">
-              <label className="form-label" htmlFor="linkToPast">Link To Parent:</label>
-              <input className="form-control" type="text" id="linkToPast" name="linkToPast" value={initialFormData.linkToPast} disabled/>
+              <label className="form-label" htmlFor="linkToParent">Link To Parent:</label>
+              <input className="form-control" type="text" id="linkToParent" name="linkToParent" value={initialFormData.linkToParent} disabled/>
             </div>
           </div>
 

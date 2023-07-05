@@ -214,8 +214,8 @@ function IssueForm() {
               </select>
               </div>
         </div>
-        <div class="row">
-            <div class="col-4">
+        <div className="row">
+            <div className="col-4">
             <label className="form-label">Category Name</label><br></br> 
                     <select className="IssueStatusBar-background-color" id="IssueType"  value={selectedCategory} onChange={handleCategorySelection} required>
                         <option value="Data Base">Data Base</option>
@@ -223,13 +223,18 @@ function IssueForm() {
                         <option value="UI">UI</option>  
                     </select>
             </div>
+          
             <div className="col-4">
-                <center>
                     <AddEmployee func={setVal1} projectId={projectId} /> 
-                </center>
             </div>
         </div>
-          <br></br>
+        <br></br>
+
+        <div  className="col-4">
+              <label className="form-label" htmlFor="linkToPast">Link To Parent:</label>
+              <input type="text" id="linkToPast" name="linkToPast" value={formData.linkToPast} onChange={handleChange} />
+        </div>
+        
 
           <div className="row">
           {/* <div className="col-25">

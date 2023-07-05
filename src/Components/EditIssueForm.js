@@ -266,11 +266,6 @@ function EditIssueForm() {
 
           <div className="row">
             <div className="col-3">
-              <label className="form-label" htmlFor="identifiedemp">Identfied By</label>
-              {/* <input className="fixedwidth" type="text" id="identfiedemp" name="identfiedemp" value={formData.identfiedemp} onChange={handleChange} /> */}
-              <EmployeeDropdown empid={formData.identfiedemp} callBackFunc={setIdentifiedEmployee}/>
-            </div>
-            <div className="col-3">
                 <label className="form-label" htmlFor="seviority">Seviority</label>
                 <select id="seviority" className="IssueStatusBar-background-color" value={selectedSeviority} onChange={handleSelectedSeviority} >
                   <option value="S1">S1</option>
@@ -302,11 +297,11 @@ function EditIssueForm() {
           <div className="row">
               <div className="col-25">
                   <label className="form-label" htmlFor="targetdate">Target Resolution Date</label>
-                  <input  type="text" id="targetRsolution" name="targetRsolution" value={formData.targetdate} onChange={handleChange} />
+                  <input  type="date" id="targetRsolution" name="targetRsolution" value={formData.targetdate} onChange={handleChange} />
               </div>
             </div>
 
-          <div className="row">
+          {/* <div className="row">
             <div className="col-25">
               <label className="form-label" htmlFor="iterationNumber">Iteration Number</label>
               <input type="number" id="iterationNumber" name="iterationNumber" value={formData.iterationNumber} onChange={handleChange} />
@@ -315,7 +310,7 @@ function EditIssueForm() {
               <label className="form-label" htmlFor="linkToPast">Link To Parent:</label>
               <input type="text" id="linkToPast" name="linkToPast" value={formData.linkToPast} onChange={handleChange} />
             </div>
-          </div>
+          </div> */} 
 
           <div className="row">
             <div className="col">
