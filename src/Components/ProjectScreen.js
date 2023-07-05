@@ -17,13 +17,14 @@ const breakPoints = [
 function ProjectScreen() {
   const [searchField, setSearchField] = useState("");
   const { data, loading, error } = useSelector((state) => state.projects);
+  const sortedData = [...data].sort((a, b) => b.totalIssues - a.totalIssues);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProjects());
   }, []);
   
-  const filteredProjects = data.filter(project => project.projectname.toLowerCase()
+  const filteredProjects = sortedData.filter(project => project.projectname.toLowerCase()
   .includes(searchField.toLowerCase()));
   if (loading) {
     return (

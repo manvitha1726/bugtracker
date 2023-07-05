@@ -14,7 +14,6 @@ function DisplayIssue() {
     const navigate = useNavigate();
     const { dataById, loading, error} = useSelector((state) => state.issues);
     const {selectedProjectId,selectedIssueId} = useSelector((state) => state.selectedFields);
-    const [data, isLoading, isError] = useSelector((state) => state.employees);
 
     useEffect(() => {
       dispatch(GetIssueById(selectedIssueId));

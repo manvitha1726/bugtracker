@@ -339,7 +339,7 @@ function IssueStatusBar() {
                 &nbsp;&nbsp;&nbsp;
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Identfied by</label>
-                    <EmployeeDropdown isFromFilters={true} callBackFunc={setIdentifiedEmployee} />
+                    <EmployeeDropdown isIdentifiedEmp={true} isFromFilters={true} callBackFunc={setIdentifiedEmployee} />
                 </div>
                 &nbsp;&nbsp;&nbsp;
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>

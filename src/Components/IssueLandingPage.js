@@ -31,11 +31,14 @@ const IssueLandingPage = ({onItemClick}) => {
     }, []);
 
     useEffect(() => {
-        if (fromDate && toDate) {
-          dispatch(GetIssuesByTimePeriod({selectedProjectId, fromDate, toDate}));
-        }
-       
-      }, [fromDate, toDate]);
+      if (fromDate && toDate) {
+        const currentDate = new Date(toDate);
+        currentDate.setDate(currentDate.getDate() + 1);
+        const nextDay = currentDate.toLocaleDateString('en-CA');
+        // console.log(nextDay)
+        dispatch(GetIssuesByTimePeriod({selectedProjectId, fromDate, toDate: nextDay}));
+      }
+    }, [fromDate, toDate]);
 
     useEffect(() => {
         if(dataDispatched){
