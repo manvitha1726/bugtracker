@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {updateIssueStatus,GetIssueByProjectId } from '../Features/IssueSlice';
 import {getProjectById, getProjectNameProjectId} from '../Features/ProjectsSlice';
 import { setSelectedFilters, setSelectedIssueId } from '../Features/SelectedFieldsSlice';
 import { FaPlus ,FaEye,FaPencilAlt,FaSort, FaImage} from 'react-icons/fa';
-import { getAllProjects } from "../Features/ProjectsSlice";
+import {GetPagesCount,GetIssuesByPagination} from "../Features/IssueSlice";
 import {useNavigate} from 'react-router-dom'; 
 import Pagination from './Pagination/Pagination';
 import './Home.css';
@@ -14,7 +13,6 @@ import ImageCarouselModal from './ImageCarouselModal.js';
 function IssueStatusBar() {     
     const dispatch = useDispatch();  
     const navigate = useNavigate();
-    const { data, loading, error } = useSelector((state) => state.issues);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(4);
@@ -24,10 +22,13 @@ function IssueStatusBar() {
     const [currentPosts, setCurrentPosts] = useState([]);
     const [dataSorted, setDataSorted] = useState(false);
     const [isDataFiltered, setIsDataFiltered] = useState(false);
-    const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState();
-    const [IdentifiedEmployee, setIdentifiedEmployee] = useState();
+    const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState(-1);
+    const [IdentifiedEmployee, setIdentifiedEmployee] = useState(-1);
     const [isFromLandingPage, setIsFromLandingPage] = useState(true);
     const projectname = useSelector((state) => state.projects.ProjectName.projectname);
+    const {paginationdata, loading, error } = useSelector((state) => state.issues);
+    const noOfpages=useSelector((state)=>state.issues.pagesCount)
+    
 
     const [issueFilterVal, setIssueFilterVal] = useState({
       status: 'Any',
@@ -39,27 +40,32 @@ function IssueStatusBar() {
 
     const ProjectId = useSelector((state) => state.selectedFields.selectedProjectId);
     const selectedFilters = useSelector((state) => state.selectedFields.selectedFilters);
-    // console.log("projectidd",ProjectId);
+    console.log("selectedFilters",selectedFilters);
 
     useEffect(() => { 
-      dispatch(GetIssueByProjectId(ProjectId)) 
+      dispatch(GetPagesCount({ProjectId,...selectedFilters, postsPerPage}));
       dispatch(getProjectNameProjectId(ProjectId))
     },[])
 
-    const projObj= useSelector((state) => state.projects);
+    useEffect(() => { 
+      // console.log(issueFilterVal, selectedAssignedEmployee, IdentifiedEmployee)
+      dispatch(GetIssuesByPagination({ProjectId, ...selectedFilters, postsPerPage,currentPage}));
+    },[currentPage])
+
+    // console.log("jiohhvu",paginationdata,noOfpages,currentPage);
+
     useEffect(() => {
-      dispatch(getAllProjects());
       console.log("selected filters in ISB--", selectedFilters);
-      handleFiltersFromLandingPage();
-      // console.log("selected filters in ISB---", issueFilterVal);
+      // handleFiltersFromLandingPage();
       handleFilterApply();
-      // console.log("projects data",projObj.data);
     }, []);
+
+    
       
     useEffect(() => {
-      // console.log("data : -", data);
-      if(!isFromLandingPage){ 
-        const filteredData1 = data.filter(issue => {
+      // console.log("asd", isFromLandingPage);
+      if(!isFromLandingPage && paginationdata.length>0){ 
+        const filteredData1 = paginationdata.filter(issue => {
               const lowerCaseissueId = issue.issueId.toLowerCase();
               const lowerCaseShortDescription = issue.shortDescription.toLowerCase();
               const lowerCaseStatus = issue.status.toLowerCase();
@@ -74,51 +80,81 @@ function IssueStatusBar() {
               );
           
         }); 
-
       setFilteredData(filteredData1)
-    
       setDataLoaded(true);
-      const lastPostIndex = currentPage * postsPerPage;
-      const firstPostIndex = lastPostIndex - postsPerPage;
-      setCurrentPosts(filteredData1.slice(firstPostIndex, lastPostIndex));
+      setCurrentPosts(filteredData1);
+    }
+    else{
+      setCurrentPage(1);
     }
     // handleFilterApply();
-    }, [data, searchTerm])  
+    }, [searchTerm])  
 
+    useEffect(() => {
+      if(paginationdata.length > 0){
+        setFilteredData(paginationdata)
+        setDataLoaded(true);
+        setCurrentPosts(paginationdata);
+      }
+      else if(noOfpages == 0){
+        setFilteredData([]);
+        setDataLoaded(true);
+        setCurrentPosts([]);
+      }
+      else{
+        setCurrentPage(1);
+        setFilteredData(paginationdata);
+        setDataLoaded(true);
+        setCurrentPosts(paginationdata);
+      }
+    }, [paginationdata])
+
+    // console.log("filteredData",filteredData);
+    // console.log("filteredData",filteredData);
     useEffect(() =>{
       if(dataLoaded){
-      const lastPostIndex = currentPage * postsPerPage;
-      const firstPostIndex = lastPostIndex - postsPerPage;
-      setCurrentPosts(filteredData.slice(firstPostIndex, lastPostIndex));
+      // const lastPostIndex = currentPage * postsPerPage;
+      // const firstPostIndex = lastPostIndex - postsPerPage;
+      setCurrentPosts(filteredData);
       setDataSorted(false)
       }
     }, [dataSorted, currentPage])
 
     useEffect(() =>{
       if(dataLoaded){
-      const lastPostIndex = currentPage * postsPerPage;
-      const firstPostIndex = lastPostIndex - postsPerPage;
-      setCurrentPosts(filteredData.slice(firstPostIndex, lastPostIndex));
+      // const lastPostIndex = currentPage * postsPerPage;
+      // const firstPostIndex = lastPostIndex - postsPerPage;
+      setCurrentPosts(filteredData);
       setIsDataFiltered(false);
       }
     }, [isDataFiltered, currentPage])
 
 
-    useEffect(() => {
-      setIssueFilterVal((prevFilters) => ({ ...prevFilters, assignTo: `${selectedAssignedEmployee}` }));
-    }, [selectedAssignedEmployee]);
+    // useEffect(() => {
+    //   dispatch(setSelectedFilters((prevFilters) => ({ ...prevFilters, assignTo: `${selectedAssignedEmployee}` })));
+    // }, [selectedAssignedEmployee]);
   
+    // useEffect(() => {
+    //   dispatch(setSelectedFilters((prevFilters) => ({ ...prevFilters, identfiedemp: `${IdentifiedEmployee}` })));
+    // }, [IdentifiedEmployee]);
     useEffect(() => {
-      setIssueFilterVal((prevFilters) => ({ ...prevFilters, identfiedemp: `${IdentifiedEmployee}` }));
+      const copyselectedFilters = {...selectedFilters, assignTo:selectedAssignedEmployee}
+      dispatch(setSelectedFilters(copyselectedFilters));
+    }, [selectedAssignedEmployee]);
+    
+    useEffect(() => {
+      const copyselectedFilters = {...selectedFilters, identfiedemp:IdentifiedEmployee}
+      dispatch(setSelectedFilters(copyselectedFilters));
     }, [IdentifiedEmployee]);
+    
 
-
-    const handleFiltersFromLandingPage = () => {
-      if(selectedFilters!==null){
-        setIssueFilterVal(selectedFilters)
-        // setFiltersFromLandingPage(true);
-      }
-    }
+    // const handleFiltersFromLandingPage = () => {
+    //   if(selectedFilters!==null){
+    //     setIssueFilterVal(selectedFilters)
+    //     // setFiltersFromLandingPage(true);
+    //   }
+    // }
+    // console.log("filters using by issuestatusbar",issueFilterVal);
 
     const handleSort = () => {
         const sortedData = [...filteredData].sort((a, b) => {
@@ -176,73 +212,27 @@ function IssueStatusBar() {
       dispatch(setSelectedIssueId(issueId));
       navigate(`/projects/${ProjectId}/EditIssue${issueId}`);
     };
-    
-   
-    // console.log(data);
-    const handleStatusChange = (issueId, status) => {
-        dispatch(updateIssueStatus({ issueId, status }))
-          .then((response) => {
-            // console.log("Result",response);
-            // console.log('Issue status updated successfully');
-            if(response.payload){ 
-              dispatch(GetIssueByProjectId(ProjectId));
-            }
-          })
-          .catch(error => {
-            console.error('Error updating bug status:', error);
-          });
-     };
-  
      const handleFilterChange = (event) => {
       const { name, value } = event.target;
-      setIssueFilterVal((prevFilters) => ({ ...prevFilters, [name]: value }));
+      const copyselectedFilters = {...selectedFilters,[name]: value }
+      dispatch(setSelectedFilters(copyselectedFilters));
      }
      const handleFilterApply = () => {
-      console.log("filters : ", selectedFilters);
-      {console.log("selectedAssignedEmployee,", selectedAssignedEmployee);}
-      {console.log("IdentifiedEmployee : ", selectedAssignedEmployee);}
-      const filtered = data.filter(issue => {
-        // Check if each field in issueFilterVal matches the corresponding issue property
-        var status = 'Any', identfiedemp = -1, assignTo = -1, priority = 'Any', seviority = 'Any';
-        if(selectedFilters!==null){
-          status = selectedFilters.status;
-          identfiedemp = selectedFilters.identfiedemp;
-          assignTo = selectedFilters.assignTo;
-          priority = selectedFilters.priority;
-          seviority = selectedFilters.severity;
-          dispatch(setSelectedFilters(null));
+      // console.log("selected filters --:- ", selectedFilters);
+     
+   
+        dispatch(GetPagesCount({ProjectId, ...selectedFilters, postsPerPage}));
+        if(currentPage > 1){
+          dispatch(GetIssuesByPagination({ProjectId, ...selectedFilters, postsPerPage,currentPage:1}));  
         }
         else{
-          status = issueFilterVal.status;
-          identfiedemp = issueFilterVal.identfiedemp;
-          assignTo = issueFilterVal.assignTo;
-          priority = issueFilterVal.priority;
-          seviority = issueFilterVal.seviority;
+          dispatch(GetIssuesByPagination({ProjectId, ...selectedFilters, postsPerPage,currentPage}));  
         }
-        // console.log(status.toString(), identfiedemp.toString(), assignTo.toString(), priority.toString(), seviority.toString());
-        // {console.log("iss11", issue);}
-        // {console.log(`${issue.assignTo}`, assignTo, `${issue.identfiedemp}` == identfiedemp);}
-        // {console.log("as1 : ", assignTo === '1' , assignTo == -1  , issue.assignTo == assignTo, `${issue.assignTo}`, assignTo, assignTo, 'null' === null)}
-        if (
-          (status === 'Any' || issue.status === status) &&
-          (identfiedemp === "undefined" ||  identfiedemp == -1 || issue.identfiedemp == identfiedemp) &&
-          (assignTo === 'undefined' || assignTo == -1  || ((issue.assignTo == null) && assignTo == 0)) &&
-          (priority === 'Any' || issue.priority === priority) &&
-          (seviority === 'Any' || issue.seviority === seviority)
-        ) {
-          return true; // Include issue in the filtered list
-        }
-        return false; // Exclude issue from the filtered list
-      });
-      console.log("filtered : ", filtered);
-      setDataLoaded(true)
-      setFilteredData(filtered);
-      setIsDataFiltered(true);
-        
-     }
+      }
+     
 
      const NavigateToSelectedIssue = (issueId) => {
-      console.log(issueId);
+      // console.log(issueId);
       dispatch(setSelectedIssueId(issueId));
       navigate(`/projects/${ProjectId}/display-issue${issueId}`);
      }
@@ -253,8 +243,13 @@ function IssueStatusBar() {
      }
 
      const handleFilterReset = () => {
-        setFilteredData(data);
+        // console.log("abxha",paginationdata);
+        dispatch(GetPagesCount({ProjectId, status:"Any",identfiedemp: -1, assignTo:-1,priority: "Any",seviority: "Any", postsPerPage}));
+        dispatch(GetIssuesByPagination({ProjectId, status:"Any",identfiedemp: -1, assignTo:-1,priority: "Any",seviority: "Any", postsPerPage,currentPage}));
+        setFilteredData(paginationdata);
         setIsDataFiltered(true);
+        setCurrentPage(1);
+        dispatch(setSelectedFilters({status:"Any",identfiedemp: -1, assignTo:-1,priority: "Any",seviority: "Any"}));
      }
 
   if(loading){
@@ -278,10 +273,9 @@ function IssueStatusBar() {
         <div className='Mains-Container'>
          <div className="row-container IssueStatusBar-background-color">
               
-         <div className="icon-container">
-                  <button className="button-background-color" onClick={handlePlusIconClick}>Add Issue</button>
-          </div>
-                
+                <div className="icon-container">
+                <button className="button-background-color" onClick={handlePlusIconClick}>Add Issue</button>
+              </div>
               <div className='heading-container'>
                 <h3> {projectname} Issues</h3>
               </div>
@@ -301,7 +295,7 @@ function IssueStatusBar() {
                     <select 
                     className='IssueStatusBar-background-color'
                       name='status'
-                      value={issueFilterVal.status}
+                      value={selectedFilters.status}
                       onChange={handleFilterChange}
                     >
                       <option value="Any">Any</option>
@@ -317,7 +311,7 @@ function IssueStatusBar() {
                     <select 
                     className='IssueStatusBar-background-color'
                       name='priority'
-                      value={issueFilterVal.priority|| 'Any'}
+                      value={selectedFilters.priority|| 'Any'}
                       onChange={handleFilterChange}
                     >
                       <option value="Any">Any</option>
@@ -332,7 +326,7 @@ function IssueStatusBar() {
                     <select 
                       className='IssueStatusBar-background-color'
                       name='seviority'
-                      value={issueFilterVal.seviority|| 'Any'}
+                      value={selectedFilters.seviority|| 'Any'}
                       onChange={handleFilterChange}
                     >
                       <option value="Any">Any</option>
@@ -345,12 +339,12 @@ function IssueStatusBar() {
                 &nbsp;&nbsp;&nbsp;
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Identfied by</label>
-                    <EmployeeDropdown isFromFilters={true} callBackFunc={setIdentifiedEmployee} />
+                    <EmployeeDropdown isIdentifiedEmp={true} isFromFilters={true} callBackFunc={setIdentifiedEmployee} />
                 </div>
                 &nbsp;&nbsp;&nbsp;
                 <div className='each-filter' style={{display:'flex', flexDirection:'column',marginRight:"20px"}}>
                     <label>Assigned Employee</label>
-                    <EmployeeDropdown isFromFilters={true} callBackFunc={setSelectedAssignedEmployee} employeeFromFiltersLandingPage={issueFilterVal.assignTo} />
+                    <EmployeeDropdown isFromFilters={true} callBackFunc={setSelectedAssignedEmployee} employeeFromFiltersLandingPage={selectedFilters.assignTo} />
                 </div>                
               </div>
               <br />
@@ -363,15 +357,15 @@ function IssueStatusBar() {
           </div>
 
           <div className='Issue-table'>
-          <table className="table-bordered rounded-lg">
+          <table>
             <thead>
               <tr>
-                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'20%'}}>Issue Id</th>
-                <th className='p-3 text-center IssueStatusBar-background-color' >Status &nbsp; <FaSort className='clickable-element' onClick={handleStatusSort}/></th>
-                <th className='p-3 text-center IssueStatusBar-background-color' >Priority &nbsp;<FaSort className='clickable-element' onClick={handleSort}/></th>
-                <th className='p-3 text-center IssueStatusBar-background-color' >Severity &nbsp;<FaSort className='clickable-element' onClick={handleSevioritySort}/></th>
-                <th className='p-3 text-center IssueStatusBar-background-color' >Category</th>
-                <th className='p-3 text-center IssueStatusBar-background-color'  style={{width:'25%'}}>Summary</th>
+                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'19%'}}>Issue Id</th>
+                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'14%'}} >Status &nbsp; <FaSort className="clickable-element" onClick={handleStatusSort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'14%'}} >Priority &nbsp;<FaSort className="clickable-element" onClick={handleSort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'14%'}} >Severity &nbsp;<FaSort className="clickable-element" onClick={handleSevioritySort}/></th>
+                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'14%'}} >Category</th>
+                <th className='p-3 text-center IssueStatusBar-background-color' style={{width:'35%'}}>Summary</th>
               </tr>
             </thead>
             <tbody>
@@ -380,7 +374,7 @@ function IssueStatusBar() {
                   <td className='p-3 table-1stcol' style={{position:"relative"}}>
                     
                   <div className='row-'>
-                        <a onClick={() => NavigateToSelectedIssue(issue.issueId)} className='clickable-'>
+                        <a onClick={() => NavigateToSelectedIssue(issue.issueId)} className='clickable-element'>
                             {issue.issueId}
                         </a> &nbsp;&nbsp;&nbsp;
                         <div className='pointer-icon1'>
@@ -425,12 +419,11 @@ function IssueStatusBar() {
               </tbody>
             </table>
             <Pagination
-                  totalPosts={filteredData.length}
-                  postsPerPage={postsPerPage}
-                  setCurrentPage={setCurrentPage}
+                  noOfpages={noOfpages}
+                  setCurrentPage={setCurrentPage} 
                   currentPage={currentPage}
                 />
-          </div>
+          </div> 
         </div>
       );
   }

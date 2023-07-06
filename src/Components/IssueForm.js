@@ -33,7 +33,7 @@ function IssueForm() {
     testingType: "Smoke Testing",
     // iterationNumber: "",
     seviority: 'S1',
-    linkToPast: null,
+    linkToParent: null,
     images: ""
   
   };
@@ -45,8 +45,8 @@ function IssueForm() {
   const [selectedTesting, setSelectedTesting] = useState("Smoke Testing");
   const [selectedCategory, setSelectedCategory] = useState("Database");
   const [selectedPriority, setSelectedPriority] = useState('Low');
-  const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState();
-  const [IdentifiedEmployee, setIdentifiedEmployee] = useState();
+  const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState(0);
+  const [IdentifiedEmployee, setIdentifiedEmployee] = useState(0);
   const [attachedFiles, setAttachedFiles] = useState('');
   const [errors,setErrors]= useState({});
   const [issues,setIssues]= useState([]);
@@ -113,15 +113,10 @@ function IssueForm() {
 
   const handleSubmit = (event) => {
     const validationData={
-            // issueName:formData.issueName,
+      
             moduleName:formData.moduleName,
-            // summary:formData.summary,
-            identfiedemp:formData.identfiedemp,
-            // targetdate:formData.targetdate,
-            // progressreport:formData.progressreport,
-            // stepsToReproduce:formData.stepsToReproduce,
             description:formData.description,
-            // iterationNumber:formData.iterationNumber
+            shortDescription:formData.shortDescription,
     }
     event.preventDefault();
     console.log("Before submit validation data", validationData);
@@ -149,19 +144,19 @@ function IssueForm() {
         <h4 style={{alignContent:"flex-start"}}>{projObj.projectname}</h4><br/>
         <div class="row">
             <div class="col-25">
-              <label  className="form-label" for="shortDescription">Short Description</label> 
-              <input type="text" className="form-control" id="shortDescription" name="shortDescription" onChange={handleChange} placeholder="Short Description about Issue"/>
+                <label  className="form-label" for="shortDescription">Short Description</label>
+                <input type="text" id="shortDescription" name="shortDescription" value={formData.shortDescription} onChange={handleChange} placeholder="Short Description about Issue"/>
+                <div className="validations">
+                      {errors.shortDescription && <span>{errors.shortDescription}</span>}
+                </div>
             </div>
             <div className="col-75">
-                <label className="form-label" htmlFor="moduleName">Module Name</label>
-                <input className="form-control" type="text" id="moduleName" name="moduleName" placeholder="Module where issue has occured" onChange={handleChange} />
-            {/* <label className="form-label">Category Name</label><br></br> 
-                        <select className="drop" id="IssueType" style={{height:"40%"}} value={selectedIssue} onChange={handleIssueSelection} required>
-                        <option value="DataBase">DataBase</option>
-                                <option value="API">API</option>
-                                <option value="UI">UI</option>  
-                              </select> */}
+                  <label className="form-label" for="moduleName">Module Name</label>
+                  <input  type="text" id="moduleName" name="moduleName" value={formData.moduleName} placeholder="Module where issue has occured" onChange={handleChange} />
+                  <div className="validations">
+                    {errors.moduleName && <span>{errors.moduleName}</span>}
             </div>
+          </div>
         </div>
         <div class="row">
           <div class="col-4">
@@ -173,10 +168,7 @@ function IssueForm() {
           </div>
           <div class="col-4">
             <label className="form-label">Identified Employee</label>
-            <EmployeeDropdown val={val1} callBackFunc={setIdentifiedEmployee} prjID={projectId} />
-                  <div className="validations">
-                    {errors.identfiedemp && <span>{errors.identfiedemp}</span>}
-                  </div>
+            <EmployeeDropdown isIdentifiedEmp={true} val={val1} callBackFunc={setIdentifiedEmployee} prjID={projectId} />
           </div>
           <div class="col-4">
           <label className="form-label" htmlFor="priority">Priority</label>
@@ -200,9 +192,6 @@ function IssueForm() {
           <label className="form-label" htmlFor="assignTo">Assign To</label>
                 <br/>
                 <EmployeeDropdown val={val1} callBackFunc={setSelectedAssignedEmployee} />
-                  <div className="validations">
-                    {errors.identfiedemp && <span>{errors.identfiedemp}</span>}
-                  </div>
           </div>
           <div className="col-4">
               <label className="form-label" htmlFor="priority">Seviority</label>
@@ -214,8 +203,8 @@ function IssueForm() {
               </select>
               </div>
         </div>
-        <div class="row">
-            <div class="col-4">
+        <div className="row">
+            <div className="col-4">
             <label className="form-label">Category Name</label><br></br> 
                     <select className="IssueStatusBar-background-color" id="IssueType"  value={selectedCategory} onChange={handleCategorySelection} required>
                         <option value="Data Base">Data Base</option>
@@ -223,13 +212,18 @@ function IssueForm() {
                         <option value="UI">UI</option>  
                     </select>
             </div>
+          
             <div className="col-4">
-                <center>
                     <AddEmployee func={setVal1} projectId={projectId} /> 
-                </center>
             </div>
         </div>
-          <br></br>
+        <br></br>
+
+        <div  className="col-4">
+              <label className="form-label" htmlFor="linkToParent">Link To Parent:</label>
+              <input type="text" id="linkToParent" name="linkToParent" value={formData.linkToParent} onChange={handleChange} />
+        </div>
+        
 
           <div className="row">
           {/* <div className="col-25">

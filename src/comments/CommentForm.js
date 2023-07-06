@@ -15,9 +15,9 @@ const CommentForm=({handleSubmit,submitLabel,hasCancelButton=false,initialText="
       <textarea className="comment-form-textarea"
       value={text} 
       onChange={(e)=>setText(e.target.value)}/>
-      <button className="comment-form-button" disabled={isTextareaDisabled}>{submitLabel}</button>
+      <button className="button-background-color" disabled={isTextareaDisabled}>{submitLabel}</button>
       {hasCancelButton && (
-        <button type="button" className="comment-form-button comment-form-cancel-button button-background-color" onClick={handleCancel}>
+        <button type="button" className="comment-form-cancel-button button-background-color" onClick={handleCancel}>
           Cancel
         </button>
       )  

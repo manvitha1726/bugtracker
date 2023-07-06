@@ -3,25 +3,42 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetIssueByProjectId} from "../Features/IssueSlice";
 import './IssueForm.css';
 import IssueTable from "./IssueTable";
+import {GetIssuesByTimePeriod} from "../Features/IssueSlice";
 
 const IssueLandingPage = ({onItemClick}) => {
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
     const { data, loading, error} = useSelector((state) => state.issues);
     const {selectedProjectId,selectedIssueId} = useSelector((state) => state.selectedFields);
     const [unassignedIssues, setUnassignedIssues] = useState([]);
     const [resolvedIssues, setResolvedIssues] = useState([]);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [dataDispatched, setDataDispatched] = useState(false);
+    const [fromDate, setFromDate] = useState(new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
+    const [toDate, setToDate] = useState(new Date().toISOString().split('T')[0]);
+    const dataByTimePeriod = useSelector((state) => state.issues.dataByTimePeriod);
+
+    const handleFromDateChange = (selectedDate) => {
+        setFromDate(selectedDate);
+      };
+    
+      const handleToDateChange = (selectedDate) => {
+        setToDate(selectedDate);
+      };
 
     useEffect(() => {
       dispatch(GetIssueByProjectId(selectedProjectId));
       setDataDispatched(true)
     }, []);
 
-    // useEffect(() => {
-    //     dispatch(GetIssuesByTimePeriod(selectedProjectId));
-    //   }, []);
+    useEffect(() => {
+      if (fromDate && toDate) {
+        const currentDate = new Date(toDate);
+        currentDate.setDate(currentDate.getDate() + 1);
+        const nextDay = currentDate.toLocaleDateString('en-CA');
+        // console.log(nextDay)
+        dispatch(GetIssuesByTimePeriod({selectedProjectId, fromDate, toDate: nextDay}));
+      }
+    }, [fromDate, toDate]);
 
     useEffect(() => {
         if(dataDispatched){
@@ -58,7 +75,7 @@ const IssueLandingPage = ({onItemClick}) => {
                 <br /><br/>
                 <IssueTable issuesList={resolvedIssues.slice(0, 5)} noOfIssues={resolvedIssues.length} tableName={'Resolved'} onItemClick={onItemClick}/>
                 <br/><br/>
-                <IssueTable tableName={'TimePeriod'} issuesList={[]} onItemClick={onItemClick}/>
+                <IssueTable tableName={'TimePeriod'} fromDate={fromDate} toDate={toDate} issuesList={dataByTimePeriod} handleFromDateChange={handleFromDateChange}  handleToDateChange={handleToDateChange} onItemClick={onItemClick}/>
             </div> 
         )
     }

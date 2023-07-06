@@ -3,7 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 const selectedFieldsSlice = createSlice({
   name: 'selectedFields',
   initialState: {
-    selectedFilters: null,
+    selectedFilters: {
+      status: 'Any',
+      identfiedemp:-1,
+      assignTo: -1,
+      priority: 'Any',
+      seviority: 'Any'
+    },
     selectedProjectId: null,
     selectedIssueId: null,
   },
