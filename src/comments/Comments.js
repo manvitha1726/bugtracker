@@ -14,6 +14,7 @@ const Comments=({selectedIssueId})=> {
   const { data, loading, error } = useSelector((state) => state.comments);
   const dispatch=useDispatch();
   const rootComments = backendComments.filter((backendComment) => backendComment.parentCommentId === null);
+  var isDeleted =false;
   const getReplies = (commentId) =>
      backendComments
       .filter((backendComment) => backendComment.parentCommentId === commentId)
@@ -34,6 +35,7 @@ const Comments=({selectedIssueId})=> {
   };
   const deleteComment = (commentId) => {
         if (window.confirm("Are you sure you want to remove comment?")) {
+          isDeleted=true;
           dispatch(deleteCommentApi(commentId));
         }
       };
