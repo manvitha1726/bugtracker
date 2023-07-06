@@ -46,10 +46,10 @@ function IssueForm() {
   const [selectedCategory, setSelectedCategory] = useState("Database");
   const [selectedPriority, setSelectedPriority] = useState('Low');
   const [selectedAssignedEmployee, setSelectedAssignedEmployee] = useState(0);
-  const [IdentifiedEmployee, setIdentifiedEmployee] = useState(0);
+  const [IdentifiedEmployee, setIdentifiedEmployee] = useState(null);
   const [attachedFiles, setAttachedFiles] = useState('');
   const [errors,setErrors]= useState({});
-  const [issues,setIssues]= useState([]);
+  // const [issues,setIssues]= useState([]);
 
   useEffect(() => {
     setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
@@ -113,7 +113,7 @@ function IssueForm() {
 
   const handleSubmit = (event) => {
     const validationData={
-      
+            identfiedemp: IdentifiedEmployee,
             moduleName:formData.moduleName,
             description:formData.description,
             shortDescription:formData.shortDescription,
@@ -128,7 +128,7 @@ function IssueForm() {
       setErrors(formErrors);
       return;
     }
-    setIssues([...issues, formData]);
+    // setIssues([...issues, formData]);
     dispatch(AddNewIssue(formData))
     .then((response) => {
       console.log("After Issue form submitted response is : ",response);
@@ -169,6 +169,9 @@ function IssueForm() {
           <div class="col-4">
             <label className="form-label">Identified Employee</label>
             <EmployeeDropdown isIdentifiedEmp={true} val={val1} callBackFunc={setIdentifiedEmployee} prjID={projectId} />
+            <div className="validations">
+              {errors.identfiedemp && <span>{errors.identfiedemp}</span>}
+            </div>
           </div>
           <div class="col-4">
           <label className="form-label" htmlFor="priority">Priority</label>

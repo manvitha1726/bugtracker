@@ -74,6 +74,7 @@ function EmployeeDropdown({val, callBackFunc, empid, isFromFilters, isIdentified
               value={value}
                 onChange={setFunc}
             >
+              <option disabled selected>Select employee</option>
               {options.map((val,ind) => (
                 <option key={val.empId} value={val.empId}>
                   {val.empName}

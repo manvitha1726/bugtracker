@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import EmployeeDropdown from "./EmployeeDropdown";
 import ImageUpload from "./ImageUpload/ImageUpload";
 import ImageCarouselModal from "./ImageCarouselModal.js";
-import validateForm from './formValidation';
+import validateForm, { validateForm1 } from './formValidation';
 
 function EditIssueForm() {
   const dispatch = useDispatch();
@@ -76,7 +76,7 @@ function EditIssueForm() {
       initialFormData.moduleName = dataById[0].moduleName;
       initialFormData.description = dataById[0].description;
       // initialFormData.summary = dataById[0].summary;
-      initialFormData.identfiedemp = dataById[0].identfiedemp;
+      // initialFormData.identfiedemp = dataById[0].identfiedemp;
       initialFormData.category = dataById[0].category;
       // initialFormData.dateidentified = dataById[0].dateidentified;
       initialFormData.priority = dataById[0].priority;
@@ -110,7 +110,7 @@ function EditIssueForm() {
       else{
           setSelectedAssignedEmployee(dataById[0].assignTo);
       }
-      setIdentifiedEmployee(dataById[0].identfiedemp);
+      // setIdentifiedEmployee(dataById[0].identfiedemp);
       // setSelectedIssue(dataById[0].issueType);
       if(dataById[0].assignTo == null){
         setSelectedAssignedEmployee(0)
@@ -118,7 +118,7 @@ function EditIssueForm() {
     else{
         setSelectedAssignedEmployee(dataById[0].assignTo);
     }
-    setIdentifiedEmployee(dataById[0].identfiedemp);
+    // setIdentifiedEmployee(dataById[0].identfiedemp);
       setDataLoaded(true)
     }
     
@@ -135,9 +135,9 @@ function EditIssueForm() {
     // setFormData((prevFormData) => ({ ...prevFormData, assignTo: `${selectedAssignedEmployee}` }));
   }, [selectedAssignedEmployee]);
 
-  useEffect(() => {
-    setFormData((prevFormData) => ({ ...prevFormData, identfiedemp: `${IdentifiedEmployee}` }));
-  }, [IdentifiedEmployee]);
+  // useEffect(() => {
+  //   setFormData((prevFormData) => ({ ...prevFormData, identfiedemp: `${IdentifiedEmployee}` }));
+  // }, [IdentifiedEmployee]);
  
 
   useEffect(() => {
@@ -195,17 +195,17 @@ function EditIssueForm() {
             shortDescription:formData.shortDescription,
             moduleName:formData.moduleName,
             // summary:formData.summary,
-            identfiedemp:formData.identfiedemp,
+            // identfiedemp:formData.identfiedemp,
             // targetdate:formData.targetdate,
             // progressreport:formData.progressreport,
-            stepsToReproduce:formData.stepsToReproduce,
+            // stepsToReproduce:formData.stepsToReproduce,
             description:formData.description,
             // iterationNumber:formData.iterationNumber
     }
 
     event.preventDefault();
     console.log("Obj given to update issue", formData)
-        const formErrors = validateForm(
+        const formErrors = validateForm1(
       validationData
     );
     console.log("form errors",formErrors)
@@ -214,7 +214,6 @@ function EditIssueForm() {
       return;
     }
     dispatch(updateIssue(formData));
-
   };
 
   if (error !== null) {
