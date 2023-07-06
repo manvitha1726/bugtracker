@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import EmployeeDropdown from "./EmployeeDropdown";
 import ImageUpload from "./ImageUpload/ImageUpload";
 import ImageCarouselModal from "./ImageCarouselModal.js";
+import validateForm from './formValidation';
+
 function EditIssueForm() {
   const dispatch = useDispatch();
   const { dataById, loading, error } = useSelector((state) => state.issues);
@@ -37,7 +39,7 @@ function EditIssueForm() {
     images: ""
   };
   console.log('initialformdata',initialFormData)
-  const [formData, setFormData] = useState([]);
+  const [formData, setFormData] = useState(initialFormData);
  
   console.log('formdata',formData)
   const [selectedIssue, setSelectedIssue] = useState();
@@ -52,6 +54,7 @@ function EditIssueForm() {
   const [dataDispatched, setDataDispatched] = useState(false)
   const [dataLoaded, setDataLoaded] = useState(false);
   const {selectedProjectId} = useSelector((state) => state.selectedFields);
+  const [errors,setErrors]= useState({});
 
   useEffect(() => {
     console.log('issueId', issueId, dataById);
@@ -186,9 +189,30 @@ function EditIssueForm() {
     // console.log("selected pj id : -", selectedProjectId);
     navigate(`/projects/${selectedProjectId}/ViewIssues`)
   };
+
   const handleSubmit = (event) => {
+      const validationData={
+            shortDescription:formData.shortDescription,
+            moduleName:formData.moduleName,
+            // summary:formData.summary,
+            identfiedemp:formData.identfiedemp,
+            // targetdate:formData.targetdate,
+            // progressreport:formData.progressreport,
+            stepsToReproduce:formData.stepsToReproduce,
+            description:formData.description,
+            // iterationNumber:formData.iterationNumber
+    }
+
     event.preventDefault();
     console.log("Obj given to update issue", formData)
+        const formErrors = validateForm(
+      validationData
+    );
+    console.log("form errors",formErrors)
+    if (formErrors){
+      setErrors(formErrors);
+      return;
+    }
     dispatch(updateIssue(formData));
 
   };
@@ -208,6 +232,7 @@ function EditIssueForm() {
       </div>
     )
   } 
+
   if(dataLoaded)
   {
     return (
@@ -218,13 +243,18 @@ function EditIssueForm() {
           <div className="row">
             <div className="col-25">
               <label className="form-label" htmlFor="shortDescription">Short Description</label>
-            
               <input type="text" id="shortDescription" name="shortDescription" value={formData.shortDescription} onChange={handleChange} />
+              <div className="validations">
+                  {errors.shortDescription && <span>{errors.shortDescription}</span>}
+                </div>
             </div>
 
             <div className="col-75">
             <label className="form-label" htmlFor="moduleName">Module Name</label>
               <input type="text" id="moduleName" name="moduleName" value={formData.moduleName} onChange={handleChange} />
+              <div className="validations">
+                  {errors.moduleName && <span>{errors.moduleName}</span>}
+                </div>
             </div>
           </div>
 
@@ -316,6 +346,9 @@ function EditIssueForm() {
             <div className="col">
             <label className="form-label" htmlFor="stepsToReproduce">Steps To Reproduce</label>
             <textarea type="text" id="stepsToReproduce" name="stepsToReproduce" value={formData.stepsToReproduce} onChange={handleChange} />
+            <div className="validations">
+              {errors.stepsToReproduce && <span>{errors.stepsToReproduce}</span>}
+            </div>
             </div>
           </div>
 
@@ -323,6 +356,9 @@ function EditIssueForm() {
             <div className="col">
               <label className="form-label" htmlFor="description">Description</label>
               <textarea id="description" placeholder="Description" name="description" value={formData.description} onChange={handleChange} />
+              <div className="validations">
+              {errors.description && <span>{errors.description}</span>}
+            </div>
             </div>
           </div>
 
