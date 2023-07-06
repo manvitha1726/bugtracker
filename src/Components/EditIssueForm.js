@@ -346,9 +346,6 @@ function EditIssueForm() {
             <div className="col">
             <label className="form-label" htmlFor="stepsToReproduce">Steps To Reproduce</label>
             <textarea type="text" id="stepsToReproduce" name="stepsToReproduce" value={formData.stepsToReproduce} onChange={handleChange} />
-            <div className="validations">
-              {errors.stepsToReproduce && <span>{errors.stepsToReproduce}</span>}
-            </div>
             </div>
           </div>
 

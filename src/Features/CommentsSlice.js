@@ -7,7 +7,6 @@ export const getCommentsByIssueId = createAsyncThunk(
     try {
       const response = await fetch(
         `https://bugtrackerwebapp123.azurewebsites.net/api/comments/GetCommentByIssueId?IssueId=${selectedIssueId}`
-        `https://bugtrackerwebapp123.azurewebsites.net/api/comments/GetCommentByIssueId?IssueId=${selectedIssueId}`
       );
       const result = await response.json();
       return result;

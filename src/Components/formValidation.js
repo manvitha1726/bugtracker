@@ -2,10 +2,10 @@ import Joi from 'joi-browser';
 
 // Define your validation schema using Joi
 const schema = Joi.object({
-    moduleName: Joi.string().min(6).required().label('Module Name'),
+    moduleName: Joi.string().min(3).required().label('Module Name'),
     description: Joi.string().required().min(10).max(300).label('Description'),
     shortDescription: Joi.string().min(6).required().label('shortDescription'),
-    stepsToReproduce: Joi.string().required().min(10).max(300).label('stepsToReproduce'),
+    // stepsToReproduce: Joi.string().required().min(10).max(300).label('stepsToReproduce'),
   });
 
   // Validation function
