@@ -5,7 +5,11 @@ const schema = Joi.object({
     moduleName: Joi.string().min(3).required().label('Module Name'),
     description: Joi.string().required().min(10).max(300).label('Description'),
     shortDescription: Joi.string().min(6).required().label('shortDescription'),
-    identfiedemp: Joi.string().required().label("Identified Employee"),
+    identfiedemp: Joi.string().required().label("Identified Employee").error(() => {
+      return {
+        message: 'Select a valid employee.'
+      }
+    })
   });
 
   const schema1 = Joi.object({
