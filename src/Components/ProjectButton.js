@@ -9,7 +9,7 @@ import './Home.css';
 const ProjectButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
-  const [projectId, setProjectId] = useState('');
+  // const [projectId, setProjectId] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errors,setErrors]= useState({});
@@ -32,7 +32,7 @@ const ProjectButton = () => {
 
   const handleSubmit = (event) => {
     const data = {
-        projectid: projectId,
+        // projectid: projectId,
         projectname: projectName,
     };
     console.log("data - b : ", data);
@@ -56,7 +56,7 @@ const ProjectButton = () => {
         <ModalHeader  className="modal-header" toggle={handleCloseModal}>Enter Project Details</ModalHeader>
         <ModalBody>
           <form onSubmit={handleSubmit}>
-            <div className='add-project-col'>
+            {/* <div className='add-project-col'>
               <div className="Project-form-label">
                 <label>Project Id:</label>
               </div>
@@ -66,7 +66,7 @@ const ProjectButton = () => {
                   {errors.projectid && <span>{errors.projectid}</span>}
                   </div>
                 </div>
-            </div>  
+            </div>   */}
             <div className='add-project-col'>
             <div className="Project-form-label">
               <label >Project Name:</label>

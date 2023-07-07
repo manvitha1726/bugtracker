@@ -2,7 +2,7 @@ import Joi from 'joi-browser';
 
 // Define your validation schema using Joi
 const schema = Joi.object({
-    projectid: Joi.string().required().label('Project Id'),
+    // projectid: Joi.string().required().label('Project Id'),
     projectname: Joi.string().required().label('Project Name')
   });
 
@@ -16,7 +16,6 @@ const validateForm = (data) => {
     error.details.forEach((detail) => {
       errors[detail.path[0]] = detail.message;
     });
-  
     return errors;
   };
 
