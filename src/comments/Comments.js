@@ -37,6 +37,7 @@ const Comments=({selectedIssueId})=> {
         if (window.confirm("Are you sure you want to remove comment?")) {
           isDeleted=true;
           dispatch(deleteCommentApi(commentId));
+          console.log("deleted", isDeleted);
         }
       };
   //console.log(backendComments);
