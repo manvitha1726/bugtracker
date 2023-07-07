@@ -35,15 +35,17 @@ const Comments=({selectedIssueId})=> {
   };
   const deleteComment = (commentId) => {
         if (window.confirm("Are you sure you want to remove comment?")) {
-          isDeleted=true;
+          // isDeleted=true;
           dispatch(deleteCommentApi(commentId));
+           
+          // dispatch(getCommentsApi(selectedIssueId));
         }
       };
   //console.log(backendComments);
   const updateComment=(text,commentId)=>{
     const data={
       comment1 :text,
-     commentId:commentId
+      commentId:commentId
       } 
       dispatch(updateCommentApi(data)); 
       setActiveComment(null);
