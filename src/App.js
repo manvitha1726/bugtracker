@@ -9,13 +9,26 @@ import EditIssueForm from './Components/EditIssueForm';
 import Mainpage from './Components/Mainpage';
 import IssueStatusBar from './Components/IssueStatusBar';
 import Header from './Components/Header';
-
-
+import { useMsal, useMsalAuthentication } from '@azure/msal-react';
+import { InteractionType } from '@azure/msal-browser';
+import { useState } from 'react';
 const App = ({selectedProjectId,selectedIssueId}) => {
+  useMsalAuthentication(InteractionType.Redirect);
+  const [m_strUser, setm_strUser] = useState("");
+  function Render() {
+    const { accounts } = useMsal();
+    try {
+      const username = accounts[0].username;
+      setm_strUser(username);
+    }
+    catch (e) {
+    }
+  }
 
+  if (m_strUser != "")
+  {
   return (
     <div>
-     
        <Router>
           <Header/>
           {/* <hr/> */}
@@ -34,6 +47,10 @@ const App = ({selectedProjectId,selectedIssueId}) => {
       </Router>
     </div>
   );
+  }
+  else
+    return <>{Render()}<div>Please wait for authentication...</div></>
+
 };
 
 const mapStateToProps = (state) => ({
