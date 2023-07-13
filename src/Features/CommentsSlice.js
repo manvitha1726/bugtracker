@@ -1,41 +1,50 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { makeFetchWithAuthToken, APIMethods } from "./extensionMethods";
+var url,method,data;
 
 //Get comments by issue Id 
 export const getCommentsByIssueId = createAsyncThunk(
   "getCommentsByIssueId",
   async (selectedIssueId, { rejectWithValue }) => {
     try {
-      const response = await fetch(
-        `https://bugtrackerwebapp123.azurewebsites.net/api/comments/GetCommentByIssueId?IssueId=${selectedIssueId}`
+      const response = makeFetchWithAuthToken(
+        url = `https://bugtrackerwebapp123.azurewebsites.net/api/comments/GetCommentByIssueId?IssueId=${selectedIssueId}`,
+        method = APIMethods.GET
       );
-      const result = await response.json();
-      return result;
+      return response.error ? rejectWithValue("Found an error", response.error.response.data) : response;
     } catch (err) {
-      return rejectWithValue("Found an error", err.response.data);
+      return rejectWithValue("Found an error", err);
     }
   }
 );
 
 
 //Add new Comment
-export const AddNewComment = createAsyncThunk("addComment",async (data, { rejectWithValue }) => {
-    try{
-    const response = await fetch(
-      "https://bugtrackerwebapp123.azurewebsites.net/api/comments/AddComment",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode:'cors',
-        body: JSON.stringify(data),
-      }
-    );
-    const result = await response.json();
-    return result;
-  }
-  catch(err){
-    return rejectWithValue("Found an error!",err.response.data)
+export const AddNewComment = createAsyncThunk("addComment", async (data, { rejectWithValue }) => {
+  try {
+  //   const response = await fetch(
+  //     "https://bugtrackerwebapp123.azurewebsites.net/api/comments/AddComment",
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       mode: 'cors',
+  //       body: JSON.stringify(data),
+  //     }
+  //   );
+  //   const result = await response.json();
+  //   return result;
+  // 
+  const response=makeFetchWithAuthToken(
+    url= "https://bugtrackerwebapp123.azurewebsites.net/api/comments/AddComment",
+    method = APIMethods.POST,
+    data=data
+  );
+  return response.error ? rejectWithValue("Found an error", response.error.response.data) : response;
+}
+  catch (err) {
+    return rejectWithValue("Found an error!", err.response.data)
   }
 }
 );
@@ -43,16 +52,21 @@ export const AddNewComment = createAsyncThunk("addComment",async (data, { reject
 //Delete Comment
 export const deleteComment = createAsyncThunk(
   "deleteComment",
-  async (commentId,{ rejectWithValue }) => {
+  async (commentId, { rejectWithValue }) => {
     try {
-      const response = await fetch(
-        `https://bugtrackerwebapp123.azurewebsites.net/api/comments/DeleteComment?commentId=${commentId}`,
-        {
-          method: "DELETE",
-        }
+      // const response = await fetch(
+      //   `https://bugtrackerwebapp123.azurewebsites.net/api/comments/DeleteComment?commentId=${commentId}`,
+      //   {
+      //     method: "DELETE",
+      //   }
+      // );
+      // const result = await response.json();
+      // return result;
+      const response=makeFetchWithAuthToken(
+        url=`https://bugtrackerwebapp123.azurewebsites.net/api/comments/DeleteComment?commentId=${commentId}`,
+        method=APIMethods.DELETE,
       );
-      const result = await response.json();
-      return result;
+      return response.error ? rejectWithValue("Found an error", response.error.response.data) : response;
     } catch (err) {
       console.log(err);
       return rejectWithValue(err.response.data);
@@ -63,22 +77,28 @@ export const deleteComment = createAsyncThunk(
 //update Comment
 export const updateComment = createAsyncThunk(
   "comments/updateComment",
-  async (data, { rejectWithValue }) => {  
+  async (data, { rejectWithValue }) => {
 
     try {
-      const response = await fetch(
-        `https://bugtrackerwebapp123.azurewebsites.net/api/comments/UpdateComment`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
+      // const response = await fetch(
+      //   `https://bugtrackerwebapp123.azurewebsites.net/api/comments/UpdateComment`,
+      //   {
+      //     method: "PUT",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(data),
+      //   }
+      // );
+      // const result = await response.json();
+      // console.log(result)
+      // return result;
+      const response=makeFetchWithAuthToken(
+        url=`https://bugtrackerwebapp123.azurewebsites.net/api/comments/UpdateComment`,
+        method=APIMethods.PUT,
+        data=data
       );
-      const result = await response.json();  
-      console.log(result)   
-      return result;
+      return response.error ? rejectWithValue("Found an error", response.error.response.data) : response;
 
     } catch (err) {
       return rejectWithValue(err);
@@ -96,7 +116,7 @@ export const Comments = createSlice({
     error: null,
   },
   reducers: {
- 
+
   },
   extraReducers: {
     [getCommentsByIssueId.pending]: (state) => {
@@ -121,25 +141,25 @@ export const Comments = createSlice({
       state.loading = false;
       const { commentId } = action.payload;
       if (commentId) {
-        state.data = state.data.filter((post) => post.commentId !==commentId );
+        state.data = state.data.filter((post) => post.commentId !== commentId);
       }
     },
     [deleteComment.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     },
-   
+
     [updateComment.pending]: (state) => {
       state.loading = true;
     },
     [updateComment.fulfilled]: (state, action) => {
       state.loading = false;
       state.data = state.data.map((ele) =>
-       ele.commentId === action.payload.commentId ? action.payload : ele  
+        ele.commentId === action.payload.commentId ? action.payload : ele
       );
     },
     [updateComment.rejected]: (state, action) => {
-      state.loading = false;    
+      state.loading = false;
       state.error = action.payload.message;
     },
   },

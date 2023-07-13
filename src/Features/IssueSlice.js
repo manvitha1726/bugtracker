@@ -1,15 +1,22 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+import { makeFetchWithAuthToken,APIMethods } from "./extensionMethods";
+var url,method,data;
 //Get all Issues action
 export const getAllIssues = createAsyncThunk(
   "getIssues",
   async (args, { rejectWithValue }) => {
     try {
-      const response = await fetch(
-        "https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchAllIsues"
+      // const response = await fetch(
+      //   "https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchAllIsues"
+      // );
+      // const result = await response.json();
+      // return result;
+      const response=makeFetchWithAuthToken(
+        url= "https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchAllIsues",
+        method = APIMethods.GET
       );
-      const result = await response.json();
-      return result;
+      return response.error ? rejectWithValue("Found an error", response.error.response.data) : response;
+
     } catch (err) {
       return rejectWithValue("Found an error", err.response.data);
     }
@@ -20,11 +27,16 @@ export const GetIssueById = createAsyncThunk(
     "getIssueById",
     async (issueId, {rejectWithValue}) => {
         try{
-            const response = await fetch(
-                `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchIssue?IssueId=${issueId}`
+            // const response = await fetch(
+            //     `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchIssue?IssueId=${issueId}`
+            // );
+            // const result = await response.json();
+            // return result;
+            const response=makeFetchWithAuthToken(
+              url= `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchIssue?IssueId=${issueId}`,
+              method = APIMethods.GET,
             );
-            const result = await response.json();
-            return result;
+            return response.error ? rejectWithValue("Found an error", response.error.response.data) : response;
         }
         catch(err){
             return rejectWithValue("Found an error", err.response.data);
@@ -37,12 +49,17 @@ export const GetIssuesByTimePeriod= createAsyncThunk(
   "getIssuesByTimePeriod",
   async ({selectedProjectId,fromDate,toDate} ,{rejectWithValue}) => {
       try{
-        console.log("sgsccuvc",selectedProjectId,fromDate,toDate);
-          const response = await fetch(
-              `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchIssuesByTimePeriod?projectid=${selectedProjectId}&FromDate=${fromDate}&ToDate=${toDate}`
-          );
-          const result = await response.json();
-          return result;
+        // console.log("sgsccuvc",selectedProjectId,fromDate,toDate);
+        //   const response = await fetch(
+        //       `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchIssuesByTimePeriod?projectid=${selectedProjectId}&FromDate=${fromDate}&ToDate=${toDate}`
+        //   );
+        //   const result = await response.json();
+        //   return result;
+        const response=makeFetchWithAuthToken(
+          url= `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchIssuesByTimePeriod?projectid=${selectedProjectId}&FromDate=${fromDate}&ToDate=${toDate}`,
+          method = APIMethods.GET,
+        );
+        return response.error ? rejectWithValue("Found an error", response.error.response.data) : response;
       }
       catch(err){
         console.log("sgsccuvc",selectedProjectId,fromDate,toDate);
@@ -56,11 +73,16 @@ export const GetIssueByProjectId = createAsyncThunk(
   "getIssueByProjectId",
   async (projectId, {rejectWithValue}) => {
       try{ 
-          const response = await fetch(
-              `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchIssuesbyProject?ProjectId=${projectId}`
+          // const response = await fetch(
+          //     `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchIssuesbyProject?ProjectId=${projectId}`
+          // );
+          // const result = await response.json();
+          // return result;
+          const response=makeFetchWithAuthToken(
+            url= `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/FetchIssuesbyProject?ProjectId=${projectId}`,
+            method = APIMethods.GET,
           );
-          const result = await response.json();
-          return result;
+          return response.error ? rejectWithValue("Found an error", response.error.response.data) : response;
       }
       catch(err){
           return rejectWithValue("Found an error", err.response.data);
@@ -72,18 +94,24 @@ export const GetIssueByProjectId = createAsyncThunk(
 export const AddNewIssue = createAsyncThunk(
   "addIssue",
   async (data, { rejectWithValue }) => {
-    const response = await fetch(
-      "https://bugtrackerwebapp123.azurewebsites.net/api/Issues/AddIssue",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
+    // const response = await fetch(
+    //   "https://bugtrackerwebapp123.azurewebsites.net/api/Issues/AddIssue",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(data),
+    //   }
+    // );
+    // const result = await response.json();
+    // return result;
+    const response=makeFetchWithAuthToken(
+      url= "https://bugtrackerwebapp123.azurewebsites.net/api/Issues/AddIssue",
+      method = APIMethods.POST,
+      data=data
     );
-    const result = await response.json();
-    return result;
+    return response.error ? rejectWithValue("Found an error", response.error.response.data) : response;
   }
 );
 
@@ -100,6 +128,7 @@ export const deleteIssue = createAsyncThunk(
       );
       const result = await response.json();
       return result;
+      
     } catch (err) {
       console.log(err);
       return rejectWithValue(err.response.data);
@@ -113,19 +142,25 @@ export const updateIssueStatus = createAsyncThunk(
   async ({ issueId,status}, { rejectWithValue }) => {  
 
     try {
-      const response = await fetch(
-        `https://issuetrackingapp123.azurewebsites.net/api/issues/updateissue?issueid=${issueId}&status=${status}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ status }),
-        }
+      // const response = await fetch(
+      //   `https://issuetrackingapp123.azurewebsites.net/api/issues/updateissue?issueid=${issueId}&status=${status}`,
+      //   {
+      //     method: "PUT",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ status }),
+      //   }
+      // );
+      // const result = await response.json();  
+      // console.log(result)   
+      // return result;
+      const response=makeFetchWithAuthToken(
+        url=`https://issuetrackingapp123.azurewebsites.net/api/issues/updateissue?issueid=${issueId}&status=${status}`,
+        method = APIMethods.PUT,
+        data={status}
       );
-      const result = await response.json();  
-      console.log(result)   
-      return result;
+      return response.error ? rejectWithValue("Found an error", response.error.response.data) : response;
 
     } catch (err) {
       return rejectWithValue(err);
@@ -138,19 +173,26 @@ export const updateIssue = createAsyncThunk(
   "issues/updateIssue",
   async (formData, { rejectWithValue }) => {  
     try {
-      const response = await fetch(
-        `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/UpdateentireIssue`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      // const response = await fetch(
+      //   `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/UpdateentireIssue`,
+      //   {
+      //     method: "PUT",
+      //     headers: {
+      //       "Content-Type": "application/json",
+
+      //     },
+      //     body: JSON.stringify(formData),
+      //   }
+      // );
       
-      const result = await response.json(); 
-      return result;
+      // const result = await response.json(); 
+      // return result;
+      const response=makeFetchWithAuthToken(
+        url=`https://bugtrackerwebapp123.azurewebsites.net/api/Issues/UpdateentireIssue`,
+        method = APIMethods.PUT,
+        data=formData
+      );
+      return response.error ? rejectWithValue("Found an error", response.error.response.data) : response;
 
     } catch (err) {
       console.log(err)
@@ -166,11 +208,16 @@ export const GetPagesCount= createAsyncThunk(
   async ({
     ProjectId,status,priority,seviority,identfiedemp,assignTo,postsPerPage}, {rejectWithValue}) => {
       try{ 
-          const response = await fetch(
-              `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/noPossiblePagesByFilters?projectId=${ProjectId}&status=${status}&priority=${priority}&seviourity=${seviority}&identifiedemp=${identfiedemp}&assignto=${assignTo}&issuesperpage=${postsPerPage}`
+          // const response = await fetch(
+          //     `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/noPossiblePagesByFilters?projectId=${ProjectId}&status=${status}&priority=${priority}&seviourity=${seviority}&identifiedemp=${identfiedemp}&assignto=${assignTo}&issuesperpage=${postsPerPage}`
+          // );
+          // const result = await response.json();
+          // return result;
+          const response=makeFetchWithAuthToken(
+            url=`https://bugtrackerwebapp123.azurewebsites.net/api/Issues/noPossiblePagesByFilters?projectId=${ProjectId}&status=${status}&priority=${priority}&seviourity=${seviority}&identifiedemp=${identfiedemp}&assignto=${assignTo}&issuesperpage=${postsPerPage}`,
+            method = APIMethods.GET,
           );
-          const result = await response.json();
-          return result;
+          return response.error ? rejectWithValue("Found an error", response.error.response.data) : response;
       }
       catch(err){
           return rejectWithValue("Found an error", err.response.data);
@@ -183,12 +230,17 @@ export const GetIssuesByPagination= createAsyncThunk(
   "GetIssuesByPagination",
   async ({ProjectId,status,priority,seviority,identfiedemp,assignTo,currentPage,postsPerPage}, {rejectWithValue}) => {
       try{ 
-        console.log(ProjectId,status,priority,seviority,identfiedemp,assignTo,postsPerPage,currentPage)
-          const response = await fetch(
-              `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/issuesPaginationByFilters?projectId=${ProjectId}&status=${status}&priority=${priority}&seviourity=${seviority}&identifiedemp=${identfiedemp}&assignto=${assignTo}&issuesperpage=${postsPerPage}&pageno=${currentPage}`
-          );
-          const result = await response.json();
-          return result;
+        // console.log(ProjectId,status,priority,seviority,identfiedemp,assignTo,postsPerPage,currentPage)
+        //   const response = await fetch(
+        //       `https://bugtrackerwebapp123.azurewebsites.net/api/Issues/issuesPaginationByFilters?projectId=${ProjectId}&status=${status}&priority=${priority}&seviourity=${seviority}&identifiedemp=${identfiedemp}&assignto=${assignTo}&issuesperpage=${postsPerPage}&pageno=${currentPage}`
+        //   );
+        //   const result = await response.json();
+        //   return result;
+        const response=makeFetchWithAuthToken(
+          url=`https://bugtrackerwebapp123.azurewebsites.net/api/Issues/issuesPaginationByFilters?projectId=${ProjectId}&status=${status}&priority=${priority}&seviourity=${seviority}&identifiedemp=${identfiedemp}&assignto=${assignTo}&issuesperpage=${postsPerPage}&pageno=${currentPage}`,
+          method = APIMethods.GET,
+        );
+        return response.error ? rejectWithValue("Found an error", response.error.response.data) : response;
       }
       catch(err){
           return rejectWithValue("Found an error", err.response.data);

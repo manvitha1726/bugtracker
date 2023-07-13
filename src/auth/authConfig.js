@@ -12,7 +12,7 @@ export const msalConfig = {
     auth: {
         clientId: "459e8baf-c40b-4f40-ba86-d8e4dcfbc7dd",
         authority: "https://login.microsoftonline.com/cdaf9f26-5476-4f46-a7eb-b572d003621a",
-        redirectUri: "https://issuetrackingtool.azurewebsites.net/"
+        redirectUri:process.env.REACT_APP_REDIRECT_URI
     },
     cache: {
         cacheLocation: "sessionStorage", // This configures where your cache will be stored
@@ -45,12 +45,3 @@ export const msalConfig = {
     }
 };
 
-/**
- * Scopes you add here will be prompted for user consent during sign-in.
- * By default, MSAL.js will add OIDC scopes (openid, profile, email) to any login request.
- * For more information about OIDC scopes, visit: 
- * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
- */
-export const loginRequest = {
-    scopes: ["User.Read"]
-};
