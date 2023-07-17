@@ -9,7 +9,7 @@ describe('Rendering of components ', () => {
 
   test('renders learn react link', () => {
     render(<Home />);
-    const linkElement = screen.getByText(/Explore Projects/i);
+    const linkElement = screen.getByText(/Welcome to IssueTrackingTool/i);
     expect(linkElement).toBeInTheDocument();
     });
 
